@@ -1,0 +1,75 @@
+{{> head }}
+    <body>
+        {{> header }}
+        <table class='tbl'>
+            <thead>
+                <tr>
+                    <th><a href='/pessoas/indb'>Na Base de Dados</a></th>
+                    <th><a href='/pessoas/regi'>Apenas registradas</a></th>
+                    <th><a href='/pessoas/form'>Formando</a></th>
+                    <th><a href='/pessoas/inte'>Em Estágio</a></th>
+                    <th><a href='/pessoas/hire'>Colocado</a></th>
+                    <th><a href='/pessoas/rese'>Em Reserva</a></th>
+                    <th><a href="/pessoas/eval">Avaliados</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="/pessoas/indb">{{ peopleInDB }}</a></td>
+                    <td><a href="/pessoas/regi">{{ peopleRegistered }}</a></td>
+                    <td><a href="/pessoas/form">{{ peopleFormating }}</a></td>
+                    <td><a href="/pessoas/inte">{{ peopleInInternship }}</a></td>
+                    <td><a href="/pessoas/hire">{{ peopleHired }}</a></td>
+                    <td><a href="/pessoas/rese">{{ peopleReserved }}</a></td>
+                    <td><a href="/pessoas/eval">{{ peopleEvaluated }}</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        {{!-- chart --}}
+        <div class='chart'>
+            <canvas id='cnv' width='0px' height='-100px'></canvas>
+        </div>
+        
+        <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
+
+        {{> footer }}
+
+        <script>
+            var ctx = document.getElementById("cnv").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Apenas Registradas', 'Formando', 'Em Estágio', 'Colocado', 'Em Reserva', 'Avaliadas'],
+                    datasets: [{
+                        data: [
+                            {{ peopleRegistered }}, 
+                            {{ peopleFormating }},
+                            {{ peopleInInternship }},
+                            {{ peopleHired }}, 
+                            {{ peopleReserved }},
+                            {{ peopleEvaluated }}
+                        ],
+                        backgroundColor: [
+                            'rgba(195, 41, 226, 0.2)',
+                            'rgba(56, 226, 41, 0.2)',
+                            'rgba(204, 153, 11, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(218, 233, 13, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(195, 41, 226, 1)',
+                            'rgba(56, 226, 41, 1)',
+                            'rgba(204, 153, 11, 1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(218, 233, 13, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+            </script>
+    </body>
+</html>

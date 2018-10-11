@@ -1,0 +1,23 @@
+{{> head }}
+    <body>
+        {{> header }}
+        {{#error}}
+        <p class='error'>{{param}}: {{msg}}</p>
+        {{/error}}
+        <form class='edit' method='post' action='/formation/{{ formation.id }}'>
+            <li><b>Nome:</b><input name='name' required value='{{ formation.name }}'></li>
+            <li><b>Duração Teoria:</b><input name='teoric_part' type='number' requited value='{{ formation.teoric_part }}'></li>
+            <li><b>Duração Prática:</b><input name='pratic_part' type='number' required value='{{ formation.pratic_part }}'></li>
+            <li><b>Preço Inscrição:</b><input name='subscription_cost' type='number' required value='{{ formation.subscription_cost }}'></li>
+            <li><b>Preço Certificado:</b><input name='certificate_cost' type='number' required value='{{ formation.certificate_cost }}'></li>
+            <li><b>Descrição:</b><textarea name="description" cols="23" rows="1">{{ formation.description }}</textarea></li>
+            <div class='eb'>
+                <input class='btn' type='submit' value='Ok'>
+                <a class='btn' href='/formations'>Cancelar</a>
+            </div>
+        </form>
+        
+        <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
+        {{> footer }}
+    </body>
+</html>

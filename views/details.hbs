@@ -1,0 +1,25 @@
+{{> head }}
+    <body>
+        {{> header }}
+
+        <ul class='dtls'>
+            <li><b>ID:</b> {{ person.dataValues.id }}</li>
+            <li><b>Nome:</b> {{ person.dataValues.name }}</li>
+            <li><b>Data de Nascimento:</b> {{ birthdate }}</li>
+            <li><b>Morada:</b> {{ person.dataValues.address }}</li>
+            <li><b>Telefone:</b> {{ person.dataValues.phone }}</li>
+            <li><b>Email:</b> {{ person.dataValues.email }}</li>
+            <li><b>BI:</b> {{ person.dataValues.bi }}</li>
+            <li><b>NIF:</b> {{ person.dataValues.nif }}</li>
+            <li><b>Género:</b> {{ person.dataValues.gender }}</li>
+            <li><b>Estádo:</b> {{ person.dataValues.state }}</li>
+            <li><b>Criado por:</b> {{ createdBy }}</li>
+
+            <a class='btn' href='/edit/{{ person.dataValues.id }}'>Editar</a>
+            <a class='btn' href='/avaliado/{{ person.dataValues.id }}'>Avaliar</a>
+        </ul>
+        
+        <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
+        {{> footer }}
+    </body>
+</html>

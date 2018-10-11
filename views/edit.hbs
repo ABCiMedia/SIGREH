@@ -1,0 +1,35 @@
+{{> head }}
+    <body>
+        {{> header }}
+        {{#error}}
+        <p class='error'>{{param}}: {{msg}}</p>
+        {{/error}}
+        <form class='edit' method='post' action='/edit/{{ person.dataValues.id }}'>
+            <li><b>Nome:</b><input name='name' required value='{{ person.dataValues.name }}'></li>
+            <li><b>Data de Nascimento:</b><input name='birthdate' type='date' requited value='{{ birthdate }}'></li>
+            <li><b>Morada:</b><input name='address' value='{{ person.dataValues.address }}'></li>
+            <li><b>Telefone:</b><input name='phone' required value='{{ person.dataValues.phone }}'></li>
+            <li><b>Email:</b><input name='email' required value='{{ person.dataValues.email }}'></li>
+            <li><b>BI:</b><input name='bi' required value='{{ person.dataValues.bi }}'></li>
+            <li><b>NIF:</b><input name='nif' required value='{{ person.dataValues.nif }}'></li>
+            <li>
+                <b>Género:</b>
+                {{# select 'gender' person.dataValues.gender '{"male":"Masculino", "female":"Feminino"}'}}
+                {{/ select }}
+            </li>
+            <li>
+                <b>Estádo:</b>
+                {{# select 'state' person.dataValues.state '{"registered":"Registrado", "formation":"Em Formação", "internship":"Em Estágio", "hired":"Colocado", "reserved":"Em Reserva"}' }}
+                {{/ select }}
+            </li>
+            
+            <div class='eb'>
+                <input class='btn' type='submit' value='Ok'>
+                <a class='btn' href='/details/{{ person.dataValues.id }}'>Cancelar</a>
+            </div>
+        </form>
+        
+        <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
+        {{> footer }}
+    </body>
+</html>

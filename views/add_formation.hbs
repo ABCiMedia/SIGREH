@@ -1,0 +1,26 @@
+{{> head }}
+    <body>
+        {{> header }}
+        {{# error }}
+        <p class='error'>{{ param }}:{{ msg }}</p>
+        {{/ error }}
+        <form action="/add_formation" method='post'>
+            <label>Nome:</label>
+            <input name='name' required {{#if form_data }}value='{{form_data.name}}'{{/if}}><br>
+            <label>Duração Teoria (horas):</label>
+            <input type='number' name='teoric_part' required {{#if form_data }}value={{form_data.teoric_part}}{{/if}}><br>
+            <label>Duração Prática (horas):</label>
+            <input type='number' name='pratic_part' required {{#if form_data }}value={{form_data.pratic_part}}{{/if}}><br>
+            <label>Preço Inscrição:</label>
+            <input type='number' name='subscription_cost' required {{#if form_data }}value={{form_data.subscription_cost}}{{/if}}><br>
+            <label>Preço Certificado:</label>
+            <input type='number' name='certificate_cost' required {{#if form_data }}value={{form_data.certificate_cost}}{{/if}}><br>
+            <label>Descrição:</label>
+            <textarea name='description' rows='4' cols='53'>{{#if form_data }}{{form_data.description}}{{/if}}</textarea>
+            <input type='submit' value='Criar'>
+        </form>
+        
+        <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
+        {{> footer }}
+    </body>
+</html>

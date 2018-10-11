@@ -1,0 +1,46 @@
+{{> head }}
+    <body>
+        {{> header }}
+
+        {{# if person }}
+        <table id='myTable' class='display tbl'>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Estado</th>
+                    <th>Nota</th>
+                    <th>Classificação</th>
+                    {{#if admin }}
+                    <th>Ações</th>
+                    {{/if}}
+                </tr>
+            </thead>
+            <tbody>
+                {{# each person }}
+                <tr>
+                    <td><a href='/details/{{ this.dataValues.id }}'>{{ this.dataValues.id }}</a></td>
+                    <td><a href='/details/{{ this.dataValues.id }}'>{{ this.dataValues.name }}</a></td>
+                    <td><a href='/details/{{ this.dataValues.id }}'>{{ this.dataValues.phone }}</a></td>
+                    <td><a href='/details/{{ this.dataValues.id }}'>{{ this.dataValues.state }}</a></td>
+                    <td><a href='/details/{{ this.dataValues.id }}'>{{ this.dataValues.score }}</a></td>
+                    <td><a href='/details/{{ this.dataValues.id }}'>{{ this.dataValues.scoreText }}</a></td>
+                    {{#if @root.admin }}
+                    <td>
+                        <img class='icon' onclick='showModal({{ this.dataValues.id }},"/delete_person/")' src='/img/trash-alt-solid.svg' alt='editar'>
+                    </td>
+                    {{/if}}
+                </tr>
+                {{/ each }}
+            </tbody>
+        </table>
+        {{else}}
+        <p class='rep'>... Nenhuma pessoa encontrada ...</p>
+        {{/ if}}
+        <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
+
+        {{> delete_modal }}
+        {{> footer }}
+    </body>
+</html>

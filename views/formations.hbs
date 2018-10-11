@@ -1,0 +1,46 @@
+{{> head }}
+    <body>
+        {{> header }}
+
+        {{# if formations }}
+        <table id='myTable' class='display tbl'>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Duração Teoria</th>
+                    <th>Duração Prática</th>
+                    <th>Custo Inscrição</th>
+                    <th>Custo Certificado</th>
+                    {{#if admin }}
+                    <th>Ações</th>
+                    {{/if}}
+                </tr>
+            </thead>
+            <tbody>
+                {{# each formations }}
+                <tr>
+                    <td><a href='/formation/{{ this.dataValues.id }}'>{{ this.dataValues.name }}</a></td>
+                    <td><a href='/formation/{{ this.dataValues.id }}'>{{ this.dataValues.teoric_part }}</a></td>
+                    <td><a href='/formation/{{ this.dataValues.id }}'>{{ this.dataValues.pratic_part }}</a></td>
+                    <td><a href='/formation/{{ this.dataValues.id }}'>{{ this.dataValues.subscription_cost }}</a></td>
+                    <td><a href='/formation/{{ this.dataValues.id }}'>{{ this.dataValues.certificate_cost }}</a></td>
+                    {{#if @root.admin }}
+                    <td>
+                        <img class='icon' onclick='showModal({{ this.dataValues.id }},"/delete_formation/")' src='/img/trash-alt-solid.svg' alt='Eliminar'>
+                    </td>
+                    {{/if}}
+                </tr>
+                {{/ each }}
+            </tbody>
+        </table>
+        {{else}}
+        <p class='rep'>... Nenhuma formação encontrada ...</p>
+        {{/ if}}
+
+        <img class='add-btn' onclick='loadPage("/add_formation")' src='/img/plus-circle-solid.svg' alt='Nova Formação'>
+        <img class='logout-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Sair'>
+
+        {{> delete_modal }}
+        {{> footer }}
+    </body>
+</html>

@@ -1,0 +1,42 @@
+{{> head }}
+    <body>
+        {{> header }}
+        {{# error }}
+        <p class='error'>{{ param }}:{{ msg }}</p>
+        {{/ error }}
+        <form action="/inscrever" method='post'>
+            <label>Nome:</label>
+            <input name='name' placeholder='Nome' required {{#if form_data }}value={{form_data.name}}{{/if}}><br>
+            <label>Data de Nascimento:</label>
+            <input type='date' name='birthdate' required {{#if form_data }}value={{form_data.birthdate}}{{/if}}><br>
+            <label>Morada:</label>
+            <input name='address' placeholder='Morada' {{#if form_data }}value={{form_data.address}}{{/if}}><br>
+            <label>Telefone:</label>
+            <input name='phone' placeholder='Telefone' required {{#if form_data }}value={{form_data.phone}}{{/if}}><br>
+            <label>Email:</label>
+            <input name='email' placeholder='Email' required {{#if form_data }}value={{form_data.email}}{{/if}}><br>
+            <label>Número de BI:</label>
+            <input name='bi' placeholder='Numero de BI' required {{#if form_data }}value={{form_data.bi}}{{/if}}><br> 
+            <label>NIF:</label>
+            <input name='nif' placeholder='NIF' required {{#if form_data }}value={{form_data.nif}}{{/if}}><br> 
+            <fieldset>
+                <legend>Género</legend>
+                <label>Masculino:</label>
+                <input type='radio' name='gender' value='male'>
+                <label>Feminino:</label>
+                <input type='radio' name='gender' value='female'>
+            </fieldset>
+            <fieldset>
+                <legend>Formações</legend>
+                {{#each formation }}
+                <input type='checkbox' value='{{this.id}}'>
+                <label for="{{this.id}}">{{this.name}}</label>
+                {{/each}}
+            </fieldset>
+            <input type='submit' value='Cadastrar'>
+        </form>
+        
+        <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
+        {{> footer }}
+    </body>
+</html>
