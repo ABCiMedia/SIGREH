@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 
-const {User} = require('./User');
+const {User} = require('./User')
+    , {Formation} = require('./Formation');
 
 const credentials = require('./credentials');
 
@@ -26,6 +27,8 @@ const Person = sequelize.define('person', {
 });
 
 Person.belongsTo(User);
+Person.belongsToMany(Formation, {through: 'PersonFormation'});
+Formation.belongsToMany(Person, {through: 'PersonFormation'});
 
 sequelize.sync();
 

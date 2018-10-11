@@ -198,11 +198,7 @@ app.get("/inscrever", (req, res) => {
   options.user = req.user;
   options.admin = req.user.group === 'admin' ? true : false;
   options.pageTitle = 'Inscrições'
-  Formation.findAll()
-  .then(fs => {
-    options.formation = fs;
-    return res.render("register", options);
-  });
+  return res.render("register", options);
 });
 
 app.post("/inscrever", [
@@ -241,7 +237,17 @@ app.post("/inscrever", [
         state: "registered",
         userId: req.user.id,
       }).then(r => {
-        return res.redirect("/pessoas/indb");
+        Formation.findAll()
+        .then(fs => {
+          formations = [];
+          for (formation of fs) {
+            if (req.body[formation.dataValues.id] === 'on') {
+              formations.push(formation.dataValues.id);
+            }
+          }
+          r.addFormations(formations);
+          return res.redirect("/pessoas/indb");
+        });
       });
     }
   }

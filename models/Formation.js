@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 
-const cred = require('./credentials')
-    , { Person} = require('./Person');
+const cred = require('./credentials');
 
 const sequelize = new Sequelize(cred.database, cred.username, cred.password, {
     host: cred.host,
@@ -18,9 +17,6 @@ const Formation = sequelize.define('formation', {
     subscription_cost: Sequelize.REAL,
     certificate_cost: Sequelize.REAL
 });
-
-Person.belongsToMany(Formation, {through: 'PersonFormation'});
-Formation.belongsToMany(Person, {through: 'PersonFormation'});
 
 sequelize.sync();
 
