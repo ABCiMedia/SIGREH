@@ -198,7 +198,11 @@ app.get("/inscrever", (req, res) => {
   options.user = req.user;
   options.admin = req.user.group === 'admin' ? true : false;
   options.pageTitle = 'Inscrições'
-  return res.render("register", options);
+  Formation.findAll()
+  .then(fs => {
+    options.formation = fs;
+    return res.render("register", options);
+  });
 });
 
 app.post("/inscrever", [
