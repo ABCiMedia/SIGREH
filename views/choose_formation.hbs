@@ -27,10 +27,10 @@
         <input type="submit" value='Increver'>
     </form>
     {{else}}
-    <p class='rep'>Ainda sem nenhum utilizadores</p>
+    <p class='rep'>Já se registrou em todas as formações...</p>
     {{/if}}
-    <img class='add-btn' onclick='loadPage("/create_user")' src='/img/plus-circle-solid.svg' alt='Criar Utilizador'>
-    <img class='logout-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Sair'>
+
+    <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
     {{> delete_modal }}
     {{> footer }}
 </body>

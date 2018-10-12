@@ -918,40 +918,57 @@ app.post('/formation/:fid(\\d+)', [
 
 app.get('/choose_formation/:personId', (req, res) => {
   if (!req.user) return res.redirect('/login');
+  let context = {};
   Formation.findAll()
   .then(fs => {
-    Person.findById(req.params.personId)
-    .then(p => {
-      res.render('choose_formation', {
-        pageTitle: `Escolhe Formações para ${p.name}`,
-        formation: fs,
-        personId: p.id,
-      });
+    context.formation = fs;
+    return Person.findById(req.params.personId)
+  })
+  .then(p => {
+    context.pageTitle = `Escolhe Formações para ${p.name}`;
+    context.personId = p.id;
+    return p.getFormations();
+  })
+  .then(fs => {
+    context.formation = context.formation.filter(el => {
+      for (element of fs) {
+        if (element.id === el.id){
+          return false
+        }
+      }
+      return true;
     });
+    res.render('choose_formation', context);
   });
 });
 
 app.post('/choose_formation/:personId', (req, res) => {
   if (!req.user) return res.redirect('/login');
+
+  let context = {};
   Person.findById(req.params.personId)
   .then(p => {
-    Formation.findAll()
-    .then(fs => {
-      formations = [];
-      for (formation of fs) {
-        if (req.body[formation.dataValues.id] === 'on') {
-          formations.push(formation.dataValues.id);
-        }
+    context.p = p;
+    return Formation.findAll();
+  })
+  .then(fs => {
+    formations = [];
+    for (formation of fs) {
+      if (req.body[formation.id] === 'on') {
+        formations.push(formation.id);
       }
-      p.addFormations(formations);
-      p.state = 'formation';
-      p.save()
-      .then(() => {
-        res.redirect(`/details/${req.params.personId}`);
-      });
-    });
+    }
+    return context.p.addFormations(formations);
+  })
+  .then(() => {
+    context.p.state = 'formation';
+    return context.p.save();
+  })
+  .then(() => {
+    res.redirect(`/details/${req.params.personId}`);
   });
 });
+
 
 app.listen(port, "0.0.0.0", () => {
   console.log("Server started at port %d", port);
