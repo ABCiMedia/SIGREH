@@ -924,6 +924,17 @@ app.post('/formation/:fid(\\d+)', [
   }
 });
 
+app.get('/choose_formation', (req, res) => {
+  if (!req.user) return res.redirect('/login');
+  Formation.findAll()
+  .then(fs => {
+    res.render('choose_formation', {
+      pageTitle: 'Escolhe Formações',
+      formation: fs
+    });
+  });
+});
+
 app.listen(port, "0.0.0.0", () => {
   console.log("Server started at port %d", port);
 });

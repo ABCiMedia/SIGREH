@@ -72,3 +72,25 @@ $(document).ready(function () {
     }
     $('#myTable').DataTable(options);
 });
+
+let total = 0;
+let num_formations = 0;
+let discount = .16;
+
+const calculateTotal = (event) => {
+    if (event.target.checked) {
+        num_formations++;
+        total += parseInt(event.target.getAttribute('data-insc')) + parseInt(event.target.getAttribute('data-cert'));
+        if (num_formations === 2) {
+            total *= (1-discount);
+        }
+        document.getElementById('total').value = total;
+    } else {
+        if (num_formations === 2) {
+            total /= (1-discount);
+        }
+        num_formations--;
+        total -= parseInt(event.target.getAttribute('data-insc')) + parseInt(event.target.getAttribute('data-cert'));
+        document.getElementById('total').value = total;
+    }
+};

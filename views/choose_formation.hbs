@@ -1,0 +1,38 @@
+{{> head }}
+
+<body>
+    {{> header }}
+    {{# if formation}}
+    <form class='formation-form' action="choose_formation" method='post'>
+        {{#each formation}}
+        <fieldset>
+            <label><b>Nome:</b></label>
+            <span>{{this.dataValues.name}}</span><br>
+            
+            <label><b>Preço de Inscrição:</b></label>
+            <span>{{this.dataValues.subscription_cost}}$00</span><br>
+
+            <label><b>Preço do Certificado:</b></label>
+            <span>{{this.dataValues.certificate_cost}}$00</span><br>
+
+            <label><b>Escolher:</b></label>
+            <input data-insc={{this.dataValues.subscription_cost}} data-cert={{this.dataValues.certificate_cost}} oninput='calculateTotal(event)' type="checkbox" name='{{this.dataValues.id}}'>
+        </fieldset>
+        {{/each}}
+        <fieldset>
+            <label><b>Total a Pagar:</b></label>
+            <input name='total' id='total' value='0' disabled style='text-align: right'>
+        </fieldset>
+
+        <input type="submit" value='Increver'>
+    </form>
+    {{else}}
+    <p class='rep'>Ainda sem nenhum utilizadores</p>
+    {{/if}}
+    <img class='add-btn' onclick='loadPage("/create_user")' src='/img/plus-circle-solid.svg' alt='Criar Utilizador'>
+    <img class='logout-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Sair'>
+    {{> delete_modal }}
+    {{> footer }}
+</body>
+
+</html>
