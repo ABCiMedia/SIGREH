@@ -1,7 +1,6 @@
 {{> head }}
     <body>
         {{> header }}
-
         <ul class='dtls'>
             <li><b>ID:</b> {{ person.dataValues.id }}</li>
             <li><b>Nome:</b> {{ person.dataValues.name }}</li>
@@ -14,6 +13,14 @@
             <li><b>Género:</b> {{ person.dataValues.gender }}</li>
             <li><b>Estádo:</b> {{ person.dataValues.state }}</li>
             <li><b>Criado por:</b> {{ createdBy }}</li>
+            <h3>Formações em que se encontra inscrito:</h3>
+            {{#if formation}}
+            {{#each formation}}
+            <li>{{this.name}}</li>
+            {{/each}}
+            {{else}}
+            <p class='column'>Ainda não se inscreveu em nenhuma formação...</p>
+            {{/if}}
 
             <a class='btn' href='/edit/{{ person.dataValues.id }}'>Editar</a>
             <a class='btn' href='/avaliado/{{ person.dataValues.id }}'>Avaliar</a>

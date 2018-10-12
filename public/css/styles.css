@@ -134,13 +134,13 @@ form input[type='submit'], .btn {
 }
 
 .dtls {
-    width: 55%;
+    width: 60%;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 20px;
     border: 1px solid rgba(54, 162, 235, .5);
     border-radius: 10px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .dtls li {
@@ -156,11 +156,16 @@ form input[type='submit'], .btn {
     border-bottom: 1px dashed lightblue;
 }
 
+.dtls h3 {
+    color: cadetblue;
+}
+
 .dtls .btn {
     display: inline-block;
     width: 25%;
     border: none;
     margin: 20px 5px;
+    margin-bottom: 0px;
     text-align: center;
     cursor: pointer;
     text-decoration: none;

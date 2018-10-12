@@ -323,9 +323,7 @@ app.get("/pessoas/:category", (req, res) => {
 });
 
 app.get("/details/:userId(\\d+)", (req, res) => {
-  if (!req.user) {
-    return res.redirect('/login');
-  }
+  if (!req.user) return res.redirect('/login');
   let options = {};
   options.user = req.user;
   options.admin = req.user.group === 'admin' ? true : false;
@@ -337,9 +335,13 @@ app.get("/details/:userId(\\d+)", (req, res) => {
       person: utils.changeSG(r),
       birthdate: utils.getProperDate(r.dataValues.birthdate)
     });
+    return r.getFormations();
+  })
+  .then(fs => {
+    options.formation = fs;
     return User.find({
       where: {
-        id: r.dataValues.userId
+        id: options.person.userId
       }
     });
   })
