@@ -237,17 +237,7 @@ app.post("/inscrever", [
         state: "registered",
         userId: req.user.id,
       }).then(r => {
-        Formation.findAll()
-        .then(fs => {
-          formations = [];
-          for (formation of fs) {
-            if (req.body[formation.dataValues.id] === 'on') {
-              formations.push(formation.dataValues.id);
-            }
-          }
-          r.addFormations(formations);
-          return res.redirect("/pessoas/indb");
-        });
+        return res.redirect(`/details/${r.id}`);
       });
     }
   }
