@@ -388,9 +388,7 @@ app.post("/edit/:userId(\\d+)", [
     ])
   ],
   (req, res) => {
-    if (!req.user) {
-      return res.redirect('/login');
-    }
+    if (!req.user) return res.redirect('/login');
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       Person.findById(req.params.userId).then(r => {
@@ -402,32 +400,41 @@ app.post("/edit/:userId(\\d+)", [
         });
       });
     } else {
-      Person.update(
-        {
-          name: req.body.name,
-          birthdate: req.body.birthdate,
-          address: req.body.address,
-          phone: req.body.phone,
-          email: req.body.email,
-          bi: req.body.bi,
-          nif: req.body.nif,
-          gender: req.body.gender,
-          state: req.body.state,
-          userId: req.user.id,
-        },
-        {
-          where: {
-            id: req.params.userId
+      let buffer = {};
+      Person.update({
+        name: req.body.name,
+        birthdate: req.body.birthdate,
+        address: req.body.address,
+        phone: req.body.phone,
+        email: req.body.email,
+        bi: req.body.bi,
+        nif: req.body.nif,
+        gender: req.body.gender,
+        state: req.body.state,
+        userId: req.user.id,
+      }, {
+        where: {
+          id: req.params.userId
+        }
+      })
+      .then(() => {
+        return Person.findById(req.params.userId);
+      })
+      .then(p => {
+        buffer.p = p;
+        return p.getFormations();
+      })
+      .then(fs => {
+        let formations = [];
+        for (f of fs) {
+          if (req.body[f.id] === 'on') {
+            formations.push(f.id);
           }
         }
-      ).then(
-        r => {
-          res.redirect(`/details/${req.params.userId}`);
-        },
-        e => {
-          res.redirect(`/edit/${req.params.userId}`);
-        }
-      );
+        return buffer.p.setFormations(formations);
+      })
+      .then(() => res.redirect(`/details/${req.params.userId}`));
+      // .catch(e => res.redirect(`/edit/${req.params.userId}`));
     }
   }
 );
