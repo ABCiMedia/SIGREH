@@ -833,7 +833,7 @@ app.get('/delete_evaluation/:av_id/:userId', (req, res) => {
 });
 
 app.get('/formations', (req, res) => {
-  if (!req.user) return res.redirect('/login');
+  if (!req.user || req.user.group !== 'admin') return res.redirect('/login');
   Formation.findAll()
   .then(fs => {
     res.render('formations', {
@@ -844,7 +844,7 @@ app.get('/formations', (req, res) => {
 });
 
 app.get('/add_formation', (req, res) => {
-  if (!req.user) return res.redirect('/login');
+  if (!req.user || req.user.group !== 'admin') return res.redirect('/login');
   res.render('add_formation', {
     pageTitle: 'Registar Formação'
   });
@@ -857,7 +857,7 @@ app.post('/add_formation', [
   check('subscription_cost').isNumeric(),
   check('certificate_cost').isNumeric(),
 ],(req, res) => {
-  if (!req.user) return res.redirect('/login');
+  if (!req.user || req.user.group !== 'admin') return res.redirect('/login');
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.render('add_formation', {
@@ -881,7 +881,7 @@ app.post('/add_formation', [
 });
 
 app.get('/formation/:fid(\\d+)', (req, res) => {
-  if (!req.user) return res.redirect('/login');
+  if (!req.user || req.user.group !== 'admin') return res.redirect('/login');
   Formation.findById(req.params.fid)
   .then(f => {
     return res.render('formation_edit', {
@@ -898,7 +898,7 @@ app.post('/formation/:fid(\\d+)', [
   check('subscription_cost').isNumeric(),
   check('certificate_cost').isNumeric(),
 ], (req, res) => {
-  if (!req.user) return res.redirect('/login');
+  if (!req.user || req.user.group !== 'admin') return res.redirect('/login');
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.render('formation_edit', {
