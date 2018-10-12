@@ -928,10 +928,13 @@ app.get('/choose_formation/:personId', (req, res) => {
   if (!req.user) return res.redirect('/login');
   Formation.findAll()
   .then(fs => {
-    res.render('choose_formation', {
-      pageTitle: 'Escolhe Formações',
-      formation: fs,
-      personId: req.params.personId
+    Person.findById(req.params.personId)
+    .then(p => {
+      res.render('choose_formation', {
+        pageTitle: `Escolhe Formações para ${p.name}`,
+        formation: fs,
+        personId: p.id,
+      });
     });
   });
 });
