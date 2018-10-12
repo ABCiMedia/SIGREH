@@ -23,3 +23,5 @@ sequelize.sync();
 module.exports = {
     Formation
 }
+
+return process.exit(0);
