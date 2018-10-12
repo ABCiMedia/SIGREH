@@ -47,5 +47,3 @@ module.exports = {
     Evaluation,
     connection: sequelize
 }
-
-return process.exit(0);

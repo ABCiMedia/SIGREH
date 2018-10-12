@@ -17,5 +17,3 @@ const User = sequelize.define('user', {
 sequelize.sync();
 
 exports.User = User;
-
-return process.exit(0);

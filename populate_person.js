@@ -122,5 +122,3 @@ Person.bulkCreate([
         userId: 1,
     },
 ]);
-
-return process.exit(0);

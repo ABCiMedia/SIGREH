@@ -36,5 +36,3 @@ module.exports = {
     Person,
     connection: sequelize
 };
-
-return process.exit(0);
