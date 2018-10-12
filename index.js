@@ -352,17 +352,22 @@ app.get("/details/:userId(\\d+)", (req, res) => {
 });
 
 app.get("/edit/:userId(\\d+)", (req, res) => {
-  if (!req.user) {
-    return res.redirect('/login');
-  }
-  Person.findById(req.params.userId).then(r => {
-    res.render("edit", {
+  if (!req.user) return res.redirect('/login');
+  let context = {};
+  Person.findById(req.params.userId)
+  .then(r => {
+    Object.assign(context, {
       pageTitle: r.dataValues.name,
       person: r,
       birthdate: utils.getProperDate(r.dataValues.birthdate),
       user: req.user,
       admin: req.user.group === 'admin' ? true : false
     });
+    return r.getFormations();
+  })
+  .then(fs => {
+    context.formation = fs;
+    return res.render("edit", context);
   });
 });
 

@@ -22,7 +22,17 @@
                 {{# select 'state' person.dataValues.state '{"registered":"Registrado", "formation":"Em Formação", "internship":"Em Estágio", "hired":"Colocado", "reserved":"Em Reserva"}' }}
                 {{/ select }}
             </li>
-            
+            <li><h3>Formações em que se encontra inscrito</h3></li>
+            {{#if formation}}
+            {{#each formation}}
+            <li>
+                <input type='checkbox' name='{{this.id}}' checked>
+                <span for='{{this.id}}'>{{this.name}}</span>
+            </li>
+            {{/each}}
+            {{else}}
+            <li><p>Não se encontra inscrito em nenhuma formação...</p></li>
+            {{/if}}
             <div class='eb'>
                 <input class='btn' type='submit' value='Ok'>
                 <a class='btn' href='/details/{{ person.dataValues.id }}'>Cancelar</a>
