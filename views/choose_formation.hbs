@@ -3,7 +3,7 @@
 <body>
     {{> header }}
     {{# if formation}}
-    <form class='formation-form' action="choose_formation" method='post'>
+    <form class='formation-form' action="/choose_formation/{{personId}}" method='post'>
         {{#each formation}}
         <fieldset>
             <label><b>Nome:</b></label>

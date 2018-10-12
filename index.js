@@ -924,13 +924,36 @@ app.post('/formation/:fid(\\d+)', [
   }
 });
 
-app.get('/choose_formation', (req, res) => {
+app.get('/choose_formation/:personId', (req, res) => {
   if (!req.user) return res.redirect('/login');
   Formation.findAll()
   .then(fs => {
     res.render('choose_formation', {
       pageTitle: 'Escolhe Formações',
-      formation: fs
+      formation: fs,
+      personId: req.params.personId
+    });
+  });
+});
+
+app.post('/choose_formation/:personId', (req, res) => {
+  if (!req.user) return res.redirect('/login');
+  Person.findById(req.params.personId)
+  .then(p => {
+    Formation.findAll()
+    .then(fs => {
+      formations = [];
+      for (formation of fs) {
+        if (req.body[formation.dataValues.id] === 'on') {
+          formations.push(formation.dataValues.id);
+        }
+      }
+      p.addFormations(formations);
+      p.state = 'formation';
+      p.save()
+      .then(() => {
+        res.redirect(`/details/${req.params.personId}`);
+      });
     });
   });
 });
