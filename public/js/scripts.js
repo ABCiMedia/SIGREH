@@ -92,3 +92,8 @@ const calculateTotal = () => {
     }
     document.getElementById('total').value = total;
 };
+
+const enableTotal = () => {
+    document.getElementById('total').disabled = false;
+    return true;
+}

@@ -13,6 +13,7 @@ const { Person } = require("./models/Person"),
   { Evaluation } = require("./models/Evaluation"),
   { User } = require('./models/User'),
   { Formation } = require('./models/Formation'),
+  { Payment } = require('./models/Payment'),
   utils = require("./utils"),
   cred = require("./models/credentials");
 
@@ -977,8 +978,15 @@ app.post('/choose_formation/:personId', (req, res) => {
     return context.p.save();
   })
   .then(() => {
-    res.redirect(`/details/${req.params.personId}`);
-  });
+    return Payment.create({
+      toPay: req.body.total,
+      paid: 0,
+      hasDiscount: req.body.hasDiscount === 'on',
+      discount: req.body.discount,
+      personId: context.p.id
+    });
+  })
+  .then(p => res.redirect(`/details/${req.params.personId}`));
 });
 
 
