@@ -7,22 +7,22 @@
         {{#each formation}}
         <fieldset>
             <label><b>Nome:</b></label>
-            <span>{{this.dataValues.name}}</span><br>
+            <span>{{this.name}}</span><br>
             
             <label><b>Preço de Inscrição:</b></label>
-            <span>{{this.dataValues.subscription_cost}}$00</span><br>
+            <span>{{this.subscription_cost}}$00</span><br>
 
             <label><b>Preço do Certificado:</b></label>
-            <span>{{this.dataValues.certificate_cost}}$00</span><br>
+            <span>{{this.certificate_cost}}$00</span><br>
 
             <label><b>Escolher:</b></label>
-            <input data-insc={{this.dataValues.subscription_cost}} data-cert={{this.dataValues.certificate_cost}} oninput='calculateTotal(event)' type="checkbox" name='{{this.dataValues.id}}'>
+            <input data-insc={{this.subscription_cost}} data-cert={{this.certificate_cost}} oninput='calculateTotal()' type="checkbox" name='{{this.id}}'>
         </fieldset>
         {{/each}}
         <fieldset>
-            <input type='checkbox' name='hasDiscount'>
+            <input type='checkbox' name='hasDiscount' id='hasDiscount' oninput='calculateTotal()'>
             <label for='discount'><b>Desconto:</b></label>
-            <input type='number' name='discount' value='16' style='text-align: right'>%<br>
+            <input type='number' name='discount' value='16' id='discount' oninput='calculateTotal()' style='text-align: right'>%<br>
             <label><b>Total a Pagar:</b></label>
             <input name='total' id='total' value='0' disabled style='text-align: right'>
         </fieldset>
