@@ -40,7 +40,7 @@
             var myChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Apenas Registradas', 'Formando', 'Em Estágio', 'Colocado', 'Em Reserva', 'Avaliadas'],
+                    labels: ['Apenas Registradas', 'Formando', 'Em Estágio', 'Colocado', 'Em Reserva'],
                     datasets: [{
                         data: [
                             {{ peopleRegistered }}, 
@@ -48,23 +48,20 @@
                             {{ peopleInInternship }},
                             {{ peopleHired }}, 
                             {{ peopleReserved }},
-                            {{ peopleEvaluated }}
                         ],
                         backgroundColor: [
-                            'rgba(195, 41, 226, 0.2)',
+                            'rgba(218, 233, 13, 0.2)',
                             'rgba(56, 226, 41, 0.2)',
                             'rgba(204, 153, 11, 0.2)',
                             'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(218, 233, 13, 0.2)'
+                            'rgba(54, 162, 235, 0.2)'
                         ],
                         borderColor: [
-                            'rgba(195, 41, 226, 1)',
+                            'rgba(218, 233, 13, 1)',
                             'rgba(56, 226, 41, 1)',
                             'rgba(204, 153, 11, 1)',
                             'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(218, 233, 13, 1)'
+                            'rgba(54, 162, 235, 1)'
                         ],
                         borderWidth: 1
                     }]
