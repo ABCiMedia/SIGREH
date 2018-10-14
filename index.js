@@ -1051,6 +1051,42 @@ app.post("/choose_formation/:personId", (req, res) => {
     .then(p => res.redirect(`/details/${req.params.personId}`));
 });
 
+app.get('/payment/:personId', (req, res) => {
+    let context = {
+        pageTitle: 'Pagamento'
+    };
+    Person.findById(req.params.personId)
+    .then(pe => {
+        context.person = pe;
+        return Payment.find({
+            where: {
+                personId: req.params.personId
+            }
+        });
+    })
+    .then(pa => {
+        context.payment = pa;
+        context.debt = pa.toPay - pa.paid;
+        return res.render('payment', context);
+    });
+});
+
+app.post('/payment/:personId', (req, res) => {
+    Payment.find({
+        where: {
+            personId: req.params.personId
+        }
+    })
+    .then(pa => {
+        return pa.update({
+            paid: pa.paid + parseFloat(req.body.quantity)
+        });
+    })
+    .then(() => {
+        return res.redirect(`/payment/${req.params.personId}`);
+    });
+});
+
 app.listen(port, "0.0.0.0", () => {
   console.log("Server started at port %d", port);
 });
