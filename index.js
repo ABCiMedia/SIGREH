@@ -1067,6 +1067,7 @@ app.get('/payment/:personId', (req, res) => {
     .then(pa => {
         context.payment = pa;
         context.debt = pa.toPay - pa.paid;
+        context.date = new Date().toLocaleDateString();
         return res.render('payment', context);
     });
 });

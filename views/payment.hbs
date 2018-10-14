@@ -4,20 +4,23 @@
         {{#error}}
         <p class='error'>{{param}}: {{msg}}</p>
         {{/error}}
-        <form class='edit' method='post' action='/payment/{{person.id}}'>
+        <form class='frm-print edit' method='post' action='/payment/{{person.id}}'>
             <li><b>ID:</b><input disabled value='{{ person.id }}'></li>
             <li><b>Nome:</b><input disabled value='{{ person.name }}'></li>
             <li><b>Total a Pagar:</b><input disabled value='{{ payment.toPay }}$00'></li>
             <li><b>Total Pago:</b><input disabled value='{{ payment.paid }}$00'></li>
             <li><b>Falta Pagar:</b><input disabled value='{{ debt }}$00'></li>
-            <li><b>Quantidade:</b><input type='number' name='quantity' required></li>
-            <div class='eb'>
+            <div class='hide date-print'>
+                <span>Data: {{date}}</span>
+            </div>
+            <li class='hide-print'><b>Quantidade:</b><input type='number' name='quantity' required></li>
+            <div class='eb hide-print'>
                 <input class='btn' type='submit' value='Pagar'>
                 <a class='btn' href='/details/{{ person.id }}'>Voltar</a>
             </div>
         </form>
         
-        <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
+        <img class='add-btn hide-print' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
         {{> footer }}
     </body>
 </html>

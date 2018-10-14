@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.hide-print {
+    display: none;
+}
+
+.frm-print {
+    padding: 50px;
+}
+
+.frm-print li {
+    list-style: none;
+}
+
+.frm-print b {
+    display: inline-block;
+    width: 150px;
+    padding: 5px;
+}
+
+.date-print {
+    position: absolute;
+    right: 50px;
+    top: 50px;
+}
