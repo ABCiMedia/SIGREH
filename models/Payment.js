@@ -13,7 +13,6 @@ const connection = new Sequelize(cred.database, cred.username, cred.password, {
 const Payment = connection.define('payment', {
     toPay: Sequelize.REAL,
     paid: Sequelize.REAL,
-    hasDiscount: Sequelize.BOOLEAN,
     discount: Sequelize.REAL
 });
 

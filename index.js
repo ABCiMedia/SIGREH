@@ -7,13 +7,13 @@ const express = require("express"),
   uuid = require("uuid/v4"),
   bcrypt = require("bcrypt-nodejs"),
   MySQLStore = require("express-mysql-session")(session),
-  Sequelize = require('sequelize');
+  Sequelize = require("sequelize");
 
 const { Person } = require("./models/Person"),
   { Evaluation } = require("./models/Evaluation"),
-  { User } = require('./models/User'),
-  { Formation } = require('./models/Formation'),
-  { Payment } = require('./models/Payment'),
+  { User } = require("./models/User"),
+  { Formation } = require("./models/Formation"),
+  { Payment } = require("./models/Payment"),
   utils = require("./utils"),
   cred = require("./models/credentials");
 
@@ -55,7 +55,7 @@ hbs.registerPartials(__dirname + "/views/partials");
 
 /////// HELPERS
 
-hbs.registerHelper('ifCond', (v1, v2, options) => {
+hbs.registerHelper("ifCond", (v1, v2, options) => {
   if (v1 === v2) {
     return options.fn(v1);
   } else {
@@ -125,11 +125,11 @@ app.use(passport.session());
 
 app.get("/", (req, res) => {
   if (!req.user) {
-    return res.redirect('/login');
+    return res.redirect("/login");
   }
   let options = {};
   options.user = req.user;
-  options.admin = req.user.group === 'admin' ? true : false;
+  options.admin = req.user.group === "admin" ? true : false;
   options.pageTitle = "Painel de Controlo";
   Person.findAndCountAll()
     .then(r => {
@@ -193,16 +193,18 @@ app.get("/", (req, res) => {
 
 app.get("/inscrever", (req, res) => {
   if (!req.user) {
-    return res.redirect('/login');
+    return res.redirect("/login");
   }
   let options = {};
   options.user = req.user;
-  options.admin = req.user.group === 'admin' ? true : false;
-  options.pageTitle = 'Inscrições'
+  options.admin = req.user.group === "admin" ? true : false;
+  options.pageTitle = "Inscrições";
   return res.render("register", options);
 });
 
-app.post("/inscrever", [
+app.post(
+  "/inscrever",
+  [
     check("name").matches(/^[a-zA-Z0-9_ .]+$/),
     check("birthdate").isBefore(new Date().toLocaleDateString()),
     check("phone").isMobilePhone(),
@@ -210,13 +212,14 @@ app.post("/inscrever", [
     check("bi").matches(/^\d{4,7}$/),
     check("nif").matches(/^\d{6,10}$/),
     check("gender").isIn(["male", "female"])
-  ], (req, res) => {
+  ],
+  (req, res) => {
     if (!req.user) {
-      return res.redirect('/login');
+      return res.redirect("/login");
     }
     let options = {};
     options.user = req.user;
-    options.admin = req.user.group === 'admin' ? true : false;
+    options.admin = req.user.group === "admin" ? true : false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       let options = {
@@ -236,7 +239,7 @@ app.post("/inscrever", [
         nif: parseInt(req.body.nif),
         gender: req.body.gender,
         state: "registered",
-        userId: req.user.id,
+        userId: req.user.id
       }).then(r => {
         return res.redirect(`/details/${r.id}`);
       });
@@ -246,11 +249,11 @@ app.post("/inscrever", [
 
 app.get("/pessoas/:category", (req, res) => {
   if (!req.user) {
-    return res.redirect('/login');
+    return res.redirect("/login");
   }
   let context = {};
   context.user = req.user;
-  context.admin = req.user.group === 'admin' ? true : false;
+  context.admin = req.user.group === "admin" ? true : false;
   let category = req.params.category;
   switch (category) {
     case "indb":
@@ -263,7 +266,7 @@ app.get("/pessoas/:category", (req, res) => {
     case "regi":
       context.pageTitle = "Pessoas Apenas Registradas";
       Person.findAll({
-        where: {state: 'registered'},
+        where: { state: "registered" }
       }).then(r => {
         context.person = utils.changeSG(r);
         res.render("list", context);
@@ -272,7 +275,7 @@ app.get("/pessoas/:category", (req, res) => {
     case "form":
       context.pageTitle = "Pessoas em Formação";
       Person.findAll({
-        where: {state: "formation"}
+        where: { state: "formation" }
       }).then(r => {
         context.person = utils.changeSG(r);
         res.render("list", context);
@@ -281,7 +284,7 @@ app.get("/pessoas/:category", (req, res) => {
     case "inte":
       context.pageTitle = "Pessoas em Estágio";
       Person.findAll({
-        where: {state: "internship"}
+        where: { state: "internship" }
       }).then(r => {
         context.person = utils.changeSG(r);
         res.render("list", context);
@@ -290,7 +293,7 @@ app.get("/pessoas/:category", (req, res) => {
     case "hire":
       context.pageTitle = "Pessoas Colocadas";
       Person.findAll({
-        where: {state: "hired"}
+        where: { state: "hired" }
       }).then(r => {
         context.person = utils.changeSG(r);
         res.render("list", context);
@@ -299,23 +302,23 @@ app.get("/pessoas/:category", (req, res) => {
     case "rese":
       context.pageTitle = "Pessoas em Reserva";
       Person.findAll({
-        where: {state: "reserved"}
+        where: { state: "reserved" }
       }).then(r => {
         context.person = utils.changeSG(r);
         res.render("list", context);
       });
       break;
-    case 'eval':
+    case "eval":
       context.pageTitle = "Pessoas Avaliadas";
       Person.findAll({
         where: {
           score: {
             [Sequelize.Op.ne]: null
           }
-        },
+        }
       }).then(r => {
         context.person = utils.changeSG(r);
-        res.render('list_eval', context);
+        res.render("list_eval", context);
       });
       break;
     default:
@@ -324,52 +327,52 @@ app.get("/pessoas/:category", (req, res) => {
 });
 
 app.get("/details/:userId(\\d+)", (req, res) => {
-  if (!req.user) return res.redirect('/login');
+  if (!req.user) return res.redirect("/login");
   let options = {};
   options.user = req.user;
-  options.admin = req.user.group === 'admin' ? true : false;
+  options.admin = req.user.group === "admin" ? true : false;
 
   Person.findById(req.params.userId)
-  .then(r => {
-    options = Object.assign(options, {
-      pageTitle: r.dataValues.name,
-      person: utils.changeSG(r),
-      birthdate: utils.getProperDate(r.dataValues.birthdate)
+    .then(r => {
+      options = Object.assign(options, {
+        pageTitle: r.dataValues.name,
+        person: utils.changeSG(r),
+        birthdate: utils.getProperDate(r.dataValues.birthdate)
+      });
+      return r.getFormations();
+    })
+    .then(fs => {
+      options.formation = fs;
+      return User.find({
+        where: {
+          id: options.person.userId
+        }
+      });
+    })
+    .then(u => {
+      options.createdBy = u.dataValues.username;
+      return res.render("details", options);
     });
-    return r.getFormations();
-  })
-  .then(fs => {
-    options.formation = fs;
-    return User.find({
-      where: {
-        id: options.person.userId
-      }
-    });
-  })
-  .then(u => {
-    options.createdBy = u.dataValues.username;
-    return res.render("details", options);
-  });
 });
 
 app.get("/edit/:userId(\\d+)", (req, res) => {
-  if (!req.user) return res.redirect('/login');
+  if (!req.user) return res.redirect("/login");
   let context = {};
   Person.findById(req.params.userId)
-  .then(r => {
-    Object.assign(context, {
-      pageTitle: r.dataValues.name,
-      person: r,
-      birthdate: utils.getProperDate(r.dataValues.birthdate),
-      user: req.user,
-      admin: req.user.group === 'admin' ? true : false
+    .then(r => {
+      Object.assign(context, {
+        pageTitle: r.dataValues.name,
+        person: r,
+        birthdate: utils.getProperDate(r.dataValues.birthdate),
+        user: req.user,
+        admin: req.user.group === "admin" ? true : false
+      });
+      return r.getFormations();
+    })
+    .then(fs => {
+      context.formation = fs;
+      return res.render("edit", context);
     });
-    return r.getFormations();
-  })
-  .then(fs => {
-    context.formation = fs;
-    return res.render("edit", context);
-  });
 });
 
 app.post("/edit/:userId(\\d+)", [
@@ -380,29 +383,24 @@ app.post("/edit/:userId(\\d+)", [
     check("bi").isNumeric(),
     check("nif").isNumeric(),
     check("gender").isIn(["male", "female"]),
-    check("state").isIn([
-      "registered",
-      "formation",
-      "internship",
-      "hired",
-      "reserved"
-    ])
-  ],
-  (req, res) => {
-    if (!req.user) return res.redirect('/login');
+    check("state").isIn(["registered", "formation", "internship", "hired", "reserved"])
+  ], (req, res) => {
+
+    if (!req.user) return res.redirect("/login");
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       Person.findById(req.params.userId).then(r => {
-        res.render("edit", {
+        return res.render("edit", {
           pageTitle: r.dataValues.name,
           person: r,
           birthdate: utils.getProperDate(r.dataValues.birthdate),
           error: utils.changeError(errors.array()[0])
         });
       });
-    } else {
-      let buffer = {};
-      Person.update({
+    }
+    let buffer = {};
+    Person.update({
         name: req.body.name,
         birthdate: req.body.birthdate,
         address: req.body.address,
@@ -412,49 +410,73 @@ app.post("/edit/:userId(\\d+)", [
         nif: req.body.nif,
         gender: req.body.gender,
         state: req.body.state,
-        userId: req.user.id,
-      }, {
+        userId: req.user.id
+    }, {
         where: {
-          id: req.params.userId
+        id: req.params.userId
         }
-      })
-      .then(() => {
+    })
+    .then(() => {
         return Person.findById(req.params.userId);
-      })
-      .then(p => {
+    })
+    .then(p => {
         buffer.p = p;
         return p.getFormations();
-      })
-      .then(fs => {
+    })
+    .then(fs => {
         let formations = [];
         for (f of fs) {
-          if (req.body[f.id] === 'on') {
-            formations.push(f.id);
-          }
+            if (req.body[f.id] === "on") {
+                formations.push(f.id);
+            }
         }
+        buffer.formations = fs.filter(el => req.body[el.id] === 'on');
         return buffer.p.setFormations(formations);
-      })
-      .then(() => res.redirect(`/details/${req.params.userId}`));
-      // .catch(e => res.redirect(`/edit/${req.params.userId}`));
-    }
-  }
-);
+    })
+    .then(() => {
+        return Payment.find({
+            where: {
+                personId: buffer.p.id
+            }
+        });
+    })
+    .then(p => {
+        let total = 0;
+        for (f of buffer.formations) {
+            total += f.subscription_cost + f.certificate_cost;
+        }
+        total *= (100 - p.discount) / 100;
+        return p.update({
+            toPay: total
+        });
+    })
+    .then(() => {
+        if (buffer.formations.length === 0) {
+            buffer.p.state = 'registered';
+        }
+        return buffer.p.save();
+    })
+    .then(() => res.redirect(`/details/${req.params.userId}`))
+    .catch(e => res.redirect(`/edit/${req.params.userId}`));
+});
 
 app.get("/avaliar/:userId(\\d+)", (req, res) => {
   if (!req.user) {
-    return res.redirect('/login');
+    return res.redirect("/login");
   }
   Person.findById(req.params.userId).then(r => {
     res.render("avaliar", {
       pageTitle: "Avaliação do Estagiário",
       person: r,
       user: req.user,
-      admin: req.user.group === 'admin' ? true : false
+      admin: req.user.group === "admin" ? true : false
     });
   });
 });
 
-app.post("/avaliar/:userId(\\d+)", [
+app.post(
+  "/avaliar/:userId(\\d+)",
+  [
     check("shop").isAlpha("pt-PT"),
     check("shift_from").matches(/^\d{2}:\d{2}$/),
     check("shift_to").matches(/^\d{2}:\d{2}$/),
@@ -481,7 +503,7 @@ app.post("/avaliar/:userId(\\d+)", [
   ],
   (req, res) => {
     if (!req.user) {
-      return res.redirect('/login');
+      return res.redirect("/login");
     }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -520,23 +542,27 @@ app.post("/avaliar/:userId(\\d+)", [
         responsible_hr: req.body.responsible_hr,
         advisor: req.body.advisor,
         personId: req.params.userId,
-        userId: req.user.id,
+        userId: req.user.id
       }).then(ev => {
         // Fazer update do score em Person.score e Person.scoreText
-        Evaluation.findAll({where: {personId: req.params.userId}})
-        .then(evs => {
-          utils.setScore(evs)
-          Person.update({
-            score: evs.media,
-            scoreText: evs.mediaText
-          }, {
-            where: {
-              id: req.params.userId
-            }
-          }).then(r => {
-            return res.redirect(`/avaliado/${req.params.userId}`);
-          })
-        });
+        Evaluation.findAll({ where: { personId: req.params.userId } }).then(
+          evs => {
+            utils.setScore(evs);
+            Person.update(
+              {
+                score: evs.media,
+                scoreText: evs.mediaText
+              },
+              {
+                where: {
+                  id: req.params.userId
+                }
+              }
+            ).then(r => {
+              return res.redirect(`/avaliado/${req.params.userId}`);
+            });
+          }
+        );
       });
     }
   }
@@ -544,7 +570,7 @@ app.post("/avaliar/:userId(\\d+)", [
 
 app.get("/avaliado/:userId(\\d+)", (req, res) => {
   if (!req.user) {
-    return res.redirect('/login');
+    return res.redirect("/login");
   }
   let options = null;
   Person.findById(req.params.userId)
@@ -553,7 +579,7 @@ app.get("/avaliado/:userId(\\d+)", (req, res) => {
         pageTitle: `Avaliações de ${person.dataValues.name}`,
         person,
         user: req.user,
-        admin: req.user.group === 'admin' ? true : false
+        admin: req.user.group === "admin" ? true : false
       };
       return person.getEvaluations();
     })
@@ -565,12 +591,12 @@ app.get("/avaliado/:userId(\\d+)", (req, res) => {
 
 app.get("/avaliar_edit/:av_id(\\d+)", (req, res) => {
   if (!req.user) {
-    return res.redirect('/login');
+    return res.redirect("/login");
   }
-  let options = { 
+  let options = {
     pageTitle: "Avaliação do Estágiario",
     user: req.user,
-    admin: req.user.group === 'admin' ? true : false
+    admin: req.user.group === "admin" ? true : false
   };
   Evaluation.findById(req.params.av_id)
     .then(av => {
@@ -583,7 +609,9 @@ app.get("/avaliar_edit/:av_id(\\d+)", (req, res) => {
     });
 });
 
-app.post("/avaliar_edit/:av_id(\\d+)", [
+app.post(
+  "/avaliar_edit/:av_id(\\d+)",
+  [
     check("shop").isAlpha("pt-PT"),
     check("shift_from").matches(/^\d{2}:\d{2}:\d{2}$/),
     check("shift_to").matches(/^\d{2}:\d{2}:\d{2}$/),
@@ -610,7 +638,7 @@ app.post("/avaliar_edit/:av_id(\\d+)", [
   ],
   (req, res) => {
     if (!req.user) {
-      return res.redirect('/login');
+      return res.redirect("/login");
     }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -653,7 +681,7 @@ app.post("/avaliar_edit/:av_id(\\d+)", [
           responsible_hr: req.body.responsible_hr,
           advisor: req.body.advisor,
           personId: req.body.personId,
-          userId: req.user.id,
+          userId: req.user.id
         },
         {
           where: {
@@ -662,58 +690,64 @@ app.post("/avaliar_edit/:av_id(\\d+)", [
         }
       ).then(() => {
         // Fazer update do score em Person.score e Person.scoreText
-        Evaluation.findAll({where: {personId: req.body.personId}})
-        .then(evs => {
-          utils.setScore(evs);
-          Person.update({
-            score: evs.media,
-            scoreText: evs.mediaText
-          }, {
-            where: {
-              id: req.body.personId
-            }
-          }).then(r => {
-            return res.redirect(`/avaliado/${req.body.personId}`);
-          });
-        });
+        Evaluation.findAll({ where: { personId: req.body.personId } }).then(
+          evs => {
+            utils.setScore(evs);
+            Person.update(
+              {
+                score: evs.media,
+                scoreText: evs.mediaText
+              },
+              {
+                where: {
+                  id: req.body.personId
+                }
+              }
+            ).then(r => {
+              return res.redirect(`/avaliado/${req.body.personId}`);
+            });
+          }
+        );
       });
     }
   }
 );
 
 app.get("/admin", (req, res) => {
-  if (!req.user || req.user.group !== 'admin') {
-    return res.redirect('/login');
+  if (!req.user || req.user.group !== "admin") {
+    return res.redirect("/login");
   }
   User.findAll().then(r => {
     return res.render("admin", {
       pageTitle: "Administração",
       person: r,
       user: req.user,
-      admin: req.user.group === 'admin' ? true : false
+      admin: req.user.group === "admin" ? true : false
     });
   });
 });
 
 app.get("/create_user", (req, res) => {
-  if (!req.user && req.user.group !== 'admin') {
-    return res.redirect('/login');
+  if (!req.user && req.user.group !== "admin") {
+    return res.redirect("/login");
   }
   res.render("create_user", {
     pageTitle: "Criar Utilizador",
     user: req.user,
-    admin: req.user.group === 'admin' ? true : false
+    admin: req.user.group === "admin" ? true : false
   });
 });
 
-app.post("/create_user", [
+app.post(
+  "/create_user",
+  [
     check("username").matches(/^[a-zA-Z0-9_.-]+$/),
     check("group").isIn(["admin", "regular"]),
     check("password").isLength({ min: 6 })
   ],
   (req, res) => {
-    if (!req.user && req.user.group !== 'admin') {
-      return res.redirect('/login');
+    if (!req.user && req.user.group !== "admin") {
+      return res.redirect("/login");
     }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -791,7 +825,7 @@ app.post("/login", (req, res, next) => {
       if (err) {
         return next(err);
       }
-      return res.redirect('/');
+      return res.redirect("/");
     });
   })(req, res, next);
 });
@@ -801,194 +835,221 @@ app.get("/logout", function(req, res) {
   res.redirect("/login");
 });
 
-app.get('/delete_user/:userId', (req, res) => {
-  if (!req.user) return res.redirect('/login');
+app.get("/delete_user/:userId", (req, res) => {
+  if (!req.user) return res.redirect("/login");
   User.destroy({
     where: {
       id: req.params.userId
     }
-  })
-  .then(() => {
-    return res.redirect('/admin');
+  }).then(() => {
+    return res.redirect("/admin");
   });
 });
 
-app.get('/delete_person/:userId/:category', (req, res) => {
-  if (!req.user || req.user.group !== 'admin') return res.redirect('/login');
+app.get("/delete_person/:userId/:category", (req, res) => {
+  if (!req.user || req.user.group !== "admin") return res.redirect("/login");
   Person.destroy({
     where: {
       id: req.params.userId
     }
-  })
-  .then(() => {
+  }).then(() => {
     return res.redirect(`/pessoas/${req.params.category}`);
-  })
+  });
 });
 
-app.get('/delete_evaluation/:av_id/:userId', (req, res) => {
-  if (!req.user || req.user.group !== 'admin') return res.redirect('/login');
+app.get("/delete_evaluation/:av_id/:userId", (req, res) => {
+  if (!req.user || req.user.group !== "admin") return res.redirect("/login");
   Evaluation.destroy({
     where: {
       id: req.params.av_id
     }
-  })
-  .then(() => {
+  }).then(() => {
     return res.redirect(`/avaliado/${req.params.userId}`);
   });
 });
 
-app.get('/formations', (req, res) => {
-  if (!req.user || req.user.group !== 'admin') return res.redirect('/login');
-  Formation.findAll()
-  .then(fs => {
-    res.render('formations', {
-      pageTitle: 'Formações Disponiveis',
+app.get("/formations", (req, res) => {
+  if (!req.user || req.user.group !== "admin") return res.redirect("/login");
+  Formation.findAll().then(fs => {
+    res.render("formations", {
+      pageTitle: "Formações Disponiveis",
       formations: fs
     });
   });
 });
 
-app.get('/add_formation', (req, res) => {
-  if (!req.user || req.user.group !== 'admin') return res.redirect('/login');
-  res.render('add_formation', {
-    pageTitle: 'Registar Formação'
+app.get("/add_formation", (req, res) => {
+  if (!req.user || req.user.group !== "admin") return res.redirect("/login");
+  res.render("add_formation", {
+    pageTitle: "Registar Formação"
   });
 });
 
-app.post('/add_formation', [
-  check('name').matches(/.+/),
-  check('teoric_part').isNumeric(),
-  check('pratic_part').isNumeric(),
-  check('subscription_cost').isNumeric(),
-  check('certificate_cost').isNumeric(),
-],(req, res) => {
-  if (!req.user || req.user.group !== 'admin') return res.redirect('/login');
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.render('add_formation', {
-      pageTitle: 'Registar Formação',
-      error: utils.changeError(errors.array()[0]),
-      form_data: req.body
-    });
-  } else {
-    Formation.create({
-      name: req.body.name,
-      description: req.body.description,
-      teoric_part: req.body.teoric_part,
-      pratic_part: req.body.pratic_part,
-      subscription_cost: req.body.subscription_cost,
-      certificate_cost: req.body.certificate_cost
-    })
-    .then(r => {
-      return res.redirect('/formations');
-    });
+app.post(
+  "/add_formation",
+  [
+    check("name").matches(/.+/),
+    check("teoric_part").isNumeric(),
+    check("pratic_part").isNumeric(),
+    check("subscription_cost").isNumeric(),
+    check("certificate_cost").isNumeric()
+  ],
+  (req, res) => {
+    if (!req.user || req.user.group !== "admin") return res.redirect("/login");
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.render("add_formation", {
+        pageTitle: "Registar Formação",
+        error: utils.changeError(errors.array()[0]),
+        form_data: req.body
+      });
+    } else {
+      Formation.create({
+        name: req.body.name,
+        description: req.body.description,
+        teoric_part: req.body.teoric_part,
+        pratic_part: req.body.pratic_part,
+        subscription_cost: req.body.subscription_cost,
+        certificate_cost: req.body.certificate_cost
+      }).then(r => {
+        return res.redirect("/formations");
+      });
+    }
   }
-});
+);
 
-app.get('/formation/:fid(\\d+)', (req, res) => {
-  if (!req.user || req.user.group !== 'admin') return res.redirect('/login');
-  Formation.findById(req.params.fid)
-  .then(f => {
-    return res.render('formation_edit', {
-      pageTitle: 'Editar Formação',
+app.get("/formation/:fid(\\d+)", (req, res) => {
+  if (!req.user || req.user.group !== "admin") return res.redirect("/login");
+  Formation.findById(req.params.fid).then(f => {
+    return res.render("formation_edit", {
+      pageTitle: "Editar Formação",
       formation: f.dataValues
     });
   });
 });
 
-app.post('/formation/:fid(\\d+)', [
-  check('name').matches(/.+/),
-  check('teoric_part').isNumeric(),
-  check('pratic_part').isNumeric(),
-  check('subscription_cost').isNumeric(),
-  check('certificate_cost').isNumeric(),
-], (req, res) => {
-  if (!req.user || req.user.group !== 'admin') return res.redirect('/login');
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.render('formation_edit', {
-      pageTitle: 'Editar Formação',
-      formation: f.dataValues,
-      error: utils.changeError(errors.array()[0])
-    })
-  } else {
-    Formation.update({
-      name: req.body.name,
-      teoric_part: req.body.teoric_part,
-      pratic_part: req.body.pratic_part,
-      subscription_cost: req.body.subscription_cost,
-      certificate_cost: req.body.certificate_cost,
-      description: req.body.description
-    }, {
-      where: {
-        id: req.params.fid
-      }
-    }).then(r => {
-      return res.redirect('/formations');
-    });
+app.post(
+  "/formation/:fid(\\d+)",
+  [
+    check("name").matches(/.+/),
+    check("teoric_part").isNumeric(),
+    check("pratic_part").isNumeric(),
+    check("subscription_cost").isNumeric(),
+    check("certificate_cost").isNumeric()
+  ],
+  (req, res) => {
+    if (!req.user || req.user.group !== "admin") return res.redirect("/login");
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.render("formation_edit", {
+        pageTitle: "Editar Formação",
+        formation: f.dataValues,
+        error: utils.changeError(errors.array()[0])
+      });
+    } else {
+      Formation.update(
+        {
+          name: req.body.name,
+          teoric_part: req.body.teoric_part,
+          pratic_part: req.body.pratic_part,
+          subscription_cost: req.body.subscription_cost,
+          certificate_cost: req.body.certificate_cost,
+          description: req.body.description
+        },
+        {
+          where: {
+            id: req.params.fid
+          }
+        }
+      ).then(r => {
+        return res.redirect("/formations");
+      });
+    }
   }
-});
+);
 
-app.get('/choose_formation/:personId', (req, res) => {
-  if (!req.user) return res.redirect('/login');
+app.get("/choose_formation/:personId", (req, res) => {
+  if (!req.user) return res.redirect("/login");
   let context = {};
   Formation.findAll()
-  .then(fs => {
-    context.formation = fs;
-    return Person.findById(req.params.personId)
-  })
-  .then(p => {
-    context.pageTitle = `Escolhe Formações para ${p.name}`;
-    context.personId = p.id;
-    return p.getFormations();
-  })
-  .then(fs => {
-    context.formation = context.formation.filter(el => {
-      for (element of fs) {
-        if (element.id === el.id){
-          return false
+    .then(fs => {
+      context.formation = fs;
+      return Person.findById(req.params.personId);
+    })
+    .then(p => {
+      context.pageTitle = `Escolhe Formações para ${p.name}`;
+      context.personId = p.id;
+      return p.getFormations();
+    })
+    .then(fs => {
+      context.formation = context.formation.filter(el => {
+        for (element of fs) {
+          if (element.id === el.id) {
+            return false;
+          }
         }
-      }
-      return true;
+        return true;
+      });
+      res.render("choose_formation", context);
     });
-    res.render('choose_formation', context);
-  });
 });
 
-app.post('/choose_formation/:personId', (req, res) => {
-  if (!req.user) return res.redirect('/login');
+app.post("/choose_formation/:personId", (req, res) => {
+    if (!req.user) return res.redirect("/login");
 
-  let context = {};
-  Person.findById(req.params.personId)
-  .then(p => {
-    context.p = p;
-    return Formation.findAll();
-  })
-  .then(fs => {
-    formations = [];
-    for (formation of fs) {
-      if (req.body[formation.id] === 'on') {
-        formations.push(formation.id);
-      }
-    }
-    return context.p.addFormations(formations);
-  })
-  .then(() => {
-    context.p.state = 'formation';
-    return context.p.save();
-  })
-  .then(() => {
-    return Payment.create({
-      toPay: req.body.total,
-      paid: 0,
-      hasDiscount: req.body.hasDiscount === 'on',
-      discount: req.body.discount,
-      personId: context.p.id
-    });
-  })
-  .then(p => res.redirect(`/details/${req.params.personId}`));
+    let context = {};
+    Person.findById(req.params.personId)
+    .then(p => {
+        context.p = p;
+        return Formation.findAll();
+    })
+    .then(fs => {
+        formations = [];
+        for (formation of fs) {
+            if (req.body[formation.id] === "on") {
+                formations.push(formation.id);
+            }
+        }
+        return context.p.addFormations(formations);
+    })
+    .then(() => {
+        context.p.state = "formation";
+        return context.p.save();
+    })
+    .then(() => {
+        return context.p.getFormations();
+    })
+    .then(fs => {
+        context.formations = fs;
+        return Payment.find({
+            where: {
+            personId: req.params.personId
+            }
+        });
+    })
+    .then(p => {
+        let total = 0;
+        for (el of context.formations) {
+            total += el.subscription_cost + el.certificate_cost;
+        }
+        total *= (100 - parseFloat(req.body.discount)) / 100;
+
+        if (p) {
+            return p.update({
+                toPay: total,
+                discount: req.body.discount
+            });
+        }
+        
+        return Payment.create({
+            toPay: total,
+            paid: 0,
+            discount: req.body.discount,
+            personId: context.p.id
+        });
+    })
+    .then(p => res.redirect(`/details/${req.params.personId}`));
 });
-
 
 app.listen(port, "0.0.0.0", () => {
   console.log("Server started at port %d", port);

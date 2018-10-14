@@ -86,10 +86,8 @@ const calculateTotal = () => {
             total += subscription + certificate;
         }
     }
-    if (document.getElementById('hasDiscount').checked) {
-        let discount = parseFloat(document.getElementById('discount').value);
-        total *= (100 - discount) / 100;
-    }
+    let discount = parseFloat(document.getElementById('discount').value);
+    total *= (100 - discount) / 100;
     document.getElementById('total').value = total;
 };
 
