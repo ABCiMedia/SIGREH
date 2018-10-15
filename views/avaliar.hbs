@@ -4,15 +4,15 @@
     {{# error }}
     <p class='error'>{{ param }}: {{ msg }}</p>
     {{/ error }}
-    <form class='avaliar' action="/avaliar/{{ person.dataValues.id }}" method='post'>
+    <form class='avaliar' action="/avaliar/{{ person.id }}" method='post'>
 
         <fieldset class='personal_data'>
             <label for='name'>Nome</label>
-            <input name="name" value='{{ person.dataValues.name }}' disabled>
+            <input name="name" value='{{ person.name }}' disabled>
             <label for="phone">Contacto</label>
-            <input name='phone' value='{{ person.dataValues.phone}}' disabled>
+            <input name='phone' value='{{ person.phone}}' disabled>
             <label for="address">Endereço</label>
-            <input name='address' value='{{ person.dataValues.address }}' disabled><br>
+            <input name='address' value='{{ person.address }}' disabled><br>
             <label for="shop">Loja</label>
             <select name="shop" id='shops'>
                 <option value="fazenda">Fazenda</option>

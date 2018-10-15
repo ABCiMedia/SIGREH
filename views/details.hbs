@@ -25,7 +25,9 @@
             <a class='btn' href='/edit/{{ person.dataValues.id }}'>Editar</a>
             <a class='btn' href='/avaliado/{{ person.dataValues.id }}'>Avaliar</a>
             <a class='btn' href="/choose_formation/{{person.dataValues.id}}">Escolher Formação</a>
+            {{#if formation}}
             <a class='btn' href="/payment/{{person.dataValues.id}}">Efectuar Pagamento</a>
+            {{/if}}
         </ul>
         
         <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
