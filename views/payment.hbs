@@ -4,6 +4,7 @@
         {{#error}}
         <p class='error'>{{param}}: {{msg}}</p>
         {{/error}}
+        <h3 class='hide'>RECIBO:</h3>
         <form class='frm-print edit' method='post' action='/payment/{{person.id}}'>
             <li><b>ID:</b><input disabled value='{{ person.id }}'></li>
             <li><b>Nome:</b><input disabled value='{{ person.name }}'></li>
@@ -13,7 +14,7 @@
             <div class='hide date-print'>
                 <span>Data: {{date}}</span>
             </div>
-            <li class='hide-print'><b>Quantidade:</b><input type='number' name='quantity' required></li>
+            <li class='hide-print'><b>Montante:</b><input type='number' name='quantity' required></li>
             <div class='eb hide-print'>
                 <input class='btn' type='submit' value='Pagar'>
                 <a class='btn' href='/details/{{ person.id }}'>Voltar</a>
