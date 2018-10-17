@@ -20,6 +20,7 @@
     "mysql2": "^1.6.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "pg": "^7.5.0",
     "sequelize": "^4.38.1",
     "uuid": "^3.3.2",
     "yargs": "^12.0.2"
