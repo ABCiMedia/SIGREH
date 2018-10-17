@@ -1,7 +1,7 @@
 module.exports = {
-    database: 'rh-db',
-    username: 'root',
-    password: null,
+    database: 'rhdb',
+    username: 'postgres',
+    password: 'sessilU',
     host: 'localhost',
-    dialect: 'mysql'
+    dialect: 'postgres'
 }
