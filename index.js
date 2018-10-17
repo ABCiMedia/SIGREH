@@ -219,7 +219,7 @@ app.post(
     check("name").matches(/^[a-zA-Z0-9_ .]+$/),
     check("birthdate").isBefore(new Date().toLocaleDateString()),
     check("phone").isMobilePhone(),
-    check("email").isEmail(),
+    // check("email").isEmail(),
     check("bi").matches(/^\d{4,7}$/),
     check("nif").matches(/^\d{6,10}$/),
     check("gender").isIn(["male", "female"])
