@@ -5,7 +5,8 @@
             <thead>
                 <tr>
                     <th><a href='/pessoas/indb'>Na Base de Dados</a></th>
-                    <th><a href='/pessoas/regi'>Apenas registradas</a></th>
+                    <th><a href='/pessoas/regi'>Registrados</a></th>
+                    <th><a href="/pessoas/wait">Esperando Formação</a></th>
                     <th><a href='/pessoas/form'>Formando</a></th>
                     <th><a href='/pessoas/inte'>Em Estágio</a></th>
                     <th><a href='/pessoas/hire'>Colocado</a></th>
@@ -17,6 +18,7 @@
                 <tr>
                     <td><a href="/pessoas/indb">{{ peopleInDB }}</a></td>
                     <td><a href="/pessoas/regi">{{ peopleRegistered }}</a></td>
+                    <td><a href="/pessoas/wait">{{ peopleWaiting }}</a></td>
                     <td><a href="/pessoas/form">{{ peopleFormating }}</a></td>
                     <td><a href="/pessoas/inte">{{ peopleInInternship }}</a></td>
                     <td><a href="/pessoas/hire">{{ peopleHired }}</a></td>
@@ -40,10 +42,11 @@
             var myChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Apenas Registradas', 'Formando', 'Em Estágio', 'Colocado', 'Em Reserva'],
+                    labels: ['Registrados', 'Esperando Formação', 'Formando', 'Em Estágio', 'Colocado', 'Em Reserva'],
                     datasets: [{
                         data: [
-                            {{ peopleRegistered }}, 
+                            {{ peopleRegistered }},
+                            {{ peopleWaiting }},
                             {{ peopleFormating }},
                             {{ peopleInInternship }},
                             {{ peopleHired }}, 
@@ -51,6 +54,7 @@
                         ],
                         backgroundColor: [
                             'rgba(218, 233, 13, 0.2)',
+                            'rgb(128, 128, 128, 0.2)',
                             'rgba(56, 226, 41, 0.2)',
                             'rgba(204, 153, 11, 0.2)',
                             'rgba(255, 99, 132, 0.2)',
@@ -58,6 +62,7 @@
                         ],
                         borderColor: [
                             'rgba(218, 233, 13, 1)',
+                            'rgb(128, 128, 128, 1)',
                             'rgba(56, 226, 41, 1)',
                             'rgba(204, 153, 11, 1)',
                             'rgba(255,99,132,1)',

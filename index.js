@@ -155,6 +155,14 @@ app.get("/", (req, res) => {
       options.peopleRegistered = r.count;
       return Person.findAndCountAll({
         where: {
+          state: 'waiting_formation'
+        }
+      });
+    })
+    .then(r => {
+      options.peopleWaiting = r.count;
+      return Person.findAndCountAll({
+        where: {
           state: "formation"
         }
       });
@@ -281,6 +289,15 @@ app.get("/pessoas/:category", (req, res) => {
       }).then(r => {
         context.person = utils.changeSG(r);
         res.render("list", context);
+      });
+      break;
+    case "wait":
+      context.pageTitle = "Pessoas a espera de Formação";
+      Person.findAll({
+        where: { state: 'waiting_formation'}
+      }).then(r => {
+        context.person = utils.changeSG(r)
+        res.render('list', context);
       });
       break;
     case "form":
