@@ -390,7 +390,7 @@ app.post("/edit/:userId(\\d+)", [
     check("name").matches(/^[a-zA-Z0-9_ .]+$/),
     check("birthdate").matches(/^\d{4}-\d{2}-\d{2}$/),
     check("phone").isMobilePhone(),
-    check("email").isEmail(),
+    // check("email").isEmail(),
     check("bi").isNumeric(),
     check("nif").isNumeric(),
     check("gender").isIn(["male", "female"]),
