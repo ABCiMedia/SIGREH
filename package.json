@@ -12,6 +12,7 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "chart.js": "^2.7.2",
+    "connect-pg-simple": "^5.0.0",
     "express": "^4.16.3",
     "express-mysql-session": "^2.0.1",
     "express-session": "^1.15.6",

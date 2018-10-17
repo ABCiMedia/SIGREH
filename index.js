@@ -6,7 +6,8 @@ const express = require("express"),
   session = require("express-session"),
   uuid = require("uuid/v4"),
   bcrypt = require("bcrypt-nodejs"),
-  MySQLStore = require("express-mysql-session")(session),
+  // MySQLStore = require("express-mysql-session")(session),
+  PostgreSQLStore = require('connect-pg-simple')(session),
   Sequelize = require("sequelize");
 
 const { Person } = require("./models/Person"),
@@ -103,16 +104,26 @@ app.use((req, res, next) => {
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
 app.use(
   session({
     secret: "This is the secret key",
     genid: () => uuid(),
-    store: new MySQLStore({
-      database: cred.database,
-      user: cred.username,
-      password: cred.password,
-      host: cred.host,
-      port: 3306
+    // store: new MySQLStore({
+    //   database: cred.database,
+    //   user: cred.username,
+    //   password: cred.password,
+    //   host: cred.host,
+    //   port: 3306
+    // }),
+    store: new PostgreSQLStore({
+      conObject: {
+        user: cred.username,
+        password: cred.password,
+        host: cred.host,
+        port: 5432,
+        database: cred.database
+      }
     }),
     saveUninitialized: true,
     resave: false
