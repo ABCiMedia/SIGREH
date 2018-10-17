@@ -21,7 +21,7 @@ const Person = sequelize.define('person', {
     bi: {type: Sequelize.INTEGER},
     nif: {type: Sequelize.INTEGER},
     gender: {type: Sequelize.STRING},
-    state: {type: Sequelize.ENUM(['registered', 'formation', 'internship', 'hired', 'reserved'])},
+    state: {type: Sequelize.ENUM(['registered', 'waiting_formation', 'formation', 'internship', 'hired', 'reserved'])},
     score: Sequelize.REAL,
     scoreText: Sequelize.STRING
 });

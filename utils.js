@@ -1,5 +1,6 @@
 const portMap = new Map([
-    ['registered', 'Registrado'], 
+    ['registered', 'Registrado'],
+    ['waiting_formation', 'Esperando Formação'],
     ['formation', 'Em Formação'],
     ['internship', 'Em Estágio'], 
     ['hired', 'Colocado'],
@@ -63,13 +64,13 @@ const changeSG = (person) => {
     // if person is an array
     if(person.hasOwnProperty('length')) {
         for(p of person) {
-            p.dataValues.state = portMap.get(p.dataValues.state);
-            p.dataValues.gender = p.dataValues.gender === 'male' ? 'Masculino' : 'Feminino';
+            p.state = portMap.get(p.state);
+            p.gender = p.gender === 'male' ? 'Masculino' : 'Feminino';
         }
     // if it is an object
     } else {
-        person.dataValues.state = portMap.get(person.dataValues.state);
-        person.dataValues.gender = person.dataValues.gender === 'male' ? 'Masculino' : 'Feminino';
+        person.state = portMap.get(person.state);
+        person.gender = person.gender === 'male' ? 'Masculino' : 'Feminino';
     }
     return person;
 };

@@ -2,16 +2,16 @@
     <body>
         {{> header }}
         <ul class='dtls'>
-            <li><b>ID:</b> {{ person.dataValues.id }}</li>
-            <li><b>Nome:</b> {{ person.dataValues.name }}</li>
+            <li><b>ID:</b> {{ person.id }}</li>
+            <li><b>Nome:</b> {{ person.name }}</li>
             <li><b>Data de Nascimento:</b> {{ birthdate }}</li>
-            <li><b>Morada:</b> {{ person.dataValues.address }}</li>
-            <li><b>Telefone:</b> {{ person.dataValues.phone }}</li>
-            <li><b>Email:</b> {{ person.dataValues.email }}</li>
-            <li><b>BI:</b> {{ person.dataValues.bi }}</li>
-            <li><b>NIF:</b> {{ person.dataValues.nif }}</li>
-            <li><b>Género:</b> {{ person.dataValues.gender }}</li>
-            <li><b>Estádo:</b> {{ person.dataValues.state }}</li>
+            <li><b>Morada:</b> {{ person.address }}</li>
+            <li><b>Telefone:</b> {{ person.phone }}</li>
+            <li><b>Email:</b> {{ person.email }}</li>
+            <li><b>BI:</b> {{ person.bi }}</li>
+            <li><b>NIF:</b> {{ person.nif }}</li>
+            <li><b>Género:</b> {{ person.gender }}</li>
+            <li><b>Estádo:</b> {{ person.state }}</li>
             <li><b>Criado por:</b> {{ createdBy }}</li>
             <h3>Formações em que se encontra inscrito:</h3>
             {{#if formation}}

@@ -394,7 +394,7 @@ app.post("/edit/:userId(\\d+)", [
     check("bi").isNumeric(),
     check("nif").isNumeric(),
     check("gender").isIn(["male", "female"]),
-    check("state").isIn(["registered", "formation", "internship", "hired", "reserved"])
+    check("state").isIn(["registered", "waiting_formation", "formation", "internship", "hired", "reserved"])
   ], (req, res) => {
 
     if (!req.user) return res.redirect("/login");
@@ -456,19 +456,17 @@ app.post("/edit/:userId(\\d+)", [
         for (f of buffer.formations) {
             total += f.subscription_cost + f.certificate_cost;
         }
-        total *= (100 - p.discount) / 100;
-        return p.update({
-            toPay: total
-        });
-    })
-    .then(() => {
-        if (buffer.formations.length === 0) {
-            buffer.p.state = 'registered';
+        if (p) {
+          total *= (100 - p.discount) / 100;
+          return p.update({
+              toPay: total
+          });
+        } else {
+          return new Promise((resolve, reject) => {resolve()});
         }
-        return buffer.p.save();
     })
-    .then(() => res.redirect(`/details/${req.params.userId}`))
-    .catch(e => res.redirect(`/edit/${req.params.userId}`));
+    .then(() => res.redirect(`/details/${req.params.userId}`));
+    // .catch(e => res.redirect(`/edit/${req.params.userId}`));
 });
 
 app.get("/avaliar/:userId(\\d+)", (req, res) => {
