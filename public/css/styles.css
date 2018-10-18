@@ -5,7 +5,7 @@ html, body{
 }
 
 header {
-    color: lightblue;
+    color: #2E40B2;
 }
 
 header h1 {
@@ -16,19 +16,19 @@ header h1 {
 .ruler {
     width: 40vw;
     height: 2px;
-    background-color: rgba(54, 162, 235, .5);
+    background-color: #2E40B2;
 }
 
 .tbl {
     border-collapse: collapse;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(54, 162, 235, 0.2));
+    /* background-image: linear-gradient(white, #FFDD6D); */
     margin: 0 auto;
     margin-top: 50px;
-    color: rgba(15, 15, 168, 0.678);
+    color: #2E40B2;
 }
 
 .tbl, .tbl th, .tbl td {
-    border: 2px solid rgba(54, 162, 235, .5);
+    border: 2px solid #2E40B2;
 }
 
 .tbl th, .tbl td {
@@ -62,14 +62,14 @@ form label {
 }
 
 form input {
-    border: 1px solid rgba(54, 162, 235, .5);
+    border: 1px solid #2E40B2;
     padding: 5px;
     width: 169px;
 }
 
 fieldset {
     width: 90%;
-    border: 1px solid rgba(54, 162, 235, .5);
+    border: 1px solid #2E40B2;
     margin-bottom: 15px;
     margin-top: -5px;
 }
@@ -85,10 +85,14 @@ fieldset label, fieldset input {
 
 form input[type='submit'], .btn {
     width: 97%;
-    background-color: rgba(54, 162, 235, .5);
-    color: white;
+    background-color: #FFDD6D;
+    color: #2E40B2;
     font-weight: bolder;
     padding: 10px;
+}
+
+form input[type=submit]:hover, .btn:hover {
+    background-color: #B29534;
 }
 
 .error {
@@ -137,8 +141,8 @@ form input[type='submit'], .btn {
     width: 60%;
     margin: 0 auto;
     margin-top: 20px;
-    border: 1px solid rgba(54, 162, 235, .5);
-    border-radius: 10px;
+    /* border: 1px solid #2E40B2; */
+    /* border-radius: 10px; */
     padding-top: 20px;
     padding-bottom: 20px;
 }
@@ -146,18 +150,18 @@ form input[type='submit'], .btn {
 .dtls li {
     list-style: none;
     margin: 10px;
-    color: cadetblue;
+    color: #2E40B2;
 }
 
 .dtls b {
     display: inline-block;
     width: 180px;
-    color: cadetblue;
-    border-bottom: 1px dashed lightblue;
+    color: #2E40B2;
+    border-bottom: 1px dashed #536AFF;
 }
 
 .dtls h3 {
-    color: cadetblue;
+    color: #2E40B2;
 }
 
 .dtls .btn {
@@ -175,8 +179,8 @@ form input[type='submit'], .btn {
     width: 58%;
     margin: 0 auto;
     margin-top: 20px;
-    border: 1px solid rgba(54, 162, 235, .5);
-    border-radius: 10px;
+    /* border: 1px solid rgba(54, 162, 235, .5); */
+    /* border-radius: 10px; */
     padding-top: 30px;
     padding-bottom: 10px;
 }
@@ -184,14 +188,14 @@ form input[type='submit'], .btn {
 .edit li {
     list-style: none;
     margin: 1.7px 50px;
-    color: cadetblue;
+    color: #2E40B2;
     width: 100%;
 }
 
 .edit b {
     display: inline-block;
     width: 180px;
-    border-bottom: 1px dashed lightblue;
+    border-bottom: 1px dashed #536AFF;
 }
 
 .edit .btn {
@@ -208,7 +212,7 @@ form input[type='submit'], .btn {
     width: 22.8%;
     padding: 3px;
     margin-left: -4px;
-    border: 1px solid lightblue;
+    border: 1px solid #2E40B2;
 }
 
 .edit input[type='checkbox'] {
@@ -249,7 +253,7 @@ form input[type='submit'], .btn {
 .avaliar textarea {
     resize: none;
     padding: 10px;
-    border: 1px solid lightblue;
+    border: 1px solid #2E40B2;
 }
 
 .avaliar input[type='submit'] {
@@ -308,7 +312,7 @@ form input[type='submit'], .btn {
 .rep {
     width: 100%;
     text-align: center;
-    color: rgba(54, 162, 235, .5);
+    color: #536AFF;
     font-weight: bolder;
     font-size: 1.5em;
 }
@@ -319,7 +323,7 @@ form input[type='submit'], .btn {
 }
 
 #shops {
-    border: 1px solid lightblue;
+    border: 1px solid #2E40B2;
     padding: 5px;
     margin-left: 5px;
     margin-right: 4px;
@@ -333,14 +337,13 @@ form input[type='submit'], .btn {
 }
 
 .dataTable, .display {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(54, 162, 235, 0.2));
-    color: rgba(15, 15, 168, 0.678);
-    border: 1px;
-    border-collapse: collapse;
+    /* background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(54, 162, 235, 0.2)); */
+    color: #2E40B2;
+    border: 1px solid #2E40B2;
 }
 
 .dataTables_wrapper td, .dataTables_wrapper th {
-    border: 1px solid lightblue;
+    border: 2px solid #2E40B2;
 }
 
 .dataTables_filter {
@@ -348,11 +351,19 @@ form input[type='submit'], .btn {
 }
 
 .dataTables_filter * {
-    color: darkblue;
+    color: #2E40B2;
 }
 
 .dataTables_filter input[type='search'] {
-    border: 1px solid lightblue;
+    border: 1px solid #2E40B2;
+    padding: 5px;
+}
+
+#myTable thead th {
+    border: 2px solid #2E40B2;
+}
+#myTable {
+    border-collapse: collapse;
 }
 
 @keyframes slide {
@@ -436,9 +447,10 @@ form input[type='submit'], .btn {
     padding: 0;
     margin: 0;
     width: 120px;
-    background-color: lightblue;
-    border-right: 2px solid rgba(54, 162, 235, .5);
+    background-color:#FFDD6D;
+    border-right: 2px solid #2E40B2;
     height: 90.5vh;
+    font-weight: bold;
 }
 
 .navbar li {
@@ -446,12 +458,35 @@ form input[type='submit'], .btn {
 }
 
 .navbar li:hover {
-    background-color: cadetblue;
+    background-color: #B29534;
 }
 
 .navbar a {
     display: block;
-    color: black;
+    color: #2E40B2;
     padding: 8px 16px;
     text-decoration: none;
+}
+
+.column {
+    color: #536AFF;
+}
+
+textarea {
+    resize: none;
+    border: 1px solid #2E40B2;
+}
+
+.group {
+    padding: 5px;
+    width: 181px;
+    border: 1px solid #2E40B2;
+}
+
+.test {
+    color: #B29534;
+    color: #FFDD6D;
+    color: #FFD753;
+    color: #2E40B2;
+    color: #536AFF;
 }

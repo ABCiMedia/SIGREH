@@ -39,6 +39,7 @@
 
         <script>
             var ctx = document.getElementById("cnv").getContext('2d');
+            
             var myChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
@@ -53,20 +54,12 @@
                             {{ peopleReserved }},
                         ],
                         backgroundColor: [
-                            'rgba(218, 233, 13, 0.2)',
-                            'rgb(128, 128, 128, 0.2)',
-                            'rgba(56, 226, 41, 0.2)',
-                            'rgba(204, 153, 11, 0.2)',
-                            'rgba(255, 99, 132, 0.2)',
+                            '#B29534',
+                            '#2E40B2',
+                            '#FFDD6D',
+                            '#536AFF',
+                            '#FFD753',
                             'rgba(54, 162, 235, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(218, 233, 13, 1)',
-                            'rgb(128, 128, 128, 1)',
-                            'rgba(56, 226, 41, 1)',
-                            'rgba(204, 153, 11, 1)',
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)'
                         ],
                         borderWidth: 1
                     }]

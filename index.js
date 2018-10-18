@@ -909,7 +909,9 @@ app.get("/formations", (req, res) => {
 app.get("/add_formation", (req, res) => {
   if (!req.user || req.user.group !== "admin") return res.redirect("/login");
   res.render("add_formation", {
-    pageTitle: "Registar Formação"
+    pageTitle: "Registar Formação",
+    user: req.user,
+    admin: req.user.group === 'admin'
   });
 });
 

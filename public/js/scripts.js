@@ -66,7 +66,18 @@ window.onload = () => {
 }
 
 $(document).ready(function () {
-    let options = {};
+    let options = {
+        lengthMenu: [7],
+        lengthChange: false,
+        info: false,
+        language: {
+            paginate: {
+                previous: '<<',
+                next: '>>'
+            },
+            search: 'Filtrar:'
+        }
+    };
     if (location.pathname === '/pessoas/eval'){
         options.order = [[4, 'desc']];
     }
