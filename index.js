@@ -899,7 +899,9 @@ app.get("/formations", (req, res) => {
   Formation.findAll().then(fs => {
     res.render("formations", {
       pageTitle: "Formações Disponiveis",
-      formations: fs
+      formations: fs,
+      user: req.user,
+      admin: req.user.group === 'admin'
     });
   });
 });
@@ -996,7 +998,10 @@ app.post(
 
 app.get("/choose_formation/:personId", (req, res) => {
   if (!req.user) return res.redirect("/login");
-  let context = {};
+  let context = {
+    user: req.user,
+    admin: req.user.group === 'admin'
+  };
   Formation.findAll()
     .then(fs => {
       context.formation = fs;
@@ -1078,8 +1083,11 @@ app.post("/choose_formation/:personId", (req, res) => {
 });
 
 app.get('/payment/:personId', (req, res) => {
+    if (!req.user) return res.redirect('/login');
     let context = {
-        pageTitle: 'Pagamento'
+        pageTitle: 'Pagamento',
+        user: req.user,
+        admin: req.user.group === 'admin'
     };
     Person.findById(req.params.personId)
     .then(pe => {
@@ -1099,6 +1107,7 @@ app.get('/payment/:personId', (req, res) => {
 });
 
 app.post('/payment/:personId', (req, res) => {
+    if (!req.user) return res.redirect('/login');
     Payment.find({
         where: {
             personId: req.params.personId

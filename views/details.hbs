@@ -1,6 +1,7 @@
 {{> head }}
     <body>
         {{> header }}
+        {{> navbar }}
         <ul class='dtls'>
             <li><b>ID:</b> {{ person.id }}</li>
             <li><b>Nome:</b> {{ person.name }}</li>
@@ -31,6 +32,5 @@
         </ul>
         
         <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
-        {{> footer }}
     </body>
 </html>

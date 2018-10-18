@@ -1,6 +1,7 @@
 {{> head}}
 <body>
     {{> header }}
+    {{> navbar }}
     {{# if evaluations }}
     <table class='tbl'>
         <thead>
@@ -46,6 +47,5 @@
     <img class='logout-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Sair'>
 
     {{> delete_modal }}
-    {{> footer}}
 </body>
 </html>

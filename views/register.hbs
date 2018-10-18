@@ -1,6 +1,7 @@
 {{> head }}
     <body>
         {{> header }}
+        {{> navbar }}
         {{# error }}
         <p class='error'>{{ param }}:{{ msg }}</p>
         {{/ error }}
@@ -29,6 +30,5 @@
             <input type='submit' value='Cadastrar'>
         </form>
         <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
-        {{> footer }}
     </body>
 </html>

@@ -1,6 +1,7 @@
 {{> head}}
 <body>
     {{> header }}
+    {{> navbar }}
     {{# error }}
     <p class='error'>{{ param }}: {{ msg }}</p>
     {{/ error }}
@@ -107,6 +108,5 @@
         <li>Muito Bom</li>
     </ol>
     <img class='logout-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Sair'>
-    {{> footer}}
 </body>
 </html>

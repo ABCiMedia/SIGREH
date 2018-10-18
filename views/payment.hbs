@@ -1,6 +1,7 @@
 {{> head }}
     <body>
         {{> header }}
+        {{> navbar }}
         {{#error}}
         <p class='error'>{{param}}: {{msg}}</p>
         {{/error}}
@@ -22,6 +23,5 @@
         </form>
         
         <img class='add-btn hide-print' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
-        {{> footer }}
     </body>
 </html>
