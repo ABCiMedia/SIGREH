@@ -195,6 +195,14 @@ app.get("/", (req, res) => {
       options.peopleReserved = r.count;
       return Person.findAndCountAll({
         where: {
+          state: 'gave_up'
+        }
+      });
+    })
+    .then(r => {
+      options.peopleGaveUp = r.count;
+      return Person.findAndCountAll({
+        where: {
           score: {
             [Sequelize.Op.ne]: null
           }
@@ -349,6 +357,17 @@ app.get("/pessoas/:category", (req, res) => {
         res.render("list_eval", context);
       });
       break;
+    case "gave":
+      context.pageTitle = "Pessoas que desistiram";
+      Person.findAll({
+        where: {
+          state: 'gave_up'
+        }
+      }).then(r => {
+        context.person = utils.changeSG(r);
+        res.render("list", context);
+      });
+      break;
     default:
       res.redirect("/");
   }
@@ -411,7 +430,7 @@ app.post("/edit/:userId(\\d+)", [
     check("bi").isNumeric(),
     check("nif").isNumeric(),
     check("gender").isIn(["male", "female"]),
-    check("state").isIn(["registered", "waiting_formation", "formation", "internship", "hired", "reserved"])
+    check("state").isIn(["registered", "waiting_formation", "formation", "internship", "hired", "reserved", 'gave_up'])
   ], (req, res) => {
 
     if (!req.user) return res.redirect("/login");

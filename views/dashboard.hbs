@@ -5,7 +5,7 @@
         <table class='tbl'>
             <thead>
                 <tr>
-                    <th><a href='/pessoas/indb'>Na Base de Dados</a></th>
+                    <th><a href='/pessoas/indb'>No BD</a></th>
                     <th><a href='/pessoas/regi'>Registrados</a></th>
                     <th><a href="/pessoas/wait">Esperando Formação</a></th>
                     <th><a href='/pessoas/form'>Formando</a></th>
@@ -13,6 +13,7 @@
                     <th><a href='/pessoas/hire'>Colocado</a></th>
                     <th><a href='/pessoas/rese'>Em Reserva</a></th>
                     <th><a href="/pessoas/eval">Avaliados</a></th>
+                    <th><a href="/pessoas/gave">Desistiu</a></th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,7 @@
                     <td><a href="/pessoas/hire">{{ peopleHired }}</a></td>
                     <td><a href="/pessoas/rese">{{ peopleReserved }}</a></td>
                     <td><a href="/pessoas/eval">{{ peopleEvaluated }}</a></td>
+                    <td><a href="/pessoas/gave">{{ peopleGaveUp }}</a></td>
                 </tr>
             </tbody>
         </table>
@@ -43,7 +45,7 @@
             var myChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Registrados', 'Esperando Formação', 'Formando', 'Em Estágio', 'Colocado', 'Em Reserva'],
+                    labels: ['Registrados', 'Esperando Formação', 'Formando', 'Em Estágio', 'Colocado', 'Em Reserva', 'Desistiu'],
                     datasets: [{
                         data: [
                             {{ peopleRegistered }},
@@ -52,6 +54,7 @@
                             {{ peopleInInternship }},
                             {{ peopleHired }}, 
                             {{ peopleReserved }},
+                            {{ peopleGaveUp }},
                         ],
                         backgroundColor: [
                             '#B29534',
@@ -59,7 +62,8 @@
                             '#FFDD6D',
                             '#536AFF',
                             '#FFD753',
-                            'rgba(54, 162, 235, 0.2)'
+                            'rgba(54, 162, 235, 0.2)',
+                            'green',
                         ],
                         borderWidth: 1
                     }]

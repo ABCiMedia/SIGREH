@@ -5,6 +5,7 @@ const portMap = new Map([
     ['internship', 'Em Estágio'], 
     ['hired', 'Colocado'],
     ['reserved', 'Em Reserva'],
+    ['gave_up', 'Desistiu'],
     ['male', 'Masculino'],
     ['female', 'Feminino']
 ]);
