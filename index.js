@@ -224,7 +224,7 @@ app.get("/inscrever", (req, res) => {
 app.post(
   "/inscrever",
   [
-    check("name").matches(/^[a-zA-Z0-9_ .]+$/),
+    check("name").isString(),
     check("birthdate").isBefore(new Date().toLocaleDateString()),
     check("phone").isMobilePhone(),
     // check("email").isEmail(),
@@ -404,7 +404,7 @@ app.get("/edit/:userId(\\d+)", (req, res) => {
 });
 
 app.post("/edit/:userId(\\d+)", [
-    check("name").matches(/^[a-zA-Z0-9_ .]+$/),
+    check("name").isString(),
     check("birthdate").matches(/^\d{4}-\d{2}-\d{2}$/),
     check("phone").isMobilePhone(),
     // check("email").isEmail(),
