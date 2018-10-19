@@ -5,7 +5,7 @@ html, body{
 }
 
 header {
-    color: #2E40B2;
+    color: #595959;
 }
 
 header h1 {
@@ -16,7 +16,8 @@ header h1 {
 .ruler {
     width: 40vw;
     height: 2px;
-    background-color: #2E40B2;
+    /* background-color: #F56915; */
+    background-color: #5EB804;
 }
 
 .tbl {
@@ -24,11 +25,11 @@ header h1 {
     /* background-image: linear-gradient(white, #FFDD6D); */
     margin: 0 auto;
     margin-top: 50px;
-    color: #2E40B2;
+    color: #595959;
 }
 
 .tbl, .tbl th, .tbl td {
-    border: 2px solid #2E40B2;
+    border: 2px solid #5EB804;
 }
 
 .tbl th, .tbl td {
@@ -38,7 +39,7 @@ header h1 {
 
 .tbl a {
     text-decoration: none;
-    color: rgba(15, 15, 168, 0.678);
+    color: #595959;
 }
 
 .chart {
@@ -52,7 +53,7 @@ form {
     width: 30%;
     margin: 0 auto;
     margin-top: 50px;
-    color: darkblue;
+    color: #1E5C01;
 }
 
 form label {
@@ -62,14 +63,15 @@ form label {
 }
 
 form input {
-    border: 1px solid #2E40B2;
+    border: 1px solid #5EB804;
+    color: #595959;
     padding: 5px;
     width: 169px;
 }
 
 fieldset {
     width: 90%;
-    border: 1px solid #2E40B2;
+    border: 1px solid #5EB804;
     margin-bottom: 15px;
     margin-top: -5px;
 }
@@ -84,15 +86,16 @@ fieldset label, fieldset input {
 }
 
 form input[type='submit'], .btn {
-    width: 97%;
-    background-color: #FFDD6D;
-    color: #2E40B2;
+    width: 96.4%;
+    background-color: #5EB804;
+    color: #F2F2F2;
     font-weight: bolder;
     padding: 10px;
+    border: none;
 }
 
 form input[type=submit]:hover, .btn:hover {
-    background-color: #B29534;
+    background-color: #F56915;
 }
 
 .error {
@@ -141,8 +144,6 @@ form input[type=submit]:hover, .btn:hover {
     width: 60%;
     margin: 0 auto;
     margin-top: 20px;
-    /* border: 1px solid #2E40B2; */
-    /* border-radius: 10px; */
     padding-top: 20px;
     padding-bottom: 20px;
 }
@@ -150,18 +151,18 @@ form input[type=submit]:hover, .btn:hover {
 .dtls li {
     list-style: none;
     margin: 10px;
-    color: #2E40B2;
+    color: #595959;
 }
 
 .dtls b {
     display: inline-block;
     width: 180px;
-    color: #2E40B2;
-    border-bottom: 1px dashed #536AFF;
+    color: #595959;
+    border-bottom: 1px dashed #5EB804;
 }
 
 .dtls h3 {
-    color: #2E40B2;
+    color: #595959;
 }
 
 .dtls .btn {
@@ -179,8 +180,6 @@ form input[type=submit]:hover, .btn:hover {
     width: 58%;
     margin: 0 auto;
     margin-top: 20px;
-    /* border: 1px solid rgba(54, 162, 235, .5); */
-    /* border-radius: 10px; */
     padding-top: 30px;
     padding-bottom: 10px;
 }
@@ -188,14 +187,14 @@ form input[type=submit]:hover, .btn:hover {
 .edit li {
     list-style: none;
     margin: 1.7px 50px;
-    color: #2E40B2;
+    color: #595959;
     width: 100%;
 }
 
 .edit b {
     display: inline-block;
     width: 180px;
-    border-bottom: 1px dashed #536AFF;
+    border-bottom: 1px dashed #5EB804;
 }
 
 .edit .btn {
@@ -212,7 +211,7 @@ form input[type=submit]:hover, .btn:hover {
     width: 22.8%;
     padding: 3px;
     margin-left: -4px;
-    border: 1px solid #2E40B2;
+    border: 1px solid #5EB804;
 }
 
 .edit input[type='checkbox'] {
@@ -239,6 +238,7 @@ form input[type=submit]:hover, .btn:hover {
 
 .avaliar .personal_data input {
     width: 100px;
+    color: #595959;
 }
 
 .avaliar fieldset label {
@@ -253,7 +253,7 @@ form input[type=submit]:hover, .btn:hover {
 .avaliar textarea {
     resize: none;
     padding: 10px;
-    border: 1px solid #2E40B2;
+    border: 1px solid #5EB804;
 }
 
 .avaliar input[type='submit'] {
@@ -269,9 +269,9 @@ form input[type=submit]:hover, .btn:hover {
 
 #info-content {
     position: fixed;
-    right: 100px;
+    right: 30px;
     bottom: 50px;
-    color: rgba(54, 162, 235, .5);
+    color: #595959;
     animation-name: slide;
     animation-duration: 0.5s;
 }
@@ -312,7 +312,7 @@ form input[type=submit]:hover, .btn:hover {
 .rep {
     width: 100%;
     text-align: center;
-    color: #536AFF;
+    color: #595959;
     font-weight: bolder;
     font-size: 1.5em;
 }
@@ -323,7 +323,8 @@ form input[type=submit]:hover, .btn:hover {
 }
 
 #shops {
-    border: 1px solid #2E40B2;
+    border: 1px solid #5EB804;
+    color: #595959;
     padding: 5px;
     margin-left: 5px;
     margin-right: 4px;
@@ -337,13 +338,12 @@ form input[type=submit]:hover, .btn:hover {
 }
 
 .dataTable, .display {
-    /* background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(54, 162, 235, 0.2)); */
-    color: #2E40B2;
-    border: 1px solid #2E40B2;
+    color: #595959;
+    border: 1px solid #5EB804;
 }
 
 .dataTables_wrapper td, .dataTables_wrapper th {
-    border: 2px solid #2E40B2;
+    border: 2px solid #5EB804;
 }
 
 .dataTables_filter {
@@ -351,16 +351,16 @@ form input[type=submit]:hover, .btn:hover {
 }
 
 .dataTables_filter * {
-    color: #2E40B2;
+    color: #595959;
 }
 
 .dataTables_filter input[type='search'] {
-    border: 1px solid #2E40B2;
+    border: 1px solid #5EB804;
     padding: 5px;
 }
 
 #myTable thead th {
-    border: 2px solid #2E40B2;
+    border: 2px solid #5EB804;
 }
 #myTable {
     border-collapse: collapse;
@@ -377,27 +377,27 @@ form input[type=submit]:hover, .btn:hover {
     }
 }
 
-/* The Modal (background) */
+
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
 
-/* Modal Content/Box */
+
 .modal-content {
-    background-image: linear-gradient(white, lightblue);
-    margin: 15% auto; /* 15% from the top and centered */
+    background-color: #F2F2F2;
+    margin: 15% auto;
     padding: 20px;
-    border: 2px solid rgba(54, 162, 235, .5);
-    width: 30%; /* Could be more or less, depending on screen size */
+    border: 2px solid #5EB804;
+    width: 30%; 
     animation: apear .5s;
 }
 
@@ -413,7 +413,13 @@ form input[type=submit]:hover, .btn:hover {
 #del, #cancel {
     border: none;
     padding: 5px;
-    background-color: rgba(54, 162, 235, .5);
+    background-color: #5EB804;
+    color: #F2F2F2;
+    font-weight: bold;
+}
+
+#del:hover, #cancel:hover {
+    background-color: #F56915;
 }
 
 /* The Close Button */
@@ -447,8 +453,8 @@ form input[type=submit]:hover, .btn:hover {
     padding: 0;
     margin: 0;
     width: 120px;
-    background-color:#FFDD6D;
-    border-right: 2px solid #2E40B2;
+    background-color:#5EB804;
+    border-right: 2px solid #5EB804;
     height: 90.5vh;
     font-weight: bold;
 }
@@ -458,35 +464,36 @@ form input[type=submit]:hover, .btn:hover {
 }
 
 .navbar li:hover {
-    background-color: #B29534;
+    background-color: #F56915;
 }
 
 .navbar a {
     display: block;
-    color: #2E40B2;
+    color: #F2F2F2;
     padding: 8px 16px;
     text-decoration: none;
 }
 
 .column {
-    color: #536AFF;
+    color: #595959;
 }
 
 textarea {
     resize: none;
-    border: 1px solid #2E40B2;
+    border: 1px solid #5EB804;
 }
 
 .group {
     padding: 5px;
     width: 181px;
-    border: 1px solid #2E40B2;
+    border: 1px solid #5EB804;
+    color: #595959;
 }
 
 .test {
-    color: #B29534;
-    color: #FFDD6D;
-    color: #FFD753;
-    color: #2E40B2;
-    color: #536AFF;
+    color: #F56915;
+    color: #1E5C01;
+    color: #F2F2F2;
+    color: #5EB804;
+    color: #595959;
 }
