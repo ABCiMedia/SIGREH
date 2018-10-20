@@ -5,10 +5,36 @@
 <script>
     new Vue({ 
         el: '#app',
-        data: {
+        data(){
+            return {
             show1: false,
-            navbar: false
-        },
+            navbar: false,
+            headers: [
+                {text: 'No DB', value: 'indb'},
+                {text: 'Registrados', value: 'regi'},
+                {text: 'Esperando Formação', value: 'wait'},
+                {text: 'Formando', value: 'form'},
+                {text: 'Em Estágio', value: 'inte'},
+                {text: 'Colocado', value: 'hire'},
+                {text: 'Em Reserva', value: 'rese'},
+                {text: 'Avaliados', value: 'eval'},
+                {text: 'Desistiu', value: 'gave'}
+            ],
+            stats: [
+                {
+                    value: false,
+                    indb: '{{peopleInDB}}',
+                    regi: '{{peopleRegistered}}',
+                    wait: '{{peopleWaiting}}',
+                    form: '{{peopleFormating}}',
+                    inte: '{{peopleInInternship}}',
+                    hire: '{{peopleHired}}',
+                    rese: '{{peopleReserved}}',
+                    eval: '{{peopleEvaluated}}',
+                    gave: '{{peopleGaveUp}}'
+                }
+            ]
+        }},
         methods: {
             submit(){
                 document.forms[0].submit();

@@ -2,34 +2,24 @@
     <body>
         {{> header }}
         {{> navbar }}
-        <table class='tbl'>
-            <thead>
-                <tr>
-                    <th><a href='/pessoas/indb'>No BD</a></th>
-                    <th><a href='/pessoas/regi'>Registrados</a></th>
-                    <th><a href="/pessoas/wait">Esperando Formação</a></th>
-                    <th><a href='/pessoas/form'>Formando</a></th>
-                    <th><a href='/pessoas/inte'>Em Estágio</a></th>
-                    <th><a href='/pessoas/hire'>Colocado</a></th>
-                    <th><a href='/pessoas/rese'>Em Reserva</a></th>
-                    <th><a href="/pessoas/eval">Avaliados</a></th>
-                    <th><a href="/pessoas/gave">Desistiu</a></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a href="/pessoas/indb">{{ peopleInDB }}</a></td>
-                    <td><a href="/pessoas/regi">{{ peopleRegistered }}</a></td>
-                    <td><a href="/pessoas/wait">{{ peopleWaiting }}</a></td>
-                    <td><a href="/pessoas/form">{{ peopleFormating }}</a></td>
-                    <td><a href="/pessoas/inte">{{ peopleInInternship }}</a></td>
-                    <td><a href="/pessoas/hire">{{ peopleHired }}</a></td>
-                    <td><a href="/pessoas/rese">{{ peopleReserved }}</a></td>
-                    <td><a href="/pessoas/eval">{{ peopleEvaluated }}</a></td>
-                    <td><a href="/pessoas/gave">{{ peopleGaveUp }}</a></td>
-                </tr>
-            </tbody>
-        </table>
+
+         <v-data-table
+            :headers="headers"
+            :items='stats'
+            hide-actions
+            class='elevation-1'>
+            <template slot='items' slot-scope='props'>
+                <td v-on:click='load("/pessoas/indb")'>\{{props.item.indb}}</td>
+                <td v-on:click='load("/pessoas/regi")'>\{{props.item.regi}}</td>
+                <td v-on:click='load("/pessoas/wait")'>\{{props.item.wait}}</td>
+                <td v-on:click='load("/pessoas/form")'>\{{props.item.form}}</td>
+                <td v-on:click='load("/pessoas/inte")'>\{{props.item.inte}}</td>
+                <td v-on:click='load("/pessoas/hire")'>\{{props.item.hire}}</td>
+                <td v-on:click='load("/pessoas/rese")'>\{{props.item.rese}}</td>
+                <td v-on:click='load("/pessoas/eval")'>\{{props.item.eval}}</td>
+                <td v-on:click='load("/pessoas/gave")'>\{{props.item.gave}}</td>
+            </template>
+        </v-data-table>
 
         {{!-- chart --}}
         <div class='chart'>

@@ -505,6 +505,10 @@ textarea {
     margin: 10px auto;
 }
 
+.elevation-1 {
+    margin: 90px auto 10px auto;
+}
+
 .test {
     color: #F56915;
     color: #1E5C01;
