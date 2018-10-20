@@ -24,7 +24,7 @@ header h1 {
     border-collapse: collapse;
     /* background-image: linear-gradient(white, #FFDD6D); */
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 80px;
     color: #595959;
 }
 
@@ -52,7 +52,7 @@ header h1 {
 form {
     width: 30%;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 90px;
     color: #1E5C01;
 }
 
@@ -334,7 +334,7 @@ form input[type=submit]:hover, .btn:hover {
 .dataTables_wrapper {
     width: 60%;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 90px;
 }
 
 .dataTable, .display {
@@ -495,7 +495,7 @@ textarea {
 }
 
 .v-card {
-    margin: 20px auto;
+    margin: 90px auto;
     padding: 0 50px 10px 50px;
 }
 

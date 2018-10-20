@@ -1,5 +1,8 @@
 <div id='app'>
     <v-app>
-        <v-toolbar class='hide-print'>
+        <v-toolbar app class='hide-print'>
+            {{#if user}}
+            <v-toolbar-side-icon @click="navbar = !navbar"></v-toolbar-side-icon>
+            {{/if}}
             <h1>{{ pageTitle }}</h1>
         </v-toolbar>

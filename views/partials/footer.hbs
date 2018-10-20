@@ -6,11 +6,15 @@
     new Vue({ 
         el: '#app',
         data: {
-            show1: false
+            show1: false,
+            navbar: false
         },
         methods: {
             submit(){
                 document.forms[0].submit();
+            },
+            load(data){
+                location.pathname = data;
             }
         }
     })

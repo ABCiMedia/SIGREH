@@ -1,9 +1,9 @@
-<ul class='navbar hide-print'>
-    <li><a href="/pessoas/indb">BD</a></li>
-    <li><a href="/inscrever">Inscrever</a></li>
-    <li><a href="/">Painel</a></li>
+<v-navigation-drawer app width='200' v-model="navbar">
+    <v-list><v-list-tile v-on:click="load('/pessoas/indb')">BD</v-list-tile></v-list>
+    <v-list><v-list-tile v-on:click="load('/inscrever')">Inscrever</v-list-tile></v-list>
+    <v-list><v-list-tile v-on:click="load('/')">Painel</v-list-tile></v-list>
     {{#if admin }}
-    <li><a href="/formations">Formações</a></li>
-    <li><a href="/admin">Admin</a></li>
+    <v-list><v-list-tile v-on:click="load('/formations')">Formações</v-list-tile></v-list>
+    <v-list><v-list-tile v-on:click="load('/admin')">Admin</v-list-tile></v-list>
     {{/if}}
-</ul>
+</v-navigation-drawer>
