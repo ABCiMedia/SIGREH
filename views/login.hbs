@@ -2,15 +2,29 @@
     <body>
         {{> header }}
         {{# error }}
-        <p class='error'>{{ param }}:{{ msg }}</p>
+            <v-alert value=true color='error' dismissible>
+                {{ param }}:{{ msg }}
+            </v-alert>
         {{/ error }}
-        <form action="/login" method='post'>
-            <label>Nome de Utilizador:</label>
-            <input name='username' placeholder='Nome de Utilizador' {{#if form_data }}value={{form_data.username}}{{/if}}><br>
-            <label>Senha:</label>
-            <input type='password' name='password' placeholder='Senha' {{#if form_data }}value={{form_data.password}}{{/if}}><br>
-            <input type='submit' value='Entrar'>
-        </form>
+        <v-card width=400 raised>
+            <v-form action="/login" method='post'>
+                <v-text-field
+                    name='username'
+                    placeholder='Nome de Utilizador'
+                    required
+                    {{#if form_data }}value={{form_data.username}}{{/if}}></v-text-field>
+                <v-text-field
+                    name='password'
+                    :append-icon= "show1? 'visibility_off': 'visibility'"
+                    @click:append="show1 = !show1"
+                    :type="show1 ? 'text' : 'password'"
+                    placeholder='Senha'
+                    {{#if form_data }}value={{form_data.password}}{{/if}}></v-text-field>
+                <v-btn @click="submit">
+                    Entrar
+                </v-btn>
+            </v-form>
+        </v-card>
         {{> footer }}
     </body>
 </html>

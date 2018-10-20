@@ -63,7 +63,7 @@ form label {
 }
 
 form input {
-    border: 1px solid #5EB804;
+    /* border: 1px solid #5EB804; */
     color: #595959;
     padding: 5px;
     width: 169px;
@@ -488,6 +488,21 @@ textarea {
     width: 181px;
     border: 1px solid #5EB804;
     color: #595959;
+}
+
+.v-form {
+    width: 100%;
+}
+
+.v-card {
+    margin: 20px auto;
+    padding: 0 50px 10px 50px;
+}
+
+.v-alert {
+    height: 30px;
+    padding: 0;
+    margin: 10px auto;
 }
 
 .test {
