@@ -15,9 +15,9 @@
                     {{#if form_data }}value={{form_data.username}}{{/if}}></v-text-field>
                 <v-text-field
                     name='password'
-                    :append-icon= "show1? 'visibility_off': 'visibility'"
-                    @click:append="show1 = !show1"
-                    :type="show1 ? 'text' : 'password'"
+                    :append-icon= "show_pass ? 'visibility_off': 'visibility'"
+                    @click:append="show_pass = !show_pass"
+                    :type="show_pass ? 'text' : 'password'"
                     placeholder='Senha'
                     {{#if form_data }}value={{form_data.password}}{{/if}}></v-text-field>
                 <v-btn @click="submit">

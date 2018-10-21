@@ -1,7 +1,35 @@
 <v-navigation-drawer app width='200' v-model="navbar">
-    <v-list><v-list-tile v-on:click="load('/pessoas/indb')">BD</v-list-tile></v-list>
-    <v-list><v-list-tile v-on:click="load('/inscrever')">Inscrever</v-list-tile></v-list>
-    <v-list><v-list-tile v-on:click="load('/')">Painel</v-list-tile></v-list>
+    <v-list>
+        <v-list-tile v-on:click="load('/')">
+            <v-list-tile-action>
+                <i class='fas fa-file'></i>
+            </v-list-tile-action>
+            <v-list-tile-content>
+                <v-list-tile-title>Painel</v-list-tile-title>
+            </v-list-tile-content>
+        </v-list-tile>
+    </v-list>
+    <v-list>
+        <v-list-tile v-on:click="load('/pessoas/indb')">
+            <v-list-tile-action>
+                <i class='fas fa-database'></i>
+            </v-list-tile-action>
+            <v-list-tile-content>
+                <v-list-tile-title>BD</v-list-tile-title>
+            </v-list-tile-content>
+        </v-list-tile>
+    </v-list>
+    <v-list>
+        <v-list-tile v-on:click="load('/inscrever')">
+            <v-list-tile-action>
+                <i class='fas fa-user-plus'></i>
+            </v-list-tile-action>
+            <v-list-tile-content>
+                <v-list-tile-title>Inscrever</v-list-tile-title>
+            </v-list-tile-content>
+        </v-list-tile>
+    </v-list>
+    <v-divider></v-divider>
     {{#if admin }}
     <v-list><v-list-tile v-on:click="load('/formations')">Formações</v-list-tile></v-list>
     <v-list><v-list-tile v-on:click="load('/admin')">Admin</v-list-tile></v-list>
