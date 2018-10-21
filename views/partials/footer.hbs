@@ -3,12 +3,13 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
 <script>
-    new Vue({ 
+    vue = new Vue({ 
         el: '#app',
         data(){
             return {
             show_pass: false,
             navbar: false,
+            search: '',
             headers_dash: [
                 {text: 'No DB', value: 'indb'},
                 {text: 'Registrados', value: 'regi'},
@@ -19,6 +20,27 @@
                 {text: 'Em Reserva', value: 'rese'},
                 {text: 'Avaliados', value: 'eval'},
                 {text: 'Desistiu', value: 'gave'}
+            ],
+            headers_list: [
+                {text: 'ID', value: 'id'},
+                {text: 'Nome', value: 'name'},
+                {text: 'Endereço', value: 'address'},
+                {text: 'Telefone', value: 'phone'},
+                {text: 'Email', value: 'email'},
+                {text: 'Estado', value: 'state'},
+                {text: 'Acções', value: 'actions'}
+            ],
+            person: [
+                {{#each person }}
+                {
+                    id: '{{this.id}}',
+                    name: '{{this.name}}',
+                    address: '{{this.address}}',
+                    phone: '{{this.phone}}',
+                    email: '{{this.email}}',
+                    state: '{{this.state}}'
+                },
+                {{/each}}
             ],
             stats: [
                 {

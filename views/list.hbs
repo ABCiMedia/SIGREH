@@ -4,7 +4,7 @@
         {{> navbar }}
 
         {{# if person }}
-        <table id='myTable' class='display tbl'>
+        {{!-- <table id='myTable' class='display tbl'>
             <thead>
                 <tr>
                     <th>ID</th>
@@ -35,7 +35,31 @@
                 </tr>
                 {{/ each }}
             </tbody>
-        </table>
+        </table> --}}
+        <v-card>
+            <v-text-field
+                v-model="search"
+                append-icon="search"
+                label="Search"
+                single-line
+                hide-details
+            ></v-text-field>
+            <v-data-table
+            :headers="headers_list"
+            :items="person"
+            :search="search"
+            >
+            <template slot="items" slot-scope="props">
+                <td class="text-xs-left">\{{ props.item.id }}</td>
+                <td class="text-xs-left">\{{ props.item.name }}</td>
+                <td class="text-xs-left">\{{ props.item.address }}</td>
+                <td class="text-xs-left">\{{ props.item.phone }}</td>
+                <td class="text-xs-left">\{{ props.item.email }}</td>
+                <td class="text-xs-left">\{{ props.item.state }}</td>
+                <td class="text-xs-left"><i class='fas fa-trash'></i></td>
+            </template>
+            </v-data-table>
+        </v-card>
         
         {{else}}
         <p class='rep'>... Nenhuma pessoa encontrada ...</p>

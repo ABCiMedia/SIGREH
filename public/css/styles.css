@@ -509,6 +509,11 @@ textarea {
     margin: 90px auto 10px auto;
 }
 
+ .v-text-field--single-line {
+    width: 200px;
+    float: right;
+}
+
 .test {
     color: #F56915;
     color: #1E5C01;
