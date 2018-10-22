@@ -5,31 +5,57 @@
         {{# error }}
         <p class='error'>{{ param }}:{{ msg }}</p>
         {{/ error }}
-        <form action="/inscrever" method='post'>
-            <label>Nome:</label>
-            <input name='name' placeholder='Nome' required {{#if form_data }}value={{form_data.name}}{{/if}}><br>
-            <label>Data de Nascimento:</label>
-            <input type='date' name='birthdate' required {{#if form_data }}value={{form_data.birthdate}}{{/if}}><br>
-            <label>Morada:</label>
-            <input name='address' placeholder='Morada' {{#if form_data }}value={{form_data.address}}{{/if}}><br>
-            <label>Telefone:</label>
-            <input name='phone' placeholder='Telefone' required {{#if form_data }}value={{form_data.phone}}{{/if}}><br>
-            <label>Email:</label>
-            <input name='email' placeholder='Email' {{#if form_data }}value={{form_data.email}}{{/if}}><br>
-            <label>Número de BI:</label>
-            <input name='bi' placeholder='Numero de BI' required {{#if form_data }}value={{form_data.bi}}{{/if}}><br> 
-            <label>NIF:</label>
-            <input name='nif' placeholder='NIF' required {{#if form_data }}value={{form_data.nif}}{{/if}}><br> 
-            <fieldset>
-                <legend>Género</legend>
-                <label>Masculino:</label>
-                <input type='radio' name='gender' value='male'>
-                <label>Feminino:</label>
-                <input type='radio' name='gender' value='female'>
-            </fieldset>
-            <input type='submit' value='Cadastrar'>
-        </form>
-        <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
+        <div class='card card-register'>
+            <form action="/inscrever" method='post'>
+                <div class='input-field'>
+                    <label for='name'>Nome</label>
+                    <input type='text' name='name' required {{#if form_data }}value={{form_data.name}}{{/if}}>
+                </div>
+                <div class='input-field'>
+                    <label for='birthdate'>Data de Nascimento</label>
+                    <input type='text' name='birthdate' class='datepicker' required onfocus='showDatepicker()' {{#if form_data }}value={{form_data.birthdate}}{{/if}}>
+                </div>
+                <div class='input-field'>
+                    <label for='address'>Morada</label>
+                    <input type='text' name='address' {{#if form_data }}value={{form_data.address}}{{/if}}>
+                </div>
+                <div class='input-field'>
+                    <label for='phone'>Telefone</label>
+                    <input type='text' name='phone' required {{#if form_data }}value={{form_data.phone}}{{/if}}>
+                </div>
+                <div class='input-field'>
+                    <label for='email'>Email</label>
+                    <input type='text' name='email' {{#if form_data }}value={{form_data.email}}{{/if}}>
+                </div>
+                <div class='input-field'>
+                    <label for='bi'>Número de BI</label>
+                    <input type='text' name='bi' required {{#if form_data }}value={{form_data.bi}}{{/if}}>
+                </div>
+                <div class='input-field'>
+                    <label for='nif'>NIF</label>
+                    <input type='text' name='nif' required {{#if form_data }}value={{form_data.nif}}{{/if}}>
+                </div>
+                
+                <fieldset>
+                    <legend>Género</legend>
+
+                    <label for='male'>
+                        <input type='radio' class='with-gap' id='male' name='gender' value='male'>
+                        <span>Masculino</span>
+                    </label>
+                    
+                    <label for='female'>
+                        <input type='radio' class='with-gap' id='female' name='gender' value='female'>
+                        <span>Feminino</span>
+                    </label>
+                    
+                </fieldset>
+
+                <input class='btn blue' type='submit' value='Cadastrar'>
+            </form>
+        </div>
+        
+
         {{>footer}}
     </body>
 </html>
