@@ -16,30 +16,7 @@ header h1 {
 .ruler {
     width: 40vw;
     height: 2px;
-    /* background-color: #F56915; */
     background-color: #5EB804;
-}
-
-.tbl {
-    border-collapse: collapse;
-    /* background-image: linear-gradient(white, #FFDD6D); */
-    margin: 0 auto;
-    margin-top: 50px;
-    color: #595959;
-}
-
-.tbl, .tbl th, .tbl td {
-    border: 2px solid #5EB804;
-}
-
-.tbl th, .tbl td {
-    padding: 15px;
-    text-align: center;
-}
-
-.tbl a {
-    text-decoration: none;
-    color: #595959;
 }
 
 .chart {
@@ -62,13 +39,6 @@ form label {
     margin: 10px;
 }
 
-/* form input {
-    border: 1px solid #5EB804;
-    color: #595959;
-    padding: 5px;
-    width: 169px;
-} */
-
 fieldset {
     width: 90%;
     border: 1px solid #5EB804;
@@ -84,19 +54,6 @@ fieldset label, fieldset input {
     width: auto;
     margin: 5px;
 }
-
-/* form input[type='submit'], .btn {
-    width: 96.4%;
-    background-color: #5EB804;
-    color: #F2F2F2;
-    font-weight: bolder;
-    padding: 10px;
-    border: none;
-}
-
-form input[type=submit]:hover, .btn:hover {
-    background-color: #F56915;
-} */
 
 .error {
     background-color: rgba(240, 128, 128, 0.7);
@@ -331,41 +288,6 @@ form input[type=submit]:hover, .btn:hover {
     width: 113px;
 }
 
-.dataTables_wrapper {
-    width: 60%;
-    margin: 0 auto;
-    margin-top: 50px;
-}
-
-.dataTable, .display {
-    color: #595959;
-    border: 1px solid #5EB804;
-}
-
-.dataTables_wrapper td, .dataTables_wrapper th {
-    border: 2px solid #5EB804;
-}
-
-.dataTables_filter {
-    margin-bottom: 10px;
-}
-
-.dataTables_filter * {
-    color: #595959;
-}
-
-.dataTables_filter input[type='search'] {
-    border: 1px solid #5EB804;
-    padding: 5px;
-}
-
-#myTable thead th {
-    border: 2px solid #5EB804;
-}
-#myTable {
-    border-collapse: collapse;
-}
-
 @keyframes slide {
     from {
         height: 0;
@@ -422,7 +344,6 @@ form input[type=submit]:hover, .btn:hover {
     background-color: #F56915;
 }
 
-/* The Close Button */
 .close {
     color: #aaa;
     float: right;
@@ -524,4 +445,37 @@ textarea {
 
 .card-tbl td, .card-tbl th {
     text-align: center;
+}
+
+.card-list {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 30px;
+}
+
+.dataTables_wrapper {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.dataTables_filter label {
+    font-size: 1rem;
+}
+
+.dataTables_filter input[type='search']{
+    height: 1rem;
+    width: 70%;
+    margin: 30px 0 30px 10px;
+}
+
+table.dataTable {
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 3px 1px #ccc;
+}
+
+table.dataTable thead th {
+    border-bottom: none;
+    color: #039be5;
 }

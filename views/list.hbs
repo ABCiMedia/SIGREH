@@ -4,7 +4,7 @@
         {{> navbar }}
 
         {{# if person }}
-        <table id='myTable' class='display tbl'>
+        <table id='myTable' class='row-border'>
             <thead>
                 <tr>
                     <th>ID</th>
@@ -29,18 +29,16 @@
                     <td><a href='/details/{{ this.dataValues.id }}'>{{ this.dataValues.state }}</a></td>
                     {{#if @root.admin }}
                     <td>
-                        <img class='icon' onclick='showModal({{ this.dataValues.id }},"/delete_person/")' src='/img/trash-alt-solid.svg' alt='Eliminar'>
+                        <i onclick='showModal({{ this.dataValues.id }},"/delete_person/")' class='fas fa-trash'></i>
                     </td>
                     {{/if}}
                 </tr>
                 {{/ each }}
             </tbody>
         </table>
-        
         {{else}}
         <p class='rep'>... Nenhuma pessoa encontrada ...</p>
         {{/ if}}
-        <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
 
         {{> delete_modal }}
         {{>footer}}
