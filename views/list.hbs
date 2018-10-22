@@ -50,13 +50,13 @@
             :search="search"
             >
             <template slot="items" slot-scope="props">
-                <td class="text-xs-left">\{{ props.item.id }}</td>
-                <td class="text-xs-left">\{{ props.item.name }}</td>
-                <td class="text-xs-left">\{{ props.item.address }}</td>
-                <td class="text-xs-left">\{{ props.item.phone }}</td>
-                <td class="text-xs-left">\{{ props.item.email }}</td>
-                <td class="text-xs-left">\{{ props.item.state }}</td>
-                <td class="text-xs-left"><i class='fas fa-trash'></i></td>
+                <td v-on:click='load("/details/" + props.item.id)' class="text-xs-left">\{{ props.item.id }}</td>
+                <td v-on:click='load("/details/" + props.item.id)' class="text-xs-left">\{{ props.item.name }}</td>
+                <td v-on:click='load("/details/" + props.item.id)' class="text-xs-left">\{{ props.item.address }}</td>
+                <td v-on:click='load("/details/" + props.item.id)' class="text-xs-left">\{{ props.item.phone }}</td>
+                <td v-on:click='load("/details/" + props.item.id)' class="text-xs-left">\{{ props.item.email }}</td>
+                <td v-on:click='load("/details/" + props.item.id)' class="text-xs-left">\{{ props.item.state }}</td>
+                <td class="text-xs-left"><i onclick='showModal({{ this.dataValues.id }},"/delete_person/")' class='fas fa-trash' slot="activator"></i></td>
             </template>
             </v-data-table>
         </v-card>
