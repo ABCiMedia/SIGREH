@@ -515,3 +515,13 @@ textarea {
 .card-login form {
     width: 100%;
 }
+
+.card-tbl {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.card-tbl td, .card-tbl th {
+    text-align: center;
+}
