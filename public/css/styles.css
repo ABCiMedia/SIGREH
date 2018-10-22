@@ -62,12 +62,12 @@ form label {
     margin: 10px;
 }
 
-form input {
+/* form input {
     border: 1px solid #5EB804;
     color: #595959;
     padding: 5px;
     width: 169px;
-}
+} */
 
 fieldset {
     width: 90%;
@@ -85,7 +85,7 @@ fieldset label, fieldset input {
     margin: 5px;
 }
 
-form input[type='submit'], .btn {
+/* form input[type='submit'], .btn {
     width: 96.4%;
     background-color: #5EB804;
     color: #F2F2F2;
@@ -96,7 +96,7 @@ form input[type='submit'], .btn {
 
 form input[type=submit]:hover, .btn:hover {
     background-color: #F56915;
-}
+} */
 
 .error {
     background-color: rgba(240, 128, 128, 0.7);
@@ -500,4 +500,13 @@ textarea {
 
 .brand-logo {
     margin-left: 20px;
+}
+
+.card-login {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.card-login form {
+    width: 100%;
 }
