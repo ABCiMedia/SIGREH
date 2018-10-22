@@ -16,8 +16,10 @@
             <label><b>Preço do Certificado:</b></label>
             <span>{{this.certificate_cost}}$00</span><br>
 
-            <label><b>Escolher:</b></label>
-            <input data-insc={{this.subscription_cost}} data-cert={{this.certificate_cost}} oninput='calculateTotal()' type="checkbox" name='{{this.id}}'>
+            <label for='{{this.id}}'>
+                <input data-insc={{this.subscription_cost}} data-cert={{this.certificate_cost}} oninput='calculateTotal()' type="checkbox" name='{{this.id}}' id='{{this.id}}'>
+                <span>Escolher</span>
+            </label>
         </fieldset>
         {{/each}}
         <fieldset>
@@ -33,7 +35,6 @@
     <p class='rep'>Já se registrou em todas as formações...</p>
     {{/if}}
 
-    <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
     {{> delete_modal }}
     {{>footer}}
 </body>

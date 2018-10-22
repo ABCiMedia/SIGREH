@@ -97,8 +97,15 @@ fieldset label, fieldset input {
     display: none;
 }
 
+.card-details {
+    width: 47.6%;
+    padding: 0 20px 0 20px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
 .dtls {
-    width: 60%;
+    width: 100%;
     margin: 0 auto;
     margin-top: 20px;
     padding-top: 20px;
@@ -115,14 +122,14 @@ fieldset label, fieldset input {
     display: inline-block;
     width: 180px;
     color: #595959;
-    border-bottom: 1px dashed #5EB804;
+    border-bottom: 1px dashed #2196F3;
 }
 
 .dtls h3 {
     color: #595959;
 }
 
-.dtls .btn {
+/* .dtls .btn {
     display: inline-block;
     width: 20%;
     border: none;
@@ -131,7 +138,7 @@ fieldset label, fieldset input {
     text-align: center;
     cursor: pointer;
     text-decoration: none;
-}
+} */
 
 .edit {
     width: 58%;
