@@ -115,7 +115,7 @@ const openSidenav = () => {
 const showDatepicker = () => {
     let el = document.querySelectorAll('.datepicker');
     let inst = M.Datepicker.init(el, {
-        format: 'dd-mm-yyyy',
+        format: 'yyyy-mm-dd',
         i18n: {
             cancel: 'Cancelar',
             clear: 'Limpar',
