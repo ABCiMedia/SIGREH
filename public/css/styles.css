@@ -499,7 +499,12 @@ textarea {
 }
 
 .brand-logo {
-    margin-left: 20px;
+    margin-left: 10px;
+}
+
+.fa-bars {
+    margin-left: 10px;
+    cursor: pointer;
 }
 
 .card-login {

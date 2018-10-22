@@ -84,7 +84,6 @@ $(document).ready(function () {
     $('#myTable').DataTable(options);
 });
 
-
 const calculateTotal = () => {
     let numFormations = document.forms[0].children.length - 2;
     let formation;
@@ -106,3 +105,9 @@ const enableTotal = () => {
     document.getElementById('total').disabled = false;
     return true;
 }
+
+const openSidenav = () => {
+    let el = document.querySelectorAll('.sidenav');
+    let inst = M.Sidenav.init(el)[0];
+    inst.open();
+};

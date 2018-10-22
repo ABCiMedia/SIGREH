@@ -1,5 +1,8 @@
 <nav class='hide-print blue'>
     <div class="nav-wrapper">
+        {{#if user}}
+        <i class='fas fa-bars' onclick='openSidenav()' class='sidenav-trigger'></i>
+        {{/if}}
         <span class="brand-logo">{{ pageTitle }}</span>
     </div>
 </nav>
