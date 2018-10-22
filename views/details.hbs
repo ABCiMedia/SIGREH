@@ -4,32 +4,35 @@
         {{> navbar }}
         <div class='card card-details'>
             <ul class='dtls'>
-                <li><b>ID:</b> {{ person.id }}</li>
-                <li><b>Nome:</b> {{ person.name }}</li>
-                <li><b>Data de Nascimento:</b> {{ birthdate }}</li>
-                <li><b>Morada:</b> {{ person.address }}</li>
-                <li><b>Telefone:</b> {{ person.phone }}</li>
-                <li><b>Email:</b> {{ person.email }}</li>
-                <li><b>BI:</b> {{ person.bi }}</li>
-                <li><b>NIF:</b> {{ person.nif }}</li>
-                <li><b>Género:</b> {{ person.gender }}</li>
-                <li><b>Estádo:</b> {{ person.state }}</li>
-                <li><b>Criado por:</b> {{ createdBy }}</li>
-                <h6><strong>Formações em que se encontra inscrito:</strong></h6>
-                {{#if formation}}
-                {{#each formation}}
-                <li>{{this.name}}</li>
-                {{/each}}
-                {{else}}
-                <p class='column'>Ainda não se inscreveu em nenhuma formação...</p>
-                {{/if}}
-
-                <a class='btn blue' href='/edit/{{ person.dataValues.id }}'>Editar</a>
-                <a class='btn blue' href='/avaliado/{{ person.dataValues.id }}'>Avaliar</a>
-                <a class='btn blue' href="/choose_formation/{{person.dataValues.id}}">Escolher Formação</a>
-                {{#if formation}}
-                <a class='btn blue' href="/payment/{{person.dataValues.id}}">Efectuar Pagamento</a>
-                {{/if}}
+                <div class='card-content'>
+                    <li><b>ID:</b> {{ person.id }}</li>
+                    <li><b>Nome:</b> {{ person.name }}</li>
+                    <li><b>Data de Nascimento:</b> {{ birthdate }}</li>
+                    <li><b>Morada:</b> {{ person.address }}</li>
+                    <li><b>Telefone:</b> {{ person.phone }}</li>
+                    <li><b>Email:</b> {{ person.email }}</li>
+                    <li><b>BI:</b> {{ person.bi }}</li>
+                    <li><b>NIF:</b> {{ person.nif }}</li>
+                    <li><b>Género:</b> {{ person.gender }}</li>
+                    <li><b>Estádo:</b> {{ person.state }}</li>
+                    <li><b>Criado por:</b> {{ createdBy }}</li>
+                    <h6><strong>Formações em que se encontra inscrito:</strong></h6>
+                    {{#if formation}}
+                    {{#each formation}}
+                    <li>{{this.name}}</li>
+                    {{/each}}
+                    {{else}}
+                    <p class='column'>Ainda não se inscreveu em nenhuma formação...</p>
+                    {{/if}}
+                </div>
+                <div class='card-action'>
+                    <a class='btn blue' href='/edit/{{ person.dataValues.id }}'>Editar</a>
+                    <a class='btn blue' href='/avaliado/{{ person.dataValues.id }}'>Avaliar</a>
+                    <a class='btn blue' href="/choose_formation/{{person.dataValues.id}}">Escolher Formação</a>
+                    {{#if formation}}
+                    <a class='btn blue' href="/payment/{{person.dataValues.id}}">Efectuar Pagamento</a>
+                    {{/if}}
+                </div>
             </ul>
         </div>
 

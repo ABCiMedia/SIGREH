@@ -82,6 +82,7 @@ $(document).ready(function () {
         options.order = [[4, 'desc']];
     }
     $('#myTable').DataTable(options);
+    $('select').formSelect();
 });
 
 const calculateTotal = () => {

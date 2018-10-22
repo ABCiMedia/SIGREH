@@ -30,14 +30,7 @@ form {
     width: 100%;
     margin: 0 auto;
     margin-top: 30px;
-    /* color: #1E5C01; */
 }
-/* 
-form label {
-    display: inline-block;
-    width: 46%;
-    margin: 10px;
-} */
 
 fieldset {
     width: 100%;
@@ -98,18 +91,10 @@ fieldset label, fieldset input {
 }
 
 .card-details {
-    width: 47.6%;
-    padding: 0 20px 0 20px;
+    width: 51.5%;
+    padding: 10px 20px 10px 20px;
     margin: 0 auto;
     margin-top: 10px;
-}
-
-.dtls {
-    width: 100%;
-    margin: 0 auto;
-    margin-top: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
 }
 
 .dtls li {
@@ -125,71 +110,10 @@ fieldset label, fieldset input {
     border-bottom: 1px dashed #2196F3;
 }
 
-.dtls h3 {
-    color: #595959;
-}
-
-/* .dtls .btn {
-    display: inline-block;
-    width: 20%;
-    border: none;
-    margin: 20px 5px;
-    margin-bottom: 0px;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
-} */
-
-.edit {
-    width: 58%;
+.card-edit {
+    width: 32%;
+    padding: 0 30px 0 30px;
     margin: 0 auto;
-    margin-top: 20px;
-    padding-top: 30px;
-    padding-bottom: 10px;
-}
-
-.edit li {
-    list-style: none;
-    margin: 1.7px 50px;
-    color: #595959;
-    width: 100%;
-}
-
-.edit b {
-    display: inline-block;
-    width: 180px;
-    border-bottom: 1px dashed #5EB804;
-}
-
-.edit .btn {
-    display: inline-block;
-    width: 30%;
-    border: none;
-    margin: 20px 5px;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.edit select {
-    width: 22.8%;
-    padding: 3px;
-    margin-left: -4px;
-    border: 1px solid #5EB804;
-}
-
-.edit input[type='checkbox'] {
-    width: 20px;
-}
-
-.edit input[type='submit'] {
-    padding: 9.6px;
-    font-weight: 800;
-    width: 32.5%;
-}
-
-.edit .eb {
-    margin-left: 40px;
 }
 
 .avaliar {
