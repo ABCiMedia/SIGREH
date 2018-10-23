@@ -296,7 +296,6 @@ fieldset label, fieldset input {
 
 textarea {
     resize: none;
-    border: 1px solid #5EB804;
 }
 
 .group {
@@ -399,4 +398,9 @@ table.dataTable thead th {
     width: 60%;
     margin: 10px auto 0 auto;
     padding: 0 10px 0 10px;
+}
+
+.card-add-formation {
+    width: 40%;
+    margin: 0 auto;
 }

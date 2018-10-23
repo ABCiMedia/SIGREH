@@ -5,23 +5,39 @@
         {{# error }}
         <p class='error'>{{ param }}:{{ msg }}</p>
         {{/ error }}
-        <form action="/add_formation" method='post'>
-            <label>Nome:</label>
-            <input name='name' required {{#if form_data }}value='{{form_data.name}}'{{/if}}><br>
-            <label>Duração Teoria (horas):</label>
-            <input type='number' name='teoric_part' required {{#if form_data }}value={{form_data.teoric_part}}{{/if}}><br>
-            <label>Duração Prática (horas):</label>
-            <input type='number' name='pratic_part' required {{#if form_data }}value={{form_data.pratic_part}}{{/if}}><br>
-            <label>Preço Inscrição:</label>
-            <input type='number' name='subscription_cost' required {{#if form_data }}value={{form_data.subscription_cost}}{{/if}}><br>
-            <label>Preço Certificado:</label>
-            <input type='number' name='certificate_cost' required {{#if form_data }}value={{form_data.certificate_cost}}{{/if}}><br>
-            <label>Descrição:</label>
-            <textarea name='description' rows='4' cols='53'>{{#if form_data }}{{form_data.description}}{{/if}}</textarea>
-            <input type='submit' value='Criar'>
-        </form>
-        
-        <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
+        <div class='card card-add-formation'>
+            <form action="/add_formation" method='post'>
+                <div class='card-content'>
+                    <div class='input-field'>
+                        <label for='name'>Nome</label>
+                        <input type='text' name='name' required {{#if form_data }}value='{{form_data.name}}'{{/if}}>
+                    </div>
+                    <div class='input-field'>
+                        <label>Duração Teoria (horas)</label>
+                        <input type='number' name='teoric_part' required {{#if form_data }}value={{form_data.teoric_part}}{{/if}}>
+                    </div>
+                    <div class='input-field'>
+                        <label>Duração Prática (horas)</label>
+                        <input type='number' name='pratic_part' required {{#if form_data }}value={{form_data.pratic_part}}{{/if}}>
+                    </div>
+                    <div class='input-field'>
+                        <label>Preço Inscrição</label>
+                        <input type='number' name='subscription_cost' required {{#if form_data }}value={{form_data.subscription_cost}}{{/if}}>
+                    </div>
+                    <div class='input-field'>
+                        <label>Preço Certificado</label>
+                        <input type='number' name='certificate_cost' required {{#if form_data }}value={{form_data.certificate_cost}}{{/if}}>
+                    </div>
+                    <div class='input-field'>
+                        <label>Descrição</label>
+                        <textarea name='description' rows='4' cols='53'>{{#if form_data }}{{form_data.description}}{{/if}}</textarea>
+                    </div>
+                </div>
+                <div class='card-action'>
+                    <input class='btn blue' type='submit' value='Criar'>
+                </div>
+            </form>
+        </div>
         {{>footer}}
     </body>
 </html>
