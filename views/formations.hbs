@@ -36,10 +36,8 @@
         {{else}}
         <p class='rep'>... Nenhuma formação encontrada ...</p>
         {{/ if}}
-
-        <img class='add-btn' onclick='loadPage("/add_formation")' src='/img/plus-circle-solid.svg' alt='Nova Formação'>
-        <img class='logout-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Sair'>
-
+        
+        <i class='fas fa-plus-circle add-btn' onclick='loadPage("/add_formation")'></i>
         {{> delete_modal }}
         {{>footer}}
     </body>
