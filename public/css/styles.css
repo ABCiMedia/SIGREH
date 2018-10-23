@@ -290,12 +290,16 @@ fieldset label, fieldset input {
 }
 
 .formation-form {
-    width: 60%;
+    width: 45%;
 }
 
-.formation-form input[type='submit'] {
-    width: 93.5%;
+.formation-form fieldset input[type='number'] {
+    width: 90%;
 }
+
+/* .formation-form input[type='submit'] {
+    width: 93.5%;
+} */
 
 .navbar {
     position: fixed;

@@ -90,7 +90,7 @@ const calculateTotal = () => {
     let formation;
     let total = 0;
     for (let i=0; i<numFormations; i++) {
-        formation = document.forms[0].children[i].children[10];
+        formation = document.forms[0].children[i].children[9].children[0];
         if (formation.checked) {
             subscription = parseFloat(formation.getAttribute('data-insc'));
             certificate = parseFloat(formation.getAttribute('data-cert'));
