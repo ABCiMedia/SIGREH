@@ -120,14 +120,6 @@ fieldset label, fieldset input {
     width: 58%;
 }
 
-/* .avaliar .personal_data label{
-    width: 92px;
-} */
-
-/* .avaliar .personal_data input {
-    color: #595959;
-} */
-
 .avaliar fieldset label {
     display: inline-block;
     width: 64%;
@@ -178,21 +170,6 @@ fieldset label, fieldset input {
     cursor: pointer;
 }
 
-.avaliar_edit_btn {
-    margin-top: 30px;
-}
-
-.avaliar_edit_btn input[type='submit'], .avaliar_edit_btn a {
-    display: inline-block;
-    width: 43%;
-    margin: 0 5px;
-}
-
-.avaliar_edit_btn a {
-    text-align: center;
-    text-decoration: none;
-}
-
 .rep {
     width: 100%;
     text-align: center;
@@ -205,15 +182,6 @@ fieldset label, fieldset input {
     width: 20px;
     cursor: pointer;
 }
-
-/* #shops {
-    border: 1px solid #5EB804;
-    color: #595959;
-    padding: 5px;
-    margin-left: 5px;
-    margin-right: 4px;
-    width: 113px;
-} */
 
 @keyframes slide {
     from {
@@ -292,10 +260,6 @@ fieldset label, fieldset input {
 .formation-form fieldset input[type='number'] {
     width: 90%;
 }
-
-/* .formation-form input[type='submit'] {
-    width: 93.5%;
-} */
 
 .navbar {
     position: fixed;
