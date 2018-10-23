@@ -420,3 +420,9 @@ table.dataTable thead th {
     border-bottom: none;
     color: #039be5;
 }
+
+.card-payment {
+    width: 30%;
+    padding: 0px 30px 10px 30px;
+    margin: 0 auto;
+}
