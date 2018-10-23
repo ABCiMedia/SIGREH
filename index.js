@@ -86,12 +86,25 @@ hbs.registerHelper("radio", function(name, context) {
 
   for (let i = 1; i <= 5; i++) {
     if (i === checked) {
-      result += `<input type='radio' name='${name}' value=${i} checked>\n`;
+      result += `
+      <div class='input-field inline'>
+          <label for='${i}'>
+          <input type='radio' name='${name}' id='${i}' value=${i} checked>
+          <span></span>
+          </label>
+      </div>
+      `;
     } else {
-      result += `<input type='radio' name='${name}' value=${i}>\n`;
+      result += `
+      <div class='input-field inline'>
+          <label for='${name + i}'>
+          <input type='radio' name='${name}' id='${name + i}' value=${i}>
+          <span></span>
+          </label>
+      </div>`;
     }
   }
-  return new hbs.SafeString(result.slice(0, -1) + "<br>");
+  return new hbs.SafeString(result);
 });
 
 //////// MIDLEWARES
@@ -109,13 +122,6 @@ app.use(
   session({
     secret: "This is the secret key",
     genid: () => uuid(),
-    // store: new MySQLStore({
-    //   database: cred.database,
-    //   user: cred.username,
-    //   password: cred.password,
-    //   host: cred.host,
-    //   port: 3306
-    // }),
     store: new PostgreSQLStore({
       conObject: {
         user: cred.username,

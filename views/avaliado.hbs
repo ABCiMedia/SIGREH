@@ -3,49 +3,50 @@
     {{> header }}
     {{> navbar }}
     {{# if evaluations }}
-    <table class='tbl'>
-        <thead>
-            <tr>
-                <th>Loja</th>
-                <th>De</th>
-                <th>Até</th>
-                <th>Orientador</th>
-                <th colspan="2">Nota</th>
-                {{#if admin}}
-                <th>Ações</th>
-                {{/if}}
-            </tr>
-        </thead>
-        <tbody>
-            {{# each evaluations }}
-            <tr>
-                <td><a href='/avaliar_edit/{{ this.dataValues.id }}'>{{ this.dataValues.shop }}</a></td>
-                <td><a href='/avaliar_edit/{{ this.dataValues.id }}'>{{ this.dataValues.date_from }}</a></td>
-                <td><a href='/avaliar_edit/{{ this.dataValues.id }}'>{{ this.dataValues.date_to }}</a></td>
-                <td><a href='/avaliar_edit/{{ this.dataValues.id }}'>{{ this.dataValues.advisor }}</a></td>
-                <td><a href='/avaliar_edit/{{ this.dataValues.id }}'>{{ this.dataValues.score }}</a></td>
-                <td><a href='/avaliar_edit/{{ this.dataValues.id }}'>{{ this.dataValues.scoreText }}</a></td>
-                {{#if @root.admin}}
-                <td>
-                    <img class='icon' onclick='showModal({{ this.dataValues.id }},"/delete_evaluation/")' src='/img/trash-alt-solid.svg' alt='Eliminar'>
-                </td>
-                {{/if}}
-            </tr>
-            {{/ each }}
-            <tr>
-                <td colspan="4"><b>Media</b></td>
-                <td><b>{{ evaluations.media }}</b></td>
-                <td><b>{{ evaluations.mediaText }}</b></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class='card card-avaliado'>
+        <table class='tbl'>
+            <thead>
+                <tr>
+                    <th>Loja</th>
+                    <th>De</th>
+                    <th>Até</th>
+                    <th>Orientador</th>
+                    <th colspan="2">Nota</th>
+                    {{#if admin}}
+                    <th>Ações</th>
+                    {{/if}}
+                </tr>
+            </thead>
+            <tbody>
+                {{# each evaluations }}
+                <tr>
+                    <td><a href='/avaliar_edit/{{ this.dataValues.id }}'>{{ this.dataValues.shop }}</a></td>
+                    <td><a href='/avaliar_edit/{{ this.dataValues.id }}'>{{ this.dataValues.date_from }}</a></td>
+                    <td><a href='/avaliar_edit/{{ this.dataValues.id }}'>{{ this.dataValues.date_to }}</a></td>
+                    <td><a href='/avaliar_edit/{{ this.dataValues.id }}'>{{ this.dataValues.advisor }}</a></td>
+                    <td><a href='/avaliar_edit/{{ this.dataValues.id }}'>{{ this.dataValues.score }}</a></td>
+                    <td><a href='/avaliar_edit/{{ this.dataValues.id }}'>{{ this.dataValues.scoreText }}</a></td>
+                    {{#if @root.admin}}
+                    <td>
+                        <img class='icon' onclick='showModal({{ this.dataValues.id }},"/delete_evaluation/")' src='/img/trash-alt-solid.svg' alt='Eliminar'>
+                    </td>
+                    {{/if}}
+                </tr>
+                {{/ each }}
+                <tr>
+                    <td colspan="4"><b>Media</b></td>
+                    <td><b>{{ evaluations.media }}</b></td>
+                    <td><b>{{ evaluations.mediaText }}</b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
     {{ else }}
     <p class='rep'>... Nenhuma Avaliação encontrada ...</p>
     {{/ if }}
 
-    <img class='add-btn' onclick='loadPage("/avaliar/{{ person.dataValues.id }}")' src='/img/plus-circle-solid.svg' alt='Nova Avaliação'>
-    <img class='logout-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Sair'>
-
+    <i onclick='loadPage("/avaliar/{{ person.dataValues.id }}")' class='fas fa-plus-circle add-btn'></i>
     {{> delete_modal }}
     {{>footer}}
 </body>

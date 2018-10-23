@@ -120,17 +120,17 @@ fieldset label, fieldset input {
     width: 58%;
 }
 
-.avaliar .personal_data label{
+/* .avaliar .personal_data label{
     width: 92px;
-}
+} */
 
-.avaliar .personal_data input {
-    width: 100px;
+/* .avaliar .personal_data input {
     color: #595959;
-}
+} */
 
 .avaliar fieldset label {
-    width: 70%;
+    display: inline-block;
+    width: 64%;
 }
 
 .avaliar .num {
@@ -141,18 +141,15 @@ fieldset label, fieldset input {
 .avaliar textarea {
     resize: none;
     padding: 10px;
-    border: 1px solid #5EB804;
-}
-
-.avaliar input[type='submit'] {
-    margin-top: 20px;
+    border: 1px solid #aaa;
 }
 
 .info {
     position: fixed;
-    right: 100px;
-    bottom: 31px;
-    width: 10px;
+    right: 60px;
+    bottom: 30px;
+    font-size: 2.4em;
+    color: #2196F3;
 }
 
 #info-content {
@@ -166,11 +163,10 @@ fieldset label, fieldset input {
 
 .add-btn {
     position: fixed;
-    right: 90px;
-    bottom: 30px;
-    width: 30px;
-    height: 30px;
+    right: 60px;
+    bottom: 40px;
     cursor: pointer;
+    color: #2196F3;
 }
 
 .logout-btn {
@@ -210,14 +206,14 @@ fieldset label, fieldset input {
     cursor: pointer;
 }
 
-#shops {
+/* #shops {
     border: 1px solid #5EB804;
     color: #595959;
     padding: 5px;
     margin-left: 5px;
     margin-right: 4px;
     width: 113px;
-}
+} */
 
 @keyframes slide {
     from {
@@ -425,4 +421,18 @@ table.dataTable thead th {
     width: 30%;
     padding: 0px 30px 10px 30px;
     margin: 0 auto;
+}
+
+.fa-plus-circle {
+    font-size: 2.4em;
+}
+
+.aligned .inline{
+    margin: -70px 40px 0 0;
+}
+
+.card-avaliado {
+    width: 60%;
+    margin: 10px auto 0 auto;
+    padding: 0 10px 0 10px;
 }

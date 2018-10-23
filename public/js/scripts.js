@@ -65,26 +65,6 @@ window.onload = () => {
     }
 }
 
-$(document).ready(function () {
-    let options = {
-        lengthMenu: [7],
-        lengthChange: false,
-        info: false,
-        language: {
-            paginate: {
-                previous: '<<',
-                next: '>>'
-            },
-            search: 'Filtrar:'
-        }
-    };
-    if (location.pathname === '/pessoas/eval'){
-        options.order = [[4, 'desc']];
-    }
-    $('#myTable').DataTable(options);
-    $('select').formSelect();
-});
-
 const calculateTotal = () => {
     let numFormations = document.forms[0].children.length - 2;
     let formation;
@@ -107,67 +87,106 @@ const enableTotal = () => {
     return true;
 }
 
+//////////////////////////////////////////////
+/////////////// DATATABLES ///////////////////
+//////////////////////////////////////////////
+
+$(document).ready(function () {
+    let options = {
+        lengthMenu: [7],
+        lengthChange: false,
+        info: false,
+        language: {
+            paginate: {
+                previous: '<<',
+                next: '>>'
+            },
+            search: 'Filtrar:'
+        }
+    };
+    if (location.pathname === '/pessoas/eval'){
+        options.order = [[4, 'desc']];
+    }
+    $('#myTable').DataTable(options);
+});
+
+//////////////////////////////////////////////
+//////////////// MATERIALIZE /////////////////
+//////////////////////////////////////////////
+
+var datepicker_opts = {
+    format: 'yyyy-mm-dd',
+    i18n: {
+        cancel: 'Cancelar',
+        clear: 'Limpar',
+        months: [
+            'Janeiro',
+            'Fevereiro',
+            'Março',
+            'Abril',
+            'Maio',
+            'Junho',
+            'Julho',
+            'Agosto',
+            'Setembro',
+            'Outubro',
+            'Novembro',
+            'Dezembro'
+        ],
+        monthsShort: [
+            'Jan',
+            'Fev',
+            'Mar',
+            'Abr',
+            'Mai',
+            'Jun',
+            'Jul',
+            'Ago',
+            'Set',
+            'Out',
+            'Nov',
+            'Dez'
+        ],
+        weekdays: [
+            'Domingo',
+            'Segunda-Feira',
+            'Terça-Feira',
+            'Quarta-Feira',
+            'Quinta-Feira',
+            'Sexta-Feira',
+            'Sábado'
+        ],
+        weekdaysShort: [
+            'Dom',
+            'Seg',
+            'Ter',
+            'Qua',
+            'Qui',
+            'Sex',
+            'Sab'
+        ],
+        weekdaysAbbrev: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+    }
+};
+
+var timepicker_opts = {
+    twelveHour: false,
+    i18n: {
+        cancel: 'Cancelar',
+        clear: 'Limpar',
+        done: 'Ok'
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    M.Datepicker.init(document.querySelectorAll('.datepicker'), datepicker_opts);
+    M.Timepicker.init(document.querySelectorAll('.timepicker'), timepicker_opts);
+    M.FormSelect.init(document.querySelectorAll('select'));
+    M.Sidenav.init(document.querySelectorAll('.sidenav'));
+});
+
 const openSidenav = () => {
     let el = document.querySelectorAll('.sidenav');
     let inst = M.Sidenav.init(el)[0];
     inst.open();
 };
-
-const showDatepicker = () => {
-    let el = document.querySelectorAll('.datepicker');
-    let inst = M.Datepicker.init(el, {
-        format: 'yyyy-mm-dd',
-        i18n: {
-            cancel: 'Cancelar',
-            clear: 'Limpar',
-            months: [
-                'Janeiro',
-                'Fevereiro',
-                'Março',
-                'Abril',
-                'Maio',
-                'Junho',
-                'Julho',
-                'Agosto',
-                'Setembro',
-                'Outubro',
-                'Novembro',
-                'Dezembro'
-            ],
-            monthsShort: [
-                'Jan',
-                'Fev',
-                'Mar',
-                'Abr',
-                'Mai',
-                'Jun',
-                'Jul',
-                'Ago',
-                'Set',
-                'Out',
-                'Nov',
-                'Dez'
-            ],
-            weekdays: [
-                'Domingo',
-                'Segunda-Feira',
-                'Terça-Feira',
-                'Quarta-Feira',
-                'Quinta-Feira',
-                'Sexta-Feira',
-                'Sábado'
-            ],
-            weekdaysShort: [
-                'Dom',
-                'Seg',
-                'Ter',
-                'Qua',
-                'Qui',
-                'Sex',
-                'Sab'
-            ],
-            weekdaysAbbrev: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
-        }
-    })[0];
-    inst.open();
-}
