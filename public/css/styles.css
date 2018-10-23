@@ -404,3 +404,9 @@ table.dataTable thead th {
     width: 40%;
     margin: 0 auto;
 }
+
+.card-admin {
+    width: 40%;
+    padding: 0 10px 0 10px; 
+    margin: 10px auto 0 auto;
+}
