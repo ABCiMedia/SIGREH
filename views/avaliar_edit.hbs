@@ -5,102 +5,144 @@
     {{#error}}
     <p class='error'>{{param}}:{{msg}}</p>
     {{/error}}
-    <form class='avaliar' action="/avaliar_edit/{{ evaluations.dataValues.id }}" method='post'>
 
+    <form class='avaliar' action="/avaliar_edit/{{ evaluations.dataValues.id }}" method='post'>
         <fieldset class='personal_data'>
-            <label for='name'>Nome</label>
-            <input name="name" value='{{ person.dataValues.name }}' disabled>
-            <label for="phone">Contacto</label>
-            <input name='phone' value='{{ person.dataValues.phone}}' disabled>
-            <label for="address">Endereço</label>
-            <input name='address' value='{{ person.dataValues.address }}' disabled><br>
-            <label for="shop">Loja</label>
-            <input name='shop' required value='{{ evaluations.dataValues.shop }}'>
-            <label for="shift">Turno</label>
-            <input type='time' name="shift_from" required value='{{ evaluations.dataValues.shift_from }}'>
-            <input type='time' name="shift_to" required value='{{ evaluations.dataValues.shift_to }}'><br>
-            <label for="shop_number">Loja Número</label>
-            <input type="number" name="shop_number" required value='{{ evaluations.dataValues.shop_number }}'>
-            <label for="date">Periodo</label>
-            <input type="date" name='date_from' required value='{{ evaluations.dataValues.date_from }}'>
-            <input type="date" name="date_to" required value='{{ evaluations.dataValues.date_to }}'>
+            <div class='row'>
+                <div class='input-field col s4'>
+                    <label for='name'>Nome</label>
+                    <input type='text' name="name" value='{{ person.dataValues.name }}' disabled>
+                </div>
+                <div class='input-field col s4'>
+                    <label for="phone">Contacto</label>
+                    <input type='text' name='phone' value='{{ person.dataValues.phone}}' disabled>
+                </div>
+                <div class='input-field col s4'>
+                    <label for="address">Endereço</label>
+                    <input type='text' name='address' value='{{ person.dataValues.address }}' disabled>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='input-field col s4'>
+                    <label for="shop">Loja</label>
+                    <input type='text'name='shop' required value='{{ evaluations.dataValues.shop }}'>
+                </div>
+                <div class='input-field col s4'>
+                    <label for="shift_from">Turno de</label>
+                    <input type='text' class='timepicker' name="shift_from" required value='{{ evaluations.dataValues.shift_from }}'>
+                </div>
+                <div class='input-field col s4'>
+                    <label for="shift_to">Turno até</label>
+                    <input type='text' class='timepicker' name="shift_to" required value='{{ evaluations.dataValues.shift_to }}'>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='input-field col s4'>
+                    <label for="shop_number">Loja Número</label>
+                    <input type="number" name="shop_number" required value='{{ evaluations.dataValues.shop_number }}'>
+                </div>
+                <div class='input-field col s4'>
+                    <label for="date_from">Periodo</label>
+                    <input type="text" class='datepicker' name='date_from' required value='{{ evaluations.dataValues.date_from }}'>
+                </div>
+                <div class='input-field col s4'>
+                    <label for="date_to">Periodo</label>
+                    <input type="text" class='datepicker' name="date_to" required value='{{ evaluations.dataValues.date_to }}'>
+                </div>
+            </div>
         </fieldset>
 
         <fieldset>
             <legend>Avaliação Técnica</legend>
-            <pre class='num'>1   2   3   4   5</pre>
-
-            <label for="cachier">Caixa</label>
-            {{# radio 'cachier' 'evaluations'}}{{/ radio }}
-
-            <label for="cleaning">Limpeza</label>
-            {{# radio 'cleaning' 'evaluations'}}{{/ radio }}
-            
-            <label for="customer_service">Atendimento / Serviço Cliente</label>
-            {{# radio 'customer_service' 'evaluations'}}{{/ radio }}
-            
-            <label for="replacement">Reposição</label>
-            {{# radio 'replacement' 'evaluations'}}{{/ radio }}
-            
-            <label for="team_work">Trabalho em Equipe / Organização</label>
-            {{# radio 'team_work' 'evaluations'}}{{/ radio }}
-
-            <label for="cold_meats">Charcutaria</label>
-            {{# radio 'cold_meats' 'evaluations'}}{{/ radio }}
-    
+            <pre class='num'>1    2    3     4    5</pre>
+            <div class='aligned'>
+                <label for="cachier">Caixa</label>
+                {{# radio 'cachier' 'evaluations'}}{{/ radio }}
+            </div>
+            <div class='aligned'>
+                <label for="cleaning">Limpeza</label>
+                {{# radio 'cleaning' 'evaluations'}}{{/ radio }}
+            </div>
+            <div class='aligned'>
+                <label for="customer_service">Atendimento / Serviço Cliente</label>
+                {{# radio 'customer_service' 'evaluations'}}{{/ radio }}
+            </div>
+            <div class='aligned'>
+                <label for="replacement">Reposição</label>
+                {{# radio 'replacement' 'evaluations'}}{{/ radio }}
+            </div>
+            <div class='aligned'>
+                <label for="team_work">Trabalho em Equipe / Organização</label>
+                {{# radio 'team_work' 'evaluations'}}{{/ radio }}
+            </div>
+            <div class='aligned'>
+                <label for="cold_meats">Charcutaria</label>
+                {{# radio 'cold_meats' 'evaluations'}}{{/ radio }}
+            </div>
         </fieldset>
 
         <fieldset>
             <legend>Avaliação Interpessoal</legend>
-
-            <label for="flexibility">Flexibilidade</label>
-            {{# radio 'flexibility' 'evaluations'}}{{/ radio }}
-
-            <label for="autonomy">Autonomia</label>
-            {{# radio 'autonomy' 'evaluations'}}{{/ radio }}
-
-            <label for="punctuality">Pontualidade / Assiduidade</label>
-            {{# radio 'punctuality' 'evaluations'}}{{/ radio }}
-
-            <label for="honesty">Honestidade</label>
-            {{# radio 'honesty' 'evaluations'}}{{/ radio }}
-
-            <label for="proactivity">Pró Actividade</label>
-            {{# radio 'proactivity' 'evaluations'}}{{/ radio }}
-
-            <label for="responsability">Responsabilidade</label>
-            {{# radio 'responsability' 'evaluations'}}{{/ radio }}
-
-            <label for="interest_level">Nivel de Interesse</label>
-            {{# radio 'interest_level' 'evaluations'}}{{/ radio }}
-
-            <label for="availability">Disponibilidade</label>
-            {{# radio 'availability' 'evaluations'}}{{/ radio }}
-
-            <label for="personal_hygiene">Uniforme (Higiene Pessoal)</label>
-            {{# radio 'personal_hygiene' 'evaluations'}}{{/ radio }}
-
+            <div class='aligned'>
+                <label for="flexibility">Flexibilidade</label>
+                {{# radio 'flexibility' 'evaluations'}}{{/ radio }}
+            </div>
+            <div class='aligned'>
+                <label for="autonomy">Autonomia</label>
+                {{# radio 'autonomy' 'evaluations'}}{{/ radio }}
+            </div>
+            <div class='aligned'>
+                <label for="punctuality">Pontualidade / Assiduidade</label>
+                {{# radio 'punctuality' 'evaluations'}}{{/ radio }}
+            </div>
+            <div class='aligned'>
+                <label for="honesty">Honestidade</label>
+                {{# radio 'honesty' 'evaluations'}}{{/ radio }}
+            </div>
+            <div class='aligned'>
+                <label for="proactivity">Pró Actividade</label>
+                {{# radio 'proactivity' 'evaluations'}}{{/ radio }}
+            </div>
+            <div class='aligned'>
+                <label for="responsability">Responsabilidade</label>
+                {{# radio 'responsability' 'evaluations'}}{{/ radio }}
+            </div>
+            <div class='aligned'>
+                <label for="interest_level">Nivel de Interesse</label>
+                {{# radio 'interest_level' 'evaluations'}}{{/ radio }}
+            </div>
+            <div class='aligned'>
+                <label for="availability">Disponibilidade</label>
+                {{# radio 'availability' 'evaluations'}}{{/ radio }}
+            </div>
+            <div class='aligned'>
+                <label for="personal_hygiene">Uniforme (Higiene Pessoal)</label>
+                {{# radio 'personal_hygiene' 'evaluations'}}{{/ radio }}
+            </div>
         </fieldset>
 
         <fieldset>
             <label for="obs">Obs:</label>
             <textarea name="obs" cols="95" rows="3">{{ evaluations.dataValues.obs }}</textarea>
         </fieldset>
-
-        <label for="responsible_hr">Responsavel Recursos Humanos</label>
-        <input name='responsible_hr' required value='{{ evaluations.dataValues.responsible_hr }}'>
-        <label for="advisor">Orientador</label>
-        <input name='advisor' required value='{{ evaluations.dataValues.advisor }}'>
-
+        <div class='row'>
+            <div class='input-field col s6'>
+                <label for="responsible_hr">Responsavel Recursos Humanos</label>
+                <input type='text' name='responsible_hr' required value='{{ evaluations.dataValues.responsible_hr }}'>
+            </div>
+            <div class='input-field col s6'>
+                <label for="advisor">Orientador</label>
+                <input type='text' name='advisor' required value='{{ evaluations.dataValues.advisor }}'>
+            </div>
+        </div>
         <input type='hidden' name='personId' value='{{ evaluations.dataValues.personId }}'>
 
-        <div class='avaliar_edit_btn'>
-            <input type="submit" value='Ok'>
-            <a class='btn' href='/avaliado/{{ person.dataValues.id }}'>Cancelar</a>
+        <div>
+            <input class='btn blue' type="submit" value='Ok'>
+            <a class='btn blue' href='/avaliado/{{ person.dataValues.id }}'>Cancelar</a>
         </div>
     </form>
-
-    <img class='info' onclick='toggleInfo()' src='/img/info-solid.svg'>
+    <i class='fas fa-info info' onclick='toggleInfo()'></i>
     <ol id='info-content' class='hide'>
         <li>Mau</li>
         <li>Insuficiente</li>
@@ -108,6 +150,6 @@
         <li>Bom</li>
         <li>Muito Bom</li>
     </ol>
-    <img class='logout-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Sair'>
+    {{>footer}}
 </body>
 </html>

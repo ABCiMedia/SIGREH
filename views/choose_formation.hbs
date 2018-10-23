@@ -7,34 +7,42 @@
     <form onsubmit='enableTotal()' class='formation-form' action="/choose_formation/{{personId}}" method='post'>
         {{#each formation}}
         <fieldset>
-            <label><b>Nome:</b></label>
+            <b>Nome:</b>
             <span>{{this.name}}</span><br>
             
-            <label><b>Preço de Inscrição:</b></label>
+            <b>Preço de Inscrição:</b>
             <span>{{this.subscription_cost}}$00</span><br>
 
-            <label><b>Preço do Certificado:</b></label>
+            <b>Preço do Certificado:</b>
             <span>{{this.certificate_cost}}$00</span><br>
 
-            <label><b>Escolher:</b></label>
-            <input data-insc={{this.subscription_cost}} data-cert={{this.certificate_cost}} oninput='calculateTotal()' type="checkbox" name='{{this.id}}'>
+            <label for='{{this.id}}'>
+                <input data-insc={{this.subscription_cost}} data-cert={{this.certificate_cost}} oninput='calculateTotal()' type="checkbox" name='{{this.id}}' id='{{this.id}}'>
+                <span>Escolher</span>
+            </label>
         </fieldset>
         {{/each}}
-        <fieldset>
-            <label for='discount' style='display:inline-block; width: 104px'><b>Desconto:</b></label>
-            <input type='number' name='discount' value='0' id='discount' oninput='calculateTotal()' style='text-align: right'>%<br>
-            <label><b>Total a Pagar:</b></label>
-            <input name='total' id='total' value='0' disabled style='text-align: right'>
+        <fieldset class='row'>
+            <div class='input-field col s6'>
+                <label for='discount'>Desconto:</label>
+                <input type='number' name='discount' value='0' id='discount' oninput='calculateTotal()' style='text-align: right'>
+                <span>%</span>
+            </div>
+            <div class='input-field col s6'>
+                <label>Total a Pagar:</label>
+                <input name='total' id='total' value='0' disabled style='text-align: right'>
+            </div>
         </fieldset>
 
-        <input type="submit" value='Increver'>
+        <input class='btn blue' type="submit" value='Increver'>
+        <a href="/details/{{personId}}" class='btn blue'>Voltar</a>
     </form>
     {{else}}
     <p class='rep'>Já se registrou em todas as formações...</p>
     {{/if}}
 
-    <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
     {{> delete_modal }}
+    {{>footer}}
 </body>
 
 </html>

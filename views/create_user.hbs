@@ -5,21 +5,34 @@
         {{# error }}
         <p class='error'>{{ param }}:{{ msg }}</p>
         {{/ error }}
-        <form action="/create_user" method='post'>
-            <label>Nome de Utilizador:</label>
-            <input name='username' placeholder='Nome de Utilizador' {{#if form_data }}value={{form_data.username}}{{/if}}><br>
-            <label>Grupo:</label>
-            <select class='group' name="group" required>
-                <option value="regular">Regular</option>
-                <option value="admin">Administrador</option>
-            </select>
-            <label>Senha:</label>
-            <input type='password' name='password' placeholder='Senha' {{#if form_data }}value={{form_data.password}}{{/if}}><br>
-            <label>Confirmar Senha:</label>
-            <input type='password' name='confirm_password' placeholder='Confirmar Senha' {{#if form_data }}value={{form_data.confirm_password}}{{/if}}><br>
-            <input type='submit' value='Criar'>
-        </form>
-        
-        <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
+        <div class='card card-create-user'>
+            <form action="/create_user" method='post'>
+                <div class='card-context'>
+                    <div class='input-field'>
+                        <label>Nome de Utilizador:</label>
+                        <input type='text' name='username' {{#if form_data }}value={{form_data.username}}{{/if}}>
+                    </div>
+                    <div class='input-field'>
+                        <select class='group' name="group" required>
+                            <option value="regular">Regular</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                        <label for='group'>Grupo:</label>
+                    </div>
+                    <div class='input-field'>
+                        <label>Senha:</label>
+                        <input type='password' name='password' {{#if form_data }}value={{form_data.password}}{{/if}}>
+                    </div>
+                    <div class='input-field'>
+                        <label>Confirmar Senha:</label>
+                        <input type='password' name='confirm_password' {{#if form_data }}value={{form_data.confirm_password}}{{/if}}>
+                    </div>
+                </div>
+                <div class='card-action'>
+                    <input class='btn blue' type='submit' value='Criar'>
+                </div>
+            </form>
+        </div>
+        {{>footer}}
     </body>
 </html>

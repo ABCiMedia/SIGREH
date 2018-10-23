@@ -2,43 +2,44 @@
     <body>
         {{> header }}
         {{> navbar }}
-        <table class='tbl'>
-            <thead>
-                <tr>
-                    <th><a href='/pessoas/indb'>No BD</a></th>
-                    <th><a href='/pessoas/regi'>Registrados</a></th>
-                    <th><a href="/pessoas/wait">Esperando Formação</a></th>
-                    <th><a href='/pessoas/form'>Formando</a></th>
-                    <th><a href='/pessoas/inte'>Em Estágio</a></th>
-                    <th><a href='/pessoas/hire'>Colocado</a></th>
-                    <th><a href='/pessoas/rese'>Em Reserva</a></th>
-                    <th><a href="/pessoas/eval">Avaliados</a></th>
-                    <th><a href="/pessoas/gave">Desistiu</a></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a href="/pessoas/indb">{{ peopleInDB }}</a></td>
-                    <td><a href="/pessoas/regi">{{ peopleRegistered }}</a></td>
-                    <td><a href="/pessoas/wait">{{ peopleWaiting }}</a></td>
-                    <td><a href="/pessoas/form">{{ peopleFormating }}</a></td>
-                    <td><a href="/pessoas/inte">{{ peopleInInternship }}</a></td>
-                    <td><a href="/pessoas/hire">{{ peopleHired }}</a></td>
-                    <td><a href="/pessoas/rese">{{ peopleReserved }}</a></td>
-                    <td><a href="/pessoas/eval">{{ peopleEvaluated }}</a></td>
-                    <td><a href="/pessoas/gave">{{ peopleGaveUp }}</a></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class='card card-tbl'>
+            <table>
+                <thead>
+                    <tr>
+                        <th><a href='/pessoas/indb'>No BD</a></th>
+                        <th><a href='/pessoas/regi'>Registrados</a></th>
+                        <th><a href="/pessoas/wait">Esperando Formação</a></th>
+                        <th><a href='/pessoas/form'>Formando</a></th>
+                        <th><a href='/pessoas/inte'>Em Estágio</a></th>
+                        <th><a href='/pessoas/hire'>Colocado</a></th>
+                        <th><a href='/pessoas/rese'>Em Reserva</a></th>
+                        <th><a href="/pessoas/eval">Avaliados</a></th>
+                        <th><a href="/pessoas/gave">Desistiu</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="/pessoas/indb">{{ peopleInDB }}</a></td>
+                        <td><a href="/pessoas/regi">{{ peopleRegistered }}</a></td>
+                        <td><a href="/pessoas/wait">{{ peopleWaiting }}</a></td>
+                        <td><a href="/pessoas/form">{{ peopleFormating }}</a></td>
+                        <td><a href="/pessoas/inte">{{ peopleInInternship }}</a></td>
+                        <td><a href="/pessoas/hire">{{ peopleHired }}</a></td>
+                        <td><a href="/pessoas/rese">{{ peopleReserved }}</a></td>
+                        <td><a href="/pessoas/eval">{{ peopleEvaluated }}</a></td>
+                        <td><a href="/pessoas/gave">{{ peopleGaveUp }}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
 
         {{!-- chart --}}
         <div class='chart'>
             <canvas id='cnv' width='0px' height='-100px'></canvas>
         </div>
-        
-        <img class='add-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Logout'>
 
-
+        {{> footer}}
         <script>
             var ctx = document.getElementById("cnv").getContext('2d');
             
@@ -57,13 +58,13 @@
                             {{ peopleGaveUp }},
                         ],
                         backgroundColor: [
-                            '#1E5C01',
-                            '#5EB804',
-                            '#F56915',
-                            '#F2F2F2',
-                            'rgba(54, 162, 235, 0.2)',
-                            '#595959',
-                            'green',
+                            '#6E74E8',
+                            '#333D46',
+                            '#0EDBD4',
+                            '#30BEBD',
+                            '#BEEDE7',
+                            '#002A54',
+                            '#007FFF',
                         ],
                         borderWidth: 1
                     }]

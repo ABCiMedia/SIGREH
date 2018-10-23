@@ -4,13 +4,22 @@
         {{# error }}
         <p class='error'>{{ param }}:{{ msg }}</p>
         {{/ error }}
-        <form action="/login" method='post'>
-            <label>Nome de Utilizador:</label>
-            <input name='username' placeholder='Nome de Utilizador' {{#if form_data }}value={{form_data.username}}{{/if}}><br>
-            <label>Senha:</label>
-            <input type='password' name='password' placeholder='Senha' {{#if form_data }}value={{form_data.password}}{{/if}}><br>
-            <input type='submit' value='Entrar'>
-        </form>
-        {{> footer }}
+        <div class='card card-login'>
+            <form action="/login" method='post'>
+                <div class='card-content'>
+                    <div class='input-field'>
+                        <label for='username'>Nome de Utilizador</label>
+                        <input id='username' type='text' name='username' {{#if form_data }}value={{form_data.username}}{{/if}}>
+                    </div>
+                    <div class='input-field'>
+                        <label for='password'>Senha</label>
+                        <input id='password' type='password' name='password' {{#if form_data }}value={{form_data.password}}{{/if}}>
+                    </div>
+                </div>
+                <div class='card-action'>
+                    <input class='waves-effect btn blue' type='submit' value='Entrar'>
+                </div>
+            </form>
+        </div>
     </body>
 </html>

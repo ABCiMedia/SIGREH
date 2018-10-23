@@ -5,101 +5,146 @@
     {{# error }}
     <p class='error'>{{ param }}: {{ msg }}</p>
     {{/ error }}
-    <form class='avaliar' action="/avaliar/{{ person.id }}" method='post'>
 
+    <form class='avaliar' action="/avaliar/{{ person.id }}" method='post'>
         <fieldset class='personal_data'>
-            <label for='name'>Nome</label>
-            <input name="name" value='{{ person.name }}' disabled>
-            <label for="phone">Contacto</label>
-            <input name='phone' value='{{ person.phone}}' disabled>
-            <label for="address">Endereço</label>
-            <input name='address' value='{{ person.address }}' disabled><br>
-            <label for="shop">Loja</label>
-            <select name="shop" id='shops'>
-                <option value="fazenda">Fazenda</option>
-                <option value="achada">Achada</option>
-                <option value="s_domingos">São Domingos</option>
-            </select>
-            {{!-- <input name='shop' required {{#if form_data}}value={{form_data.shop}}{{/if}}> --}}
-            <label for="shift">Turno</label>
-            <input type='time' name="shift_from" required {{#if form_data}}value={{form_data.shift_from}}{{/if}}>
-            <input type='time' name="shift_to" required {{#if form_data}}value={{form_data.shift_to}}{{/if}}><br>
-            <label for="shop_number">Loja Número</label>
-            <input type="number" name="shop_number" required {{#if form_data}}value={{form_data.shop_number}}{{/if}}>
-            <label for="date">Periodo</label>
-            <input type="date" name='date_from' required {{#if form_data}}value={{form_data.date_from}}{{/if}}>
-            <input type="date" name="date_to" required {{#if form_data}}value={{form_data.date_to}}{{/if}}>
+            <legend>Dados do Estagiário</legend>
+            <div class='row'>
+                <div class='input-field col s4'>
+                    <label for="name">Nome</label>
+                    <input type='text' name="name" value='{{ person.name }}' disabled>
+                </div>
+                <div class='input-field col s4'>
+                    <label for="phone">Contacto</label>
+                    <input type='text' name='phone' value='{{ person.phone}}' disabled>
+                </div>
+                <div class='input-field col s4'>
+                    <label for="address">Endereço</label>
+                    <input type='text' name='address' value='{{ person.address }}' disabled>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='input-field col s4'>
+                    <select name="shop" id='shops'>
+                        <option value="fazenda">Fazenda</option>
+                        <option value="achada">Achada</option>
+                        <option value="s_domingos">São Domingos</option>
+                    </select>
+                    <label for="shops">Loja</lab>
+                </div>
+                <div class='input-field col s4'>
+                    <label for="shift_from">Turno de</label>
+                    <input type='text' class='timepicker' name="shift_from" required {{#if form_data}}value={{form_data.shift_from}}{{/if}}>
+                </div>
+                <div class='input-field col s4'>
+                    <label for="shift_to">Turno até</label>
+                    <input type='text' class='timepicker' name="shift_to" required {{#if form_data}}value={{form_data.shift_to}}{{/if}}>
+                </div>                
+            </div>
+            <div class='row'>
+                <div class='input-field col s4'>
+                    <label for="shop_number">Loja Número</label>
+                    <input type="number" name="shop_number" required {{#if form_data}}value={{form_data.shop_number}}{{/if}}>
+                </div>
+                <div class='input-field col s4'>
+                    <label for="date_from">Periodo de</label>
+                    <input type="text" class='datepicker' name='date_from' required {{#if form_data}}value={{form_data.date_from}}{{/if}}>
+                </div>
+                <div class='input-field col s4'>
+                    <label for="date_to">Periodo até</label>
+                    <input type="text" class='datepicker' name="date_to" required {{#if form_data}}value={{form_data.date_to}}{{/if}}>
+                </div>
+            </div>            
         </fieldset>
 
         <fieldset>
             <legend>Avaliação Técnica</legend>
-            <pre class='num'>1   2   3   4   5</pre>
-
-            <label for="cachier">Caixa</label>
-            {{# radio 'cachier' 'form_data' }}{{/ radio}}
-
-            <label for="cleaning">Limpeza</label>
-            {{# radio 'cleaning' 'form_data' }}{{/ radio}}           
-
-            <label for="customer_service">Atendimento / Serviço Cliente</label>
-            {{# radio 'customer_service' 'form_data' }}{{/ radio}}          
-
-            <label for="replacement">Reposição</label>
-            {{# radio 'replacement' 'form_data' }}{{/ radio}}
-
-            <label for="team_work">Trabalho em Equipe / Organização</label>
-            {{# radio 'team_work' 'form_data' }}{{/ radio}}
-
-            <label for="cold_meats">Charcutaria</label>
-            {{# radio 'cold_meats' 'form_data' }}{{/ radio}}
-    
+            <pre class='num'>1    2     3    4    5</pre>
+            <div class='aligned'>
+                <label for="cachier">Caixa</label>
+                {{# radio 'cachier' 'form_data' }}{{/ radio}}
+            </div>
+            <div class='aligned'>
+                <label for="cleaning">Limpeza</label>
+                {{# radio 'cleaning' 'form_data' }}{{/ radio}}  
+            </div>      
+            <div class='aligned'>
+                <label for="customer_service">Atendimento / Serviço Cliente</label>
+                {{# radio 'customer_service' 'form_data' }}{{/ radio}} 
+            </div>
+            <div class='aligned'>
+                <label for="replacement">Reposição</label>
+                {{# radio 'replacement' 'form_data' }}{{/ radio}}
+            </div>
+            <div class='aligned'>
+                <label for="team_work">Trabalho em Equipe / Organização</label>
+                {{# radio 'team_work' 'form_data' }}{{/ radio}}
+            </div>
+            <div class='aligned'>
+                <label for="cold_meats">Charcutaria</label>
+                {{# radio 'cold_meats' 'form_data' }}{{/ radio}}
+            </div>
         </fieldset>
 
         <fieldset>
             <legend>Avaliação Interpessoal</legend>
-
-            <label for="flexibility">Flexibilidade</label>
-            {{# radio 'flexibility' 'form_data' }}{{/ radio}}
-
-            <label for="autonomy">Autonomia</label>
-            {{# radio 'autonomy' 'form_data' }}{{/ radio}}
-
-            <label for="punctuality">Pontualidade / Assiduidade</label>
-            {{# radio 'punctuality' 'form_data' }}{{/ radio}}
-
-            <label for="honesty">Honestidade</label>
-            {{# radio 'honesty' 'form_data' }}{{/ radio}}
-
-            <label for="proactivity">Pró Actividade</label>
-            {{# radio 'proactivity' 'form_data' }}{{/ radio}}
-
-            <label for="responsability">Responsabilidade</label>
-            {{# radio 'responsability' 'form_data' }}{{/ radio}}
-
-            <label for="interest_level">Nivel de Interesse</label>
-            {{# radio 'interest_level' 'form_data' }}{{/ radio}}
-
-            <label for="availability">Disponibilidade</label>
-            {{# radio 'availability' 'form_data' }}{{/ radio}}
-
-            <label for="personal_hygiene">Uniforme (Higiene Pessoal)</label>
-            {{# radio 'personal_hygiene' 'form_data' }}{{/ radio}}
-
+            <div class='aligned'>
+                <label for="flexibility">Flexibilidade</label>
+                {{# radio 'flexibility' 'form_data' }}{{/ radio}}
+            </div>
+            <div class='aligned'>
+                <label for="autonomy">Autonomia</label>
+                {{# radio 'autonomy' 'form_data' }}{{/ radio}}
+            </div>
+            <div class='aligned'>
+                <label for="punctuality">Pontualidade / Assiduidade</label>
+                {{# radio 'punctuality' 'form_data' }}{{/ radio}}
+            </div>
+            <div class='aligned'>
+                <label for="honesty">Honestidade</label>
+                {{# radio 'honesty' 'form_data' }}{{/ radio}}
+            </div>
+            <div class='aligned'>
+                <label for="proactivity">Pró Actividade</label>
+                {{# radio 'proactivity' 'form_data' }}{{/ radio}}
+            </div>
+            <div class='aligned'>
+                <label for="responsability">Responsabilidade</label>
+                {{# radio 'responsability' 'form_data' }}{{/ radio}}
+            </div>
+            <div class='aligned'>
+                <label for="interest_level">Nivel de Interesse</label>
+                {{# radio 'interest_level' 'form_data' }}{{/ radio}}
+            </div>
+            <div class='aligned'>
+                <label for="availability">Disponibilidade</label>
+                {{# radio 'availability' 'form_data' }}{{/ radio}}
+            </div>
+            <div class='aligned'>
+                <label for="personal_hygiene">Uniforme (Higiene Pessoal)</label>
+                {{# radio 'personal_hygiene' 'form_data' }}{{/ radio}}
+            </div>
         </fieldset>
 
         <fieldset>
             <label for="obs">Obs:</label>
             <textarea name="obs" cols="95" rows="3"></textarea>
         </fieldset>
+        <div class='row'>
+            <div class='input-field col s6'>
+                <label for="responsible_hr">Responsavel Recursos Humanos</label>
+                <input type='text' name='responsible_hr' required {{#if form_data}}value={{form_data.responsible_hr}}{{/if}}>
+            </div>
+            <div class='input-field col s6'>
+                <label for="advisor">Orientador</label>
+                <input type='text' name='advisor' required {{#if form_data}}value={{form_data.advisor}}{{/if}}>
+            </div>
+        </div>
 
-        <label for="responsible_hr">Responsavel Recursos Humanos</label>
-        <input name='responsible_hr' required {{#if form_data}}value={{form_data.responsible_hr}}{{/if}}>
-        <label for="advisor">Orientador</label>
-        <input name='advisor' required {{#if form_data}}value={{form_data.advisor}}{{/if}}>
- 
-        <input type="submit" value='Submeter'>
+        <input class='btn blue' type="submit" value='Submeter'>
+        <a class='btn blue' href="/avaliado/{{person.id}}">Voltar</a>
     </form>
-    <img class='info' onclick='toggleInfo()' src='/img/info-solid.svg'>
+    <i class='fas fa-info info' onclick='toggleInfo()'></i>
     <ol id='info-content' class='hide'>
         <li>Mau</li>
         <li>Insuficiente</li>
@@ -107,6 +152,6 @@
         <li>Bom</li>
         <li>Muito Bom</li>
     </ol>
-    <img class='logout-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Sair'>
+    {{>footer}}
 </body>
 </html>

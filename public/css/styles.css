@@ -16,30 +16,7 @@ header h1 {
 .ruler {
     width: 40vw;
     height: 2px;
-    /* background-color: #F56915; */
     background-color: #5EB804;
-}
-
-.tbl {
-    border-collapse: collapse;
-    /* background-image: linear-gradient(white, #FFDD6D); */
-    margin: 0 auto;
-    margin-top: 50px;
-    color: #595959;
-}
-
-.tbl, .tbl th, .tbl td {
-    border: 2px solid #5EB804;
-}
-
-.tbl th, .tbl td {
-    padding: 15px;
-    text-align: center;
-}
-
-.tbl a {
-    text-decoration: none;
-    color: #595959;
 }
 
 .chart {
@@ -50,28 +27,14 @@ header h1 {
 }
 
 form {
-    width: 30%;
+    width: 100%;
     margin: 0 auto;
-    margin-top: 50px;
-    color: #1E5C01;
-}
-
-form label {
-    display: inline-block;
-    width: 46%;
-    margin: 10px;
-}
-
-form input {
-    border: 1px solid #5EB804;
-    color: #595959;
-    padding: 5px;
-    width: 169px;
+    margin-top: 30px;
 }
 
 fieldset {
-    width: 90%;
-    border: 1px solid #5EB804;
+    width: 100%;
+    border: 1px solid #aaa;
     margin-bottom: 15px;
     margin-top: -5px;
 }
@@ -83,19 +46,6 @@ fieldset legend {
 fieldset label, fieldset input {
     width: auto;
     margin: 5px;
-}
-
-form input[type='submit'], .btn {
-    width: 96.4%;
-    background-color: #5EB804;
-    color: #F2F2F2;
-    font-weight: bolder;
-    padding: 10px;
-    border: none;
-}
-
-form input[type=submit]:hover, .btn:hover {
-    background-color: #F56915;
 }
 
 .error {
@@ -140,12 +90,11 @@ form input[type=submit]:hover, .btn:hover {
     display: none;
 }
 
-.dtls {
-    width: 60%;
+.card-details {
+    width: 51.5%;
+    padding: 10px 20px 10px 20px;
     margin: 0 auto;
-    margin-top: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    margin-top: 10px;
 }
 
 .dtls li {
@@ -158,91 +107,22 @@ form input[type=submit]:hover, .btn:hover {
     display: inline-block;
     width: 180px;
     color: #595959;
-    border-bottom: 1px dashed #5EB804;
+    border-bottom: 1px dashed #2196F3;
 }
 
-.dtls h3 {
-    color: #595959;
-}
-
-.dtls .btn {
-    display: inline-block;
-    width: 20%;
-    border: none;
-    margin: 20px 5px;
-    margin-bottom: 0px;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.edit {
-    width: 58%;
+.card-edit {
+    width: 32%;
+    padding: 0 30px 0 30px;
     margin: 0 auto;
-    margin-top: 20px;
-    padding-top: 30px;
-    padding-bottom: 10px;
-}
-
-.edit li {
-    list-style: none;
-    margin: 1.7px 50px;
-    color: #595959;
-    width: 100%;
-}
-
-.edit b {
-    display: inline-block;
-    width: 180px;
-    border-bottom: 1px dashed #5EB804;
-}
-
-.edit .btn {
-    display: inline-block;
-    width: 30%;
-    border: none;
-    margin: 20px 5px;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.edit select {
-    width: 22.8%;
-    padding: 3px;
-    margin-left: -4px;
-    border: 1px solid #5EB804;
-}
-
-.edit input[type='checkbox'] {
-    width: 20px;
-}
-
-.edit input[type='submit'] {
-    padding: 9.6px;
-    font-weight: 800;
-    width: 32.5%;
-}
-
-.edit .eb {
-    margin-left: 40px;
 }
 
 .avaliar {
     width: 58%;
 }
 
-.avaliar .personal_data label{
-    width: 92px;
-}
-
-.avaliar .personal_data input {
-    width: 100px;
-    color: #595959;
-}
-
 .avaliar fieldset label {
-    width: 70%;
+    display: inline-block;
+    width: 64%;
 }
 
 .avaliar .num {
@@ -253,18 +133,15 @@ form input[type=submit]:hover, .btn:hover {
 .avaliar textarea {
     resize: none;
     padding: 10px;
-    border: 1px solid #5EB804;
-}
-
-.avaliar input[type='submit'] {
-    margin-top: 20px;
+    border: 1px solid #aaa;
 }
 
 .info {
     position: fixed;
-    right: 100px;
-    bottom: 31px;
-    width: 10px;
+    right: 60px;
+    bottom: 30px;
+    font-size: 2.4em;
+    color: #2196F3;
 }
 
 #info-content {
@@ -278,11 +155,10 @@ form input[type=submit]:hover, .btn:hover {
 
 .add-btn {
     position: fixed;
-    right: 90px;
-    bottom: 30px;
-    width: 30px;
-    height: 30px;
+    right: 60px;
+    bottom: 40px;
     cursor: pointer;
+    color: #2196F3;
 }
 
 .logout-btn {
@@ -292,21 +168,6 @@ form input[type=submit]:hover, .btn:hover {
     width: 30px;
     height: 30px;
     cursor: pointer;
-}
-
-.avaliar_edit_btn {
-    margin-top: 30px;
-}
-
-.avaliar_edit_btn input[type='submit'], .avaliar_edit_btn a {
-    display: inline-block;
-    width: 43%;
-    margin: 0 5px;
-}
-
-.avaliar_edit_btn a {
-    text-align: center;
-    text-decoration: none;
 }
 
 .rep {
@@ -322,50 +183,6 @@ form input[type=submit]:hover, .btn:hover {
     cursor: pointer;
 }
 
-#shops {
-    border: 1px solid #5EB804;
-    color: #595959;
-    padding: 5px;
-    margin-left: 5px;
-    margin-right: 4px;
-    width: 113px;
-}
-
-.dataTables_wrapper {
-    width: 60%;
-    margin: 0 auto;
-    margin-top: 50px;
-}
-
-.dataTable, .display {
-    color: #595959;
-    border: 1px solid #5EB804;
-}
-
-.dataTables_wrapper td, .dataTables_wrapper th {
-    border: 2px solid #5EB804;
-}
-
-.dataTables_filter {
-    margin-bottom: 10px;
-}
-
-.dataTables_filter * {
-    color: #595959;
-}
-
-.dataTables_filter input[type='search'] {
-    border: 1px solid #5EB804;
-    padding: 5px;
-}
-
-#myTable thead th {
-    border: 2px solid #5EB804;
-}
-#myTable {
-    border-collapse: collapse;
-}
-
 @keyframes slide {
     from {
         height: 0;
@@ -378,7 +195,7 @@ form input[type=submit]:hover, .btn:hover {
 }
 
 
-.modal {
+/* .modal {
     display: none; 
     position: fixed; 
     z-index: 1; 
@@ -389,17 +206,17 @@ form input[type=submit]:hover, .btn:hover {
     overflow: auto; 
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
-}
+} */
 
 
-.modal-content {
+/* .modal-content {
     background-color: #F2F2F2;
     margin: 15% auto;
     padding: 20px;
     border: 2px solid #5EB804;
     width: 30%; 
     animation: apear .5s;
-}
+} */
 
 @keyframes apear {
     from {
@@ -422,7 +239,6 @@ form input[type=submit]:hover, .btn:hover {
     background-color: #F56915;
 }
 
-/* The Close Button */
 .close {
     color: #aaa;
     float: right;
@@ -438,11 +254,11 @@ form input[type=submit]:hover, .btn:hover {
 }
 
 .formation-form {
-    width: 60%;
+    width: 45%;
 }
 
-.formation-form input[type='submit'] {
-    width: 93.5%;
+.formation-form fieldset input[type='number'] {
+    width: 90%;
 }
 
 .navbar {
@@ -480,7 +296,6 @@ form input[type=submit]:hover, .btn:hover {
 
 textarea {
     resize: none;
-    border: 1px solid #5EB804;
 }
 
 .group {
@@ -496,4 +311,108 @@ textarea {
     color: #F2F2F2;
     color: #5EB804;
     color: #595959;
+}
+
+.brand-logo {
+    margin-left: 10px;
+}
+
+.fa-bars {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.card-login {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.card-login form {
+    width: 100%;
+}
+
+.card-tbl {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.card-tbl td, .card-tbl th {
+    text-align: center;
+}
+
+.card-list {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 30px;
+}
+
+.card-register {
+    width: 32%;
+    padding: 10px 40px 20px 40px;
+    margin: 10px auto 0 auto;
+}
+
+.dataTables_wrapper {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.dataTables_filter label {
+    font-size: 1rem;
+}
+
+.dataTables_filter input[type='search']{
+    height: 1rem;
+    width: 70%;
+    margin: 30px 0 30px 10px;
+}
+
+table.dataTable {
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 3px 1px #ccc;
+}
+
+table.dataTable thead th {
+    border-bottom: none;
+    color: #039be5;
+}
+
+.card-payment {
+    width: 30%;
+    padding: 0px 30px 10px 30px;
+    margin: 0 auto;
+}
+
+.fa-plus-circle {
+    font-size: 2.4em;
+}
+
+.aligned .inline{
+    margin: -70px 40px 0 0;
+}
+
+.card-avaliado {
+    width: 60%;
+    margin: 10px auto 0 auto;
+    padding: 0 10px 0 10px;
+}
+
+.card-add-formation {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.card-admin {
+    width: 40%;
+    padding: 0 10px 0 10px; 
+    margin: 10px auto 0 auto;
+}
+
+.card-create-user {
+    width: 40%;
+    margin: 10px auto 0 auto;
+    padding: 10px 30px 10px 30px;
 }

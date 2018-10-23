@@ -4,32 +4,34 @@
     {{> header }}
     {{> navbar }}
     {{# if person}}
-    <table class='tbl'>
-        <thead>
-            <tr>
-                <th>Nome de Utilizador</th>
-                <th>Grupo</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{# each person }}
-            <tr>
-                <td>{{ this.dataValues.username }}</td>
-                <td>{{ this.dataValues.group }}</td>
-                <td>
-                    <img class='icon' onclick='showModal({{ this.dataValues.id }}, "/delete_user/")' src='/img/trash-alt-solid.svg' alt='editar'>
-                </td>
-            </tr>
-            {{/ each }}
-        </tbody>
-    </table>
+    <div class='card card-admin'>
+        <table class='tbl'>
+            <thead>
+                <tr>
+                    <th>Nome de Utilizador</th>
+                    <th>Grupo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{# each person }}
+                <tr>
+                    <td>{{ this.dataValues.username }}</td>
+                    <td>{{ this.dataValues.group }}</td>
+                    <td>
+                        <img class='icon' onclick='showModal({{ this.dataValues.id }}, "/delete_user/")' src='/img/trash-alt-solid.svg' alt='editar'>
+                    </td>
+                </tr>
+                {{/ each }}
+            </tbody>
+        </table>
+    </div>
     {{else}}
     <p class='rep'>Ainda sem nenhum utilizadores</p>
     {{/if}}
-    <img class='add-btn' onclick='loadPage("/create_user")' src='/img/plus-circle-solid.svg' alt='Criar Utilizador'>
-    <img class='logout-btn' onclick='loadPage("/logout")' src='/img/sign-out-alt-solid.svg' alt='Sair'>
+    <i class='fas fa-plus-circle add-btn' onclick='loadPage("/create_user")'></i>
     {{> delete_modal }}
+    {{>footer}}
 </body>
 
 </html>

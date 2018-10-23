@@ -65,6 +65,32 @@ window.onload = () => {
     }
 }
 
+const calculateTotal = () => {
+    let numFormations = document.forms[0].children.length - 2;
+    let formation;
+    let total = 0;
+    for (let i=0; i<numFormations; i++) {
+        formation = document.forms[0].children[i].children[9].children[0];
+        if (formation.checked) {
+            subscription = parseFloat(formation.getAttribute('data-insc'));
+            certificate = parseFloat(formation.getAttribute('data-cert'));
+            total += subscription + certificate;
+        }
+    }
+    let discount = parseFloat(document.getElementById('discount').value);
+    total *= (100 - discount) / 100;
+    document.getElementById('total').value = total;
+};
+
+const enableTotal = () => {
+    document.getElementById('total').disabled = false;
+    return true;
+}
+
+//////////////////////////////////////////////
+/////////////// DATATABLES ///////////////////
+//////////////////////////////////////////////
+
 $(document).ready(function () {
     let options = {
         lengthMenu: [7],
@@ -84,25 +110,83 @@ $(document).ready(function () {
     $('#myTable').DataTable(options);
 });
 
+//////////////////////////////////////////////
+//////////////// MATERIALIZE /////////////////
+//////////////////////////////////////////////
 
-const calculateTotal = () => {
-    let numFormations = document.forms[0].children.length - 2;
-    let formation;
-    let total = 0;
-    for (let i=0; i<numFormations; i++) {
-        formation = document.forms[0].children[i].children[10];
-        if (formation.checked) {
-            subscription = parseFloat(formation.getAttribute('data-insc'));
-            certificate = parseFloat(formation.getAttribute('data-cert'));
-            total += subscription + certificate;
-        }
+var datepicker_opts = {
+    format: 'yyyy-mm-dd',
+    i18n: {
+        cancel: 'Cancelar',
+        clear: 'Limpar',
+        months: [
+            'Janeiro',
+            'Fevereiro',
+            'Março',
+            'Abril',
+            'Maio',
+            'Junho',
+            'Julho',
+            'Agosto',
+            'Setembro',
+            'Outubro',
+            'Novembro',
+            'Dezembro'
+        ],
+        monthsShort: [
+            'Jan',
+            'Fev',
+            'Mar',
+            'Abr',
+            'Mai',
+            'Jun',
+            'Jul',
+            'Ago',
+            'Set',
+            'Out',
+            'Nov',
+            'Dez'
+        ],
+        weekdays: [
+            'Domingo',
+            'Segunda-Feira',
+            'Terça-Feira',
+            'Quarta-Feira',
+            'Quinta-Feira',
+            'Sexta-Feira',
+            'Sábado'
+        ],
+        weekdaysShort: [
+            'Dom',
+            'Seg',
+            'Ter',
+            'Qua',
+            'Qui',
+            'Sex',
+            'Sab'
+        ],
+        weekdaysAbbrev: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
     }
-    let discount = parseFloat(document.getElementById('discount').value);
-    total *= (100 - discount) / 100;
-    document.getElementById('total').value = total;
 };
 
-const enableTotal = () => {
-    document.getElementById('total').disabled = false;
-    return true;
+var timepicker_opts = {
+    twelveHour: false,
+    i18n: {
+        cancel: 'Cancelar',
+        clear: 'Limpar',
+        done: 'Ok'
+    }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    M.Datepicker.init(document.querySelectorAll('.datepicker'), datepicker_opts);
+    M.Timepicker.init(document.querySelectorAll('.timepicker'), timepicker_opts);
+    M.FormSelect.init(document.querySelectorAll('select'));
+    M.Sidenav.init(document.querySelectorAll('.sidenav'));
+});
+
+const openSidenav = () => {
+    let el = document.querySelectorAll('.sidenav');
+    let inst = M.Sidenav.init(el)[0];
+    inst.open();
+};

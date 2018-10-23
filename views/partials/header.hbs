@@ -1,4 +1,8 @@
-<div id='app'>
-    <v-toolbar class='hide-print'>
-        <h1>{{ pageTitle }}</h1>
-    </v-toolbar>
+<nav class='hide-print blue'>
+    <div class="nav-wrapper">
+        {{#if user}}
+        <i class='fas fa-bars' onclick='openSidenav()' class='sidenav-trigger'></i>
+        {{/if}}
+        <span class="brand-logo">{{ pageTitle }}</span>
+    </div>
+</nav>
