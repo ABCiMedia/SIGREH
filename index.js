@@ -919,6 +919,17 @@ app.get("/delete_evaluation/:av_id/:userId", (req, res) => {
   });
 });
 
+app.get('/delete_formation/:f_id(\\d+)', (req, res) => {
+  if (!req.user || req.user.group !== 'admin') return res.redirect('/login');
+  Formation.destroy({
+    where: {
+      id: req.params.f_id
+    }
+  }).then(() => {
+    return res.redirect('/formations');
+  });
+});
+
 app.get("/formations", (req, res) => {
   if (!req.user || req.user.group !== "admin") return res.redirect("/login");
   Formation.findAll().then(fs => {

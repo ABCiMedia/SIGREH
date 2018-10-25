@@ -19,14 +19,14 @@
             <tbody>
                 {{# each formations }}
                 <tr>
-                    <td><a href='/formation/{{ this.dataValues.id }}'>{{ this.dataValues.name }}</a></td>
-                    <td><a href='/formation/{{ this.dataValues.id }}'>{{ this.dataValues.teoric_part }}</a></td>
-                    <td><a href='/formation/{{ this.dataValues.id }}'>{{ this.dataValues.pratic_part }}</a></td>
-                    <td><a href='/formation/{{ this.dataValues.id }}'>{{ this.dataValues.subscription_cost }}</a></td>
-                    <td><a href='/formation/{{ this.dataValues.id }}'>{{ this.dataValues.certificate_cost }}</a></td>
+                    <td><a href='/formation/{{ this.id }}'>{{ this.name }}</a></td>
+                    <td><a href='/formation/{{ this.id }}'>{{ this.teoric_part }}</a></td>
+                    <td><a href='/formation/{{ this.id }}'>{{ this.pratic_part }}</a></td>
+                    <td><a href='/formation/{{ this.id }}'>{{ this.subscription_cost }}</a></td>
+                    <td><a href='/formation/{{ this.id }}'>{{ this.certificate_cost }}</a></td>
                     {{#if @root.admin }}
                     <td>
-                        <img class='icon' onclick='showModal({{ this.dataValues.id }},"/delete_formation/")' src='/img/trash-alt-solid.svg' alt='Eliminar'>
+                        <i class='fas fa-trash modal-trigger' data-target='delModal' user-id='{{ this.id }}' path='/delete_formation/'></i>
                     </td>
                     {{/if}}
                 </tr>
