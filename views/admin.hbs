@@ -16,10 +16,10 @@
             <tbody>
                 {{# each person }}
                 <tr>
-                    <td>{{ this.dataValues.username }}</td>
-                    <td>{{ this.dataValues.group }}</td>
+                    <td>{{ this.username }}</td>
+                    <td>{{ this.group }}</td>
                     <td>
-                        <img class='icon' onclick='showModal({{ this.dataValues.id }}, "/delete_user/")' src='/img/trash-alt-solid.svg' alt='editar'>
+                        <i class='fas fa-trash modal-trigger' data-target='delModal' user-id='{{ this.id }}' path='/delete_user/'></i>
                     </td>
                 </tr>
                 {{/ each }}
