@@ -13,7 +13,7 @@
                 </div>
                 <div class='input-field'>
                     <label for='birthdate'>Data de Nascimento</label>
-                    <input type='text' name='birthdate' class='datepicker' required onfocus='showDatepicker()' {{#if form_data }}value={{form_data.birthdate}}{{/if}}>
+                    <input type='date' name='birthdate' required {{#if form_data }}value={{form_data.birthdate}}{{/if}}>
                 </div>
                 <div class='input-field'>
                     <label for='address'>Morada</label>
