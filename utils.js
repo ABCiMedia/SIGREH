@@ -99,7 +99,7 @@ const comparePass = (req, res, next) => {
 const setScore = (evaluations) => {
     let media = 0, count = 0;
     for (evaluation of evaluations) {
-        ev = evaluation.dataValues;
+        ev = evaluation;
         let tec = (ev.cachier*2/6) + (ev.cleaning*2/15) + (ev.customer_service*2/15) + (ev.replacement*2/15) + (ev.team_work*2/15) + (ev.cold_meats*2/15);
         let pes = (ev.flexibility*1/9) + (ev.autonomy*1/9) + (ev.punctuality*1/9) + (ev.honesty*1/9) + (ev.proactivity*1/9) + (ev.responsability*1/9) + (ev.interest_level*1/9) + (ev.availability*1/9) + (ev.personal_hygiene*1/9);
         let total = (tec * 0.6) + (pes * 0.4);

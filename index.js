@@ -620,14 +620,13 @@ app.post(
 );
 
 app.get("/avaliado/:userId(\\d+)", (req, res) => {
-  if (!req.user) {
-    return res.redirect("/login");
-  }
+  if (!req.user) return res.redirect("/login");
+
   let options = null;
   Person.findById(req.params.userId)
     .then(person => {
       options = {
-        pageTitle: `Avaliações de ${person.dataValues.name}`,
+        pageTitle: `Avaliações de ${person.name}`,
         person,
         user: req.user,
         admin: req.user.group === "admin" ? true : false
