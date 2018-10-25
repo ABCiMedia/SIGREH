@@ -2,7 +2,7 @@
 <button id="myBtn">Open Modal</button> --}}
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
+{{!-- <div id="myModal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
@@ -12,4 +12,13 @@
     <button id='cancel' onclick='hideModal()'>Cancelar</button>
   </div>
 
+</div> --}}
+<div id='delModal' class='modal'>
+    <div class='modal-content'>
+        <p>Are you sure you want to delete this?</p>
+    </div>
+    <div class='modal-footer'>
+        <button onclick='delUser()' class='btn blue waves-effect'>Sim</button>
+        <button onclick='dismissModal()' class='btn blue waves-effect'>Não</button>
+    </div>
 </div>

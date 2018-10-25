@@ -21,15 +21,15 @@
             <tbody>
                 {{# each person }}
                 <tr>
-                    <td><a href='/details/{{ this.dataValues.id }}'>{{ this.dataValues.id }}</a></td>
-                    <td><a href='/details/{{ this.dataValues.id }}'>{{ this.dataValues.name }}</a></td>
-                    <td><a href='/details/{{ this.dataValues.id }}'>{{ this.dataValues.address }}</a></td>
-                    <td><a href='/details/{{ this.dataValues.id }}'>{{ this.dataValues.phone }}</a></td>
-                    <td><a href='/details/{{ this.dataValues.id }}'>{{ this.dataValues.email }}</a></td>
-                    <td><a href='/details/{{ this.dataValues.id }}'>{{ this.dataValues.state }}</a></td>
+                    <td><a href='/details/{{ this.id }}'>{{ this.id }}</a></td>
+                    <td><a href='/details/{{ this.id }}'>{{ this.name }}</a></td>
+                    <td><a href='/details/{{ this.id }}'>{{ this.address }}</a></td>
+                    <td><a href='/details/{{ this.id }}'>{{ this.phone }}</a></td>
+                    <td><a href='/details/{{ this.id }}'>{{ this.email }}</a></td>
+                    <td><a href='/details/{{ this.id }}'>{{ this.state }}</a></td>
                     {{#if @root.admin }}
                     <td>
-                        <i onclick='showModal({{ this.dataValues.id }},"/delete_person/")' class='fas fa-trash'></i>
+                        <i user-id='{{this.id}}' path='/delete_person/' data-target='delModal' class='fas fa-trash modal-trigger'></i>
                     </td>
                     {{/if}}
                 </tr>
