@@ -242,8 +242,8 @@ app.post(
     check("birthdate").isBefore(new Date().toLocaleDateString()),
     check("phone").isMobilePhone(),
     // check("email").isEmail(),
-    check("bi").matches(/^\d{4,7}$/),
-    check("nif").matches(/^\d{6,10}$/),
+    check("bi").isNumeric(),
+    check("nif").isNumeric(),
     check("gender").isIn(["male", "female"])
   ],
   (req, res) => {
@@ -260,7 +260,7 @@ app.post(
         error: utils.changeError(errors.array()[0]),
         form_data: req.body
       };
-      return res.render("register.hbs", options);
+      return res.render("register", options);
     } else {
       Person.create({
         name: req.body.name,
