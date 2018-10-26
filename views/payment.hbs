@@ -3,8 +3,9 @@
         {{> header }}
         {{> navbar }}
         {{#error}}
-        <p class='error'>{{param}}: {{msg}}</p>
+        <p class='card red card-error'>{{param}}: {{msg}}</p>
         {{/error}}
+
         <h3 class='hide'>RECIBO:</h3>
         <div class='card card-payment'>
             <form class='frm-print edit' method='post' action='/payment/{{person.id}}'>

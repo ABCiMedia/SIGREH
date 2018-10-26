@@ -2,9 +2,11 @@
     <body>
         {{> header }}
         {{> navbar }}
+
         {{# error }}
-        <p class='error'>{{ param }}:{{ msg }}</p>
+        <p class='card red card-error'>{{ param }}:{{ msg }}</p>
         {{/ error }}
+
         <div class='card card-add-formation'>
             <form action="/add_formation" method='post'>
                 <div class='card-content'>

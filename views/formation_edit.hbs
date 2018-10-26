@@ -3,8 +3,9 @@
         {{> header }}
         {{> navbar }}
         {{#error}}
-        <p class='error'>{{param}}: {{msg}}</p>
+        <p class='card red card-error'>{{param}}: {{msg}}</p>
         {{/error}}
+
         <form class='edit' method='post' action='/formation/{{ formation.id }}'>
             <li><b>Nome:</b><input name='name' required value='{{ formation.name }}'></li>
             <li><b>Duração Teoria:</b><input name='teoric_part' type='number' requited value='{{ formation.teoric_part }}'></li>
