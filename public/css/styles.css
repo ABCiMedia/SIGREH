@@ -48,10 +48,9 @@ fieldset label, fieldset input {
     margin: 5px;
 }
 
-.error {
-    background-color: rgba(240, 128, 128, 0.7);
-    width: 25%;
-    margin: 15px auto -43px auto;
+.card-error {
+    width: 30%;
+    margin: 5px auto;
     padding: 5px;
     font-weight: 500;
     color: white;

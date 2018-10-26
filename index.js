@@ -247,19 +247,19 @@ app.post(
     check("gender").isIn(["male", "female"])
   ],
   (req, res) => {
-    if (!req.user) {
-      return res.redirect("/login");
-    }
+    if (!req.user) return res.redirect("/login");
+
     let options = {};
     options.user = req.user;
     options.admin = req.user.group === "admin" ? true : false;
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      let options = {
+      Object.assign(options, {
         pageTitle: "Inscrições",
         error: utils.changeError(errors.array()[0]),
         form_data: req.body
-      };
+      });
       return res.render("register", options);
     } else {
       Person.create({
