@@ -268,8 +268,8 @@ app.post(
         address: req.body.address,
         phone: req.body.phone,
         email: req.body.email,
-        bi: parseInt(req.body.bi),
-        nif: parseInt(req.body.nif),
+        bi: req.body.bi,
+        nif: req.body.nif,
         gender: req.body.gender,
         state: "registered",
         userId: req.user.id
