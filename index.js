@@ -662,7 +662,7 @@ app.get("/avaliar_edit/:av_id(\\d+)", (req, res) => {
 app.post(
   "/avaliar_edit/:av_id(\\d+)",
   [
-    check("shop").isAlpha("pt-PT"),
+    check("shop").isString(),
     check("shift_from").matches(/^\d{2}:\d{2}:\d{2}$/),
     check("shift_to").matches(/^\d{2}:\d{2}:\d{2}$/),
     check("shop_number").isInt(),
@@ -683,8 +683,8 @@ app.post(
     check("interest_level").isInt({ min: 1, max: 5 }),
     check("availability").isInt({ min: 1, max: 5 }),
     check("personal_hygiene").isInt({ min: 1, max: 5 }),
-    check("responsible_hr").isAlpha("pt-PT"),
-    check("advisor").isAlpha("pt-PT")
+    check("responsible_hr").isString(),
+    check("advisor").isString()
   ],
   (req, res) => {
     if (!req.user) {
