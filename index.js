@@ -15,6 +15,8 @@ const { Person } = require("./models/Person"),
   { User } = require("./models/User"),
   { Formation } = require("./models/Formation"),
   { Payment } = require("./models/Payment"),
+  { Discount } = require('./models/Discount'),
+  { Increase } = require('./models/Increase'),
   utils = require("./utils"),
   cred = require("./models/credentials");
 
@@ -511,7 +513,7 @@ app.post("/edit/:userId(\\d+)", [
     // .catch(e => res.redirect(`/edit/${req.params.userId}`));
 });
 
-app.get("/avaliar/:userId(\\d+)", (req, res) => {
+app.get("/avaliavaliar/:userId(\\d+)", (req, res) => {
   if (!req.user) {
     return res.redirect("/login");
   }
@@ -625,18 +627,32 @@ app.get("/avaliado/:userId(\\d+)", (req, res) => {
   let options = null;
   Person.findById(req.params.userId)
     .then(person => {
-      options = {
-        pageTitle: `Avaliações de ${person.name}`,
-        person,
-        user: req.user,
-        admin: req.user.group === "admin" ? true : false
-      };
-      return person.getEvaluations();
+        options = {
+            pageTitle: `Avaliações de ${person.name}`,
+            person,
+            user: req.user,
+            admin: req.user.group === "admin" ? true : false
+        };
+        return Promise.all([
+            person.getEvaluations(),
+            Discount.findAll({
+                where: {
+                    personId: req.params.userId
+                }
+            }),
+            Increase.findAll({
+                where: {
+                    personId: req.params.userId
+                }
+            })
+        ])
     })
-    .then(e => {
-      options.evaluations = utils.setScore(e);
-      return res.render("avaliado", options);
-    });
+    .then(r => {
+        options.evaluations = utils.setScore(r[0], r[1], r[2])
+        options.discount = r[1]
+        options.increase = r[2]
+        return res.render("avaliado", options)
+    })
 });
 
 app.get("/avaliar_edit/:av_id(\\d+)", (req, res) => {
@@ -1159,6 +1175,92 @@ app.post('/payment/:personId', (req, res) => {
         return res.redirect(`/payment/${req.params.personId}`);
     });
 });
+
+app.get('/discount_person/:personId(\\d+)', (req, res) => {
+    if (!req.user) return res.redirect('/login')
+
+    Person.findById(req.params.personId)
+    .then(person => {
+        return res.render('discount_person', {
+            person,
+            pageTitle: `Descontar de ${person.name}`,
+            user: req.user,
+            admin: req.user.group === 'admin'
+        })
+    })
+})
+
+app.post('/discount_person/:personId(\\d+)', [
+    check('quantity').isFloat()
+], (req, res) => {
+    if (!req.user) return res.redirect('/login')
+
+    let errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        Person.findById(req.params.personId)
+        .then(person => {
+            return res.render('discount_person', {
+                error: utils.changeError(errors.array()[0]),
+                pageTitle: `Descontar de ${person.name}`,
+                person,
+                user: req.user,
+                admin: req.user.group === 'admin'
+            })
+        })
+    } else {
+        Discount.create({
+            quantity: Math.abs(req.body.quantity),
+            reason: req.body.reason,
+            personId: req.params.personId
+        })
+        .then(() => {
+            return res.redirect('/avaliado/' + req.params.personId)
+        })
+    }
+})
+
+app.get('/increase_person/:personId(\\d+)', (req, res) => {
+    if (! req.user) return res.redirect('/login')
+
+    Person.findById(req.params.personId)
+    .then(person => {
+        return res.render('increase_person', {
+            pageTitle: `Aumento de ${person.name}`,
+            user: req.user,
+            admin: req.user.group === 'admin',
+            person,
+        })
+    })
+})
+
+app.post('/increase_person/:personId(\\d+)', [
+    check('quantity').isFloat()
+], (req, res) => {
+    if (! req.user) return res.redirect('/login')
+
+    let errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        Person.findById(req.params.personId)
+        .then(person => {
+            return res.render('increase_person', {
+                pageTitle: `Aumento de ${person.name}`,
+                user: req.user,
+                admin: req.user.group === 'admin',
+                person,
+                error: utils.changeError(errors.array()[0])
+            })
+        })
+    } else {
+        Increase.create({
+            quantity: Math.abs(req.body.quantity),
+            reason: req.body.reason,
+            personId: req.params.personId
+        })
+        .then(() => {
+            return res.redirect(`/avaliado/${req.params.personId}`)
+        })
+    }
+})
 
 app.listen(port, "0.0.0.0", () => {
   console.log("Server started at port %d", port);

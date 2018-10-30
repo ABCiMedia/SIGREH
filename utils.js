@@ -50,7 +50,8 @@ const errorMap = new Map([
     ['teoric_part', 'Duração Teoria'],
     ['pratic_part', 'Duração Prática'],
     ['subscription_cost', 'Preço Inscrição'],
-    ['certificate_cost', 'Preço Certificado']
+    ['certificate_cost', 'Preço Certificado'],
+    ['quantity', 'Quantidade'],
 ]);
 
 const scoreMap = new Map([
@@ -96,7 +97,7 @@ const comparePass = (req, res, next) => {
     throw new Error('password invalid');
 }
 
-const setScore = (evaluations) => {
+const setScore = (evaluations, discounts, increases) => {
     let media = 0, count = 0;
     for (evaluation of evaluations) {
         ev = evaluation;
@@ -109,6 +110,14 @@ const setScore = (evaluations) => {
         media += ev.score;
     }
     media /= count;
+    for (discount of discounts) {
+        media -= discount.quantity
+    }
+    for (increase of increases) {
+        media += increase.quantity
+    }
+    if (media > 5) media = 5
+    if (media < 1) media = 1
     evaluations.media = Number(media.toFixed(2));
     evaluations.mediaText = scoreMap.get(parseInt(evaluations.media));
     return evaluations;

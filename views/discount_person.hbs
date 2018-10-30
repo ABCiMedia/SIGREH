@@ -1,0 +1,37 @@
+{{> head }}
+    <body>
+        {{> header }}
+        {{> navbar }}
+        {{#error}}
+        <p class='card red card-error'>{{param}}: {{msg}}</p>
+        {{/error}}
+
+        <div class='card card-payment'>
+            <form class='frm-print edit' method='post' action='/discount_person/{{person.id}}'>
+                <div class='card-content'>
+                    <div class='input-field'>
+                        <label>ID:</label>
+                        <input type='text' disabled name='id' value='{{ person.id }}'>
+                    </div>
+                    <div class='input-field'>
+                        <label>Nome:</label>
+                        <input type='text' disabled name='name' value='{{ person.name }}'>
+                    </div>
+                    <div class='input-field'>
+                        <label>Quatidade a descontar</label>
+                        <input type='text' name='quantity'>
+                    </div>
+                    <div class='input-field'>
+                        <label>Motivo</label>
+                        <input type="text" name='reason'>
+                    </div>
+                </div>
+                <div class='card-action hide-print'>
+                    <input class='btn blue' type='submit' value='Descontar'>
+                    <a class='btn blue' href='/avaliado/{{ person.id }}'>Voltar</a>
+                </div>
+            </form>
+        </div>
+        {{>footer}}
+    </body>
+</html>

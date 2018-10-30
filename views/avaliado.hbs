@@ -33,8 +33,22 @@
                     {{/if}}
                 </tr>
                 {{/ each }}
+                {{# each discount }}
                 <tr>
-                    <td colspan="4"><b>Media</b></td>
+                    <td><b>Desconto</b></td>
+                    <td colspan='3'>{{ this.reason }}</td>
+                    <td>{{ this.quantity }}</td>
+                </tr>
+                {{/ each }}
+                {{# each increase }}
+                <tr>
+                    <td><b>Aumento</b></td>
+                    <td colspan='3'>{{ this.reason }}</td>
+                    <td>{{ this.quantity }}</td>
+                </tr>
+                {{/ each }}
+                <tr>
+                    <td colspan="4"><b>Total</b></td>
                     <td><b>{{ evaluations.media }}</b></td>
                     <td><b>{{ evaluations.mediaText }}</b></td>
                 </tr>
@@ -46,7 +60,9 @@
     <p class='rep'>... Nenhuma Avaliação encontrada ...</p>
     {{/ if }}
 
-    <i onclick='loadPage("/avaliar/{{ person.dataValues.id }}")' class='fas fa-plus-circle add-btn'></i>
+    <i onclick='loadPage("/avaliar/{{ person.id }}")' class='fas fa-plus-circle add-btn'></i>
+    <i onclick='loadPage("/discount_person/{{ person.id }}")' class='fas fa-thumbs-down discount'></i>
+    <i onclick='loadPage("/increase_person/{{ person.id }}")' class='fas fa-thumbs-up increase'></i>
     {{> delete_modal }}
     {{>footer}}
 </body>
