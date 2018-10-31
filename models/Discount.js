@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 
 const { Person } = require('./Person')
+const { User } = require('./User')
 const credentials = require('./credentials')
 
 const sequelize = new Sequelize(credentials.database, credentials.username, credentials.password, {
@@ -15,7 +16,8 @@ const Discount = sequelize.define('discount', {
     reason: Sequelize.STRING
 })
 
-Discount.belongsTo(Person);
+Discount.belongsTo(Person)
+Discount.belongsTo(User)
 
 sequelize.sync();
 

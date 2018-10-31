@@ -622,16 +622,16 @@ app.post(
 );
 
 app.get("/avaliado/:userId(\\d+)", (req, res) => {
-  if (!req.user) return res.redirect("/login");
+    if (!req.user) return res.redirect("/login");
 
-  let options = null;
-  Person.findById(req.params.userId)
+    let options = null;
+    Person.findById(req.params.userId)
     .then(person => {
         options = {
             pageTitle: `Avaliações de ${person.name}`,
             person,
             user: req.user,
-            admin: req.user.group === "admin" ? true : false
+            admin: req.user.group === "admin"
         };
         return Promise.all([
             person.getEvaluations(),
@@ -648,9 +648,11 @@ app.get("/avaliado/:userId(\\d+)", (req, res) => {
         ])
     })
     .then(r => {
-        options.evaluations = utils.setScore(r[0], r[1], r[2])
-        options.discount = r[1]
-        options.increase = r[2]
+        Object.assign(options, {
+            evaluations: utils.setScore(r[0], r[1], r[2]),
+            discount: r[1],
+            increase: r[2]
+        })
         return res.render("avaliado", options)
     })
 });
@@ -1211,12 +1213,26 @@ app.post('/discount_person/:personId(\\d+)', [
         Discount.create({
             quantity: Math.abs(req.body.quantity),
             reason: req.body.reason,
-            personId: req.params.personId
+            personId: req.params.personId,
+            userId: req.user.id
         })
         .then(() => {
             return res.redirect('/avaliado/' + req.params.personId)
         })
     }
+})
+
+app.get('/delete_discount/:dis_id/:personId', (req, res) => {
+    if (!req.user || req.user.group !== 'admin') return res.redirect('/login')
+
+    Discount.destroy({
+        where: {
+            id: req.params.dis_id
+        }
+    })
+    .then(() => {
+        return res.redirect(`/avaliado/${req.params.personId}`)
+    })
 })
 
 app.get('/increase_person/:personId(\\d+)', (req, res) => {
@@ -1254,12 +1270,26 @@ app.post('/increase_person/:personId(\\d+)', [
         Increase.create({
             quantity: Math.abs(req.body.quantity),
             reason: req.body.reason,
-            personId: req.params.personId
+            personId: req.params.personId,
+            userId: req.user.id
         })
         .then(() => {
             return res.redirect(`/avaliado/${req.params.personId}`)
         })
     }
+})
+
+app.get('/delete_increase/:inc_id/:personId', (req, res) => {
+    if (!req.user || req.user.group !== 'admin') return res.redirect('/login')
+
+    Increase.destroy({
+        where: {
+            id: req.params.inc_id
+        }
+    })
+    .then(() => {
+        return res.redirect(`/avaliado/${req.params.personId}`)
+    })
 })
 
 app.listen(port, "0.0.0.0", () => {

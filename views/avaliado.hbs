@@ -37,14 +37,16 @@
                 <tr>
                     <td><b>Desconto</b></td>
                     <td colspan='3'>{{ this.reason }}</td>
-                    <td>{{ this.quantity }}</td>
+                    <td colspan='2'>{{ this.quantity }}</td>
+                    <td><i class='fas fa-trash modal-trigger' data-target='delModal' user-id='{{ this.id }}' path='/delete_discount/'></i></td>
                 </tr>
                 {{/ each }}
                 {{# each increase }}
                 <tr>
                     <td><b>Aumento</b></td>
                     <td colspan='3'>{{ this.reason }}</td>
-                    <td>{{ this.quantity }}</td>
+                    <td colspan='2'>{{ this.quantity }}</td>
+                    <td><i class='fas fa-trash modal-trigger' data-target='delModal' user-id='{{ this.id }}' path='/delete_increase/'></i></td>
                 </tr>
                 {{/ each }}
                 <tr>

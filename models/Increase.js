@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 
 const { Person } = require('./Person')
+const { User } = require('./User')
 const credentials = require('./credentials')
 
 const sequelize = new Sequelize(credentials.database, credentials.username, credentials.password, {
@@ -8,14 +9,15 @@ const sequelize = new Sequelize(credentials.database, credentials.username, cred
     dialect: credentials.dialect,
     operatorsAliases: false,
     logging: false,
-});
+})
 
 const Increase = sequelize.define('increase', {
     quantity: Sequelize.FLOAT,
     reason: Sequelize.STRING
 })
 
-Increase.belongsTo(Person);
+Increase.belongsTo(Person)
+Increase.belongsTo(User)
 
 sequelize.sync();
 
