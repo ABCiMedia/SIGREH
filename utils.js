@@ -63,13 +63,11 @@ const scoreMap = new Map([
 ]);
 
 const changeSG = (person) => {
-    // if person is an array
-    if(person.hasOwnProperty('length')) {
+    if(Array.isArray(person)) {
         for(p of person) {
             p.state = portMap.get(p.state);
             p.gender = p.gender === 'male' ? 'Masculino' : 'Feminino';
         }
-    // if it is an object
     } else {
         person.state = portMap.get(person.state);
         person.gender = person.gender === 'male' ? 'Masculino' : 'Feminino';

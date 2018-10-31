@@ -515,7 +515,7 @@ app.post("/edit/:userId(\\d+)", [
 
 app.get("/avaliar/:userId(\\d+)", (req, res) => {
   if (!req.user) return res.redirect("/login")
-  
+
   Person.findById(req.params.userId).then(r => {
     res.render("avaliar", {
       pageTitle: "Avaliação do Estagiário",
@@ -526,9 +526,7 @@ app.get("/avaliar/:userId(\\d+)", (req, res) => {
   });
 });
 
-app.post(
-  "/avaliar/:userId(\\d+)",
-  [
+app.post("/avaliar/:userId(\\d+)", [
     check("shop").isAlpha("pt-PT"),
     check("shift_from").matches(/^\d{2}:\d{2}$/),
     check("shift_to").matches(/^\d{2}:\d{2}$/),
@@ -552,73 +550,72 @@ app.post(
     check("personal_hygiene").isInt({ min: 1, max: 5 }),
     check("responsible_hr").isAlpha("pt-PT"),
     check("advisor").isAlpha("pt-PT")
-  ],
-  (req, res) => {
-    if (!req.user) {
-      return res.redirect("/login");
-    }
+  ], (req, res) => {
+    if (!req.user) return res.redirect("/login")
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      Person.findById(req.params.userId).then(r => {
-        res.render(`avaliar`, {
-          pageTitle: "Avaliação do Estagiário",
-          error: utils.changeError(errors.array()[0]),
-          form_data: req.body,
-          person: r
-        });
-      });
-    } else {
-      Evaluation.create({
-        shop: req.body.shop,
-        shift_from: req.body.shift_from,
-        shift_to: req.body.shift_to,
-        shop_number: req.body.shop_number,
-        date_from: req.body.date_from,
-        date_to: req.body.date_to,
-        cachier: req.body.cachier,
-        cleaning: req.body.cleaning,
-        customer_service: req.body.customer_service,
-        replacement: req.body.replacement,
-        team_work: req.body.team_work,
-        cold_meats: req.body.cold_meats,
-        flexibility: req.body.flexibility,
-        autonomy: req.body.autonomy,
-        punctuality: req.body.punctuality,
-        honesty: req.body.honesty,
-        proactivity: req.body.proactivity,
-        responsability: req.body.responsability,
-        interest_level: req.body.interest_level,
-        availability: req.body.availability,
-        personal_hygiene: req.body.personal_hygiene,
-        obs: req.body.obs,
-        responsible_hr: req.body.responsible_hr,
-        advisor: req.body.advisor,
-        personId: req.params.userId,
-        userId: req.user.id
-      }).then(ev => {
-        // Fazer update do score em Person.score e Person.scoreText
-        Evaluation.findAll({ where: { personId: req.params.userId } }).then(
-          evs => {
-            utils.setScore(evs);
-            Person.update(
-              {
-                score: evs.media,
-                scoreText: evs.mediaText
-              },
-              {
-                where: {
-                  id: req.params.userId
-                }
-              }
-            ).then(r => {
-              return res.redirect(`/avaliado/${req.params.userId}`);
+        Person.findById(req.params.userId)
+        .then(r => {
+            return res.render(`avaliar`, {
+                pageTitle: "Avaliação do Estagiário",
+                error: utils.changeError(errors.array()[0]),
+                form_data: req.body,
+                person: r
             });
-          }
-        );
-      });
+        });
+    } else {
+        Evaluation.create({
+            shop: req.body.shop,
+            shift_from: req.body.shift_from,
+            shift_to: req.body.shift_to,
+            shop_number: req.body.shop_number,
+            date_from: req.body.date_from,
+            date_to: req.body.date_to,
+            cachier: req.body.cachier,
+            cleaning: req.body.cleaning,
+            customer_service: req.body.customer_service,
+            replacement: req.body.replacement,
+            team_work: req.body.team_work,
+            cold_meats: req.body.cold_meats,
+            flexibility: req.body.flexibility,
+            autonomy: req.body.autonomy,
+            punctuality: req.body.punctuality,
+            honesty: req.body.honesty,
+            proactivity: req.body.proactivity,
+            responsability: req.body.responsability,
+            interest_level: req.body.interest_level,
+            availability: req.body.availability,
+            personal_hygiene: req.body.personal_hygiene,
+            obs: req.body.obs,
+            responsible_hr: req.body.responsible_hr,
+            advisor: req.body.advisor,
+            personId: req.params.userId,
+            userId: req.user.id
+        }).then(ev => {
+            // Fazer update do score em Person.score e Person.scoreText
+            return Promise.all([
+                Evaluation.findAll({where: {personId: req.params.userId}}),
+                Discount.findAll({where: {personId: req.params.userId}}),
+                Increase.findAll({where: {personId: req.params.userId}})
+            ])
+        })
+        .then(r => {
+            utils.setScore(r[0], r[1], r[2]);
+            return Person.update({
+                score: r[0].media,
+                scoreText: r[0].mediaText
+            }, {
+                where: {
+                    id: req.params.userId
+                }
+            })
+        })
+        .then(r => {
+            return res.redirect(`/avaliado/${req.params.userId}`);
+        });
     }
-  }
-);
+});
 
 app.get("/avaliado/:userId(\\d+)", (req, res) => {
     if (!req.user) return res.redirect("/login");
@@ -1216,6 +1213,22 @@ app.post('/discount_person/:personId(\\d+)', [
             userId: req.user.id
         })
         .then(() => {
+            return Promise.all([
+                Evaluation.findAll({where: {personId: req.params.personId}}),
+                Discount.findAll({where: {personId: req.params.personId }}),
+                Increase.findAll({where: {personId: req.params.personId }})
+            ])
+        })
+        .then(r => {
+            utils.setScore(r[0], r[1], r[2])
+            return Person.update({
+                score: r[0].media,
+                scoreText: r[0].mediaText
+            }, {
+                where: {id: req.params.personId}
+            })
+        })
+        .then(() => {
             return res.redirect('/avaliado/' + req.params.personId)
         })
     }
@@ -1228,6 +1241,22 @@ app.get('/delete_discount/:dis_id/:personId', (req, res) => {
         where: {
             id: req.params.dis_id
         }
+    })
+    .then(() => {
+        return Promise.all([
+            Evaluation.findAll({where: {personId: req.params.personId}}),
+            Discount.findAll({where: {personId: req.params.personId}}),
+            Increase.findAll({where: {personId: req.params.personId}})
+        ])
+    })
+    .then(r => {
+        utils.setScore(r[0], r[1], r[2])
+        return Person.update({
+            score: r[0].media,
+            scoreText: r[0].mediaText
+        }, {
+            where: {id: req.params.personId}
+        })
     })
     .then(() => {
         return res.redirect(`/avaliado/${req.params.personId}`)
@@ -1273,6 +1302,22 @@ app.post('/increase_person/:personId(\\d+)', [
             userId: req.user.id
         })
         .then(() => {
+            return Promise.all([
+                Evaluation.findAll({where: {personId: req.params.personId}}),
+                Discount.findAll({where: {personId: req.params.personId}}),
+                Increase.findAll({where: {personId: req.params.personId}})
+            ])
+        })
+        .then(r => {
+            utils.setScore(r[0], r[1], r[2])
+            return Person.update({
+                score: r[0].media,
+                scoreText: r[0].mediaText
+            }, {
+                where: {id: req.params.personId}
+            })
+        })
+        .then(() => {
             return res.redirect(`/avaliado/${req.params.personId}`)
         })
     }
@@ -1285,6 +1330,22 @@ app.get('/delete_increase/:inc_id/:personId', (req, res) => {
         where: {
             id: req.params.inc_id
         }
+    })
+    .then(() => {
+        return Promise.all([
+            Evaluation.findAll({where: {personId: req.params.personId}}),
+            Discount.findAll({where: {personId: req.params.personId}}),
+            Increase.findAll({where: {personId: req.params.personId}})
+        ])
+    })
+    .then(r => {
+        utils.setScore(r[0], r[1], r[2])
+        return Person.update({
+            score: r[0].media,
+            scoreText: r[0].mediaText
+        }, {
+            where: {id: req.params.personId}
+        })
     })
     .then(() => {
         return res.redirect(`/avaliado/${req.params.personId}`)
