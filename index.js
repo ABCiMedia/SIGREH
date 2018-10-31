@@ -513,10 +513,9 @@ app.post("/edit/:userId(\\d+)", [
     // .catch(e => res.redirect(`/edit/${req.params.userId}`));
 });
 
-app.get("/avaliavaliar/:userId(\\d+)", (req, res) => {
-  if (!req.user) {
-    return res.redirect("/login");
-  }
+app.get("/avaliar/:userId(\\d+)", (req, res) => {
+  if (!req.user) return res.redirect("/login")
+  
   Person.findById(req.params.userId).then(r => {
     res.render("avaliar", {
       pageTitle: "Avaliação do Estagiário",
