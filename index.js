@@ -673,9 +673,7 @@ app.get("/avaliar_edit/:av_id(\\d+)", (req, res) => {
     });
 });
 
-app.post(
-  "/avaliar_edit/:av_id(\\d+)",
-  [
+app.post("/avaliar_edit/:av_id(\\d+)", [
     check("shop").isString(),
     check("shift_from").matches(/^\d{2}:\d{2}:\d{2}$/),
     check("shift_to").matches(/^\d{2}:\d{2}:\d{2}$/),
@@ -699,83 +697,79 @@ app.post(
     check("personal_hygiene").isInt({ min: 1, max: 5 }),
     check("responsible_hr").isString(),
     check("advisor").isString()
-  ],
-  (req, res) => {
-    if (!req.user) {
-      return res.redirect("/login");
-    }
-    const errors = validationResult(req);
+], (req, res) => {
+    if (!req.user) return res.redirect("/login")
+
+    const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      let options = { pageTitle: "Avaliação do Estágiario" };
-      Evaluation.findById(req.params.av_id)
+        let options = { pageTitle: "Avaliação do Estágiario" };
+        Evaluation.findById(req.params.av_id)
         .then(av => {
-          options.evaluations = av;
-          return Person.find(av.dataValues.personId);
+            options.evaluations = av;
+            return Person.find(av.dataValues.personId);
         })
         .then(person => {
-          options.person = person;
-          options.error = utils.changeError(errors.array()[0]);
-          return res.render("avaliar_edit", options);
+            options.person = person;
+            options.error = utils.changeError(errors.array()[0]);
+            return res.render("avaliar_edit", options);
         });
     } else {
-      Evaluation.update(
-        {
-          shop: req.body.shop,
-          shift_from: req.body.shift_from,
-          shift_to: req.body.shift_to,
-          shop_number: req.body.shop_number,
-          date_from: req.body.date_from,
-          date_to: req.body.date_to,
-          cachier: req.body.cachier,
-          cleaning: req.body.cleaning,
-          customer_service: req.body.customer_service,
-          replacement: req.body.replacement,
-          team_work: req.body.team_work,
-          cold_meats: req.body.cold_meats,
-          flexibility: req.body.flexibility,
-          autonomy: req.body.autonomy,
-          punctuality: req.body.punctuality,
-          honesty: req.body.honesty,
-          proactivity: req.body.proactivity,
-          responsability: req.body.responsability,
-          interest_level: req.body.interest_level,
-          availability: req.body.availability,
-          personal_hygiene: req.body.personal_hygiene,
-          obs: req.body.obs,
-          responsible_hr: req.body.responsible_hr,
-          advisor: req.body.advisor,
-          personId: req.body.personId,
-          userId: req.user.id
-        },
-        {
-          where: {
-            id: req.params.av_id
-          }
-        }
-      ).then(() => {
-        // Fazer update do score em Person.score e Person.scoreText
-        Evaluation.findAll({ where: { personId: req.body.personId } }).then(
-          evs => {
-            utils.setScore(evs);
-            Person.update(
-              {
-                score: evs.media,
-                scoreText: evs.mediaText
-              },
-              {
+        Evaluation.update({
+            shop: req.body.shop,
+            shift_from: req.body.shift_from,
+            shift_to: req.body.shift_to,
+            shop_number: req.body.shop_number,
+            date_from: req.body.date_from,
+            date_to: req.body.date_to,
+            cachier: req.body.cachier,
+            cleaning: req.body.cleaning,
+            customer_service: req.body.customer_service,
+            replacement: req.body.replacement,
+            team_work: req.body.team_work,
+            cold_meats: req.body.cold_meats,
+            flexibility: req.body.flexibility,
+            autonomy: req.body.autonomy,
+            punctuality: req.body.punctuality,
+            honesty: req.body.honesty,
+            proactivity: req.body.proactivity,
+            responsability: req.body.responsability,
+            interest_level: req.body.interest_level,
+            availability: req.body.availability,
+            personal_hygiene: req.body.personal_hygiene,
+            obs: req.body.obs,
+            responsible_hr: req.body.responsible_hr,
+            advisor: req.body.advisor,
+            personId: req.body.personId,
+            userId: req.user.id
+        }, {
+            where: {
+                id: req.params.av_id
+            }
+        })
+        .then(() => {
+            // Fazer update do score em Person.score e Person.scoreText
+            return Promise.all([
+                Evaluation.findAll({ where: { personId: req.body.personId }}),
+                Discount.findAll({where: {personId: req.params.personId}}),
+                Increase.findAll({where: {personId: req.params.personId}})
+            ])
+        })
+        .then(r => {
+            utils.setScore(r[0], r[1], r[2])
+            return Person.update({
+                score: r[0].media,
+                scoreText: r[0].mediaText
+            }, {
                 where: {
-                  id: req.body.personId
+                    id: req.body.personId
                 }
-              }
-            ).then(r => {
-              return res.redirect(`/avaliado/${req.body.personId}`);
-            });
-          }
-        );
-      });
+            })
+        })
+        .then(r => {
+            return res.redirect(`/avaliado/${req.body.personId}`);
+        })
     }
-  }
-);
+})
 
 app.get("/admin", (req, res) => {
   if (!req.user || req.user.group !== "admin") {
