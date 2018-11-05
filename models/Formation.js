@@ -1,13 +1,13 @@
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize')
 
-const cred = require('./credentials');
+const cred = require('./credentials')
 
 const sequelize = new Sequelize(cred.database, cred.username, cred.password, {
     host: cred.host,
     dialect: cred.dialect,
     operatorsAliases: false,
     logging: false
-});
+})
 
 const Formation = sequelize.define('formation', {
     name: Sequelize.STRING,
@@ -16,9 +16,9 @@ const Formation = sequelize.define('formation', {
     pratic_part: Sequelize.STRING,
     subscription_cost: Sequelize.REAL,
     certificate_cost: Sequelize.REAL
-});
+})
 
-sequelize.sync();
+sequelize.sync()
 
 module.exports = {
     Formation

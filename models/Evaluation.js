@@ -1,15 +1,15 @@
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize')
 
-const credentials = require('./credentials');
+const credentials = require('./credentials')
 const {Person, } = require('./Person')
-    , {User} = require('./User');
+const {User} = require('./User')
 
 const sequelize = new Sequelize(credentials.database, credentials.username, credentials.password, {
     host: credentials.host,
     dialect: credentials.dialect,
     operatorsAliases: false,
     logging: false,
-});
+})
 
 const Evaluation = sequelize.define('evaluation', {
     shop: {type: Sequelize.STRING},
@@ -36,12 +36,12 @@ const Evaluation = sequelize.define('evaluation', {
     obs: {type: Sequelize.TEXT},
     responsible_hr: {type: Sequelize.STRING},
     advisor: {type: Sequelize.STRING}
-});
+})
 
-Person.hasMany(Evaluation);
-Evaluation.belongsTo(User);
+Person.hasMany(Evaluation)
+Evaluation.belongsTo(User)
 
-sequelize.sync();
+sequelize.sync()
 
 module.exports = {
     Evaluation,

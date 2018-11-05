@@ -1,16 +1,16 @@
 const Sequelize = require('sequelize')
 
 const {User} = require('./User')
-    , {Formation} = require('./Formation');
+    , {Formation} = require('./Formation')
 
-const credentials = require('./credentials');
+const credentials = require('./credentials')
 
 const sequelize = new Sequelize(credentials.database, credentials.username, credentials.password, {
     host: credentials.host,
     dialect: credentials.dialect,
     operatorsAliases: false,
     logging: false,
-});
+})
 
 const Person = sequelize.define('person', {
     name: {type: Sequelize.STRING},
@@ -24,15 +24,15 @@ const Person = sequelize.define('person', {
     state: {type: Sequelize.ENUM(['registered', 'waiting_formation', 'formation', 'internship', 'hired', 'reserved', 'gave_up'])},
     score: Sequelize.REAL,
     scoreText: Sequelize.STRING
-});
+})
 
-Person.belongsTo(User);
-Person.belongsToMany(Formation, {through: 'PersonFormation'});
-Formation.belongsToMany(Person, {through: 'PersonFormation'});
+Person.belongsTo(User)
+Person.belongsToMany(Formation, {through: 'PersonFormation'})
+Formation.belongsToMany(Person, {through: 'PersonFormation'})
 
-sequelize.sync();
+sequelize.sync()
 
 module.exports = {
     Person,
     connection: sequelize
-};
+}

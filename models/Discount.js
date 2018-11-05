@@ -9,7 +9,7 @@ const sequelize = new Sequelize(credentials.database, credentials.username, cred
     dialect: credentials.dialect,
     operatorsAliases: false,
     logging: false,
-});
+})
 
 const Discount = sequelize.define('discount', {
     quantity: Sequelize.FLOAT,
@@ -19,9 +19,9 @@ const Discount = sequelize.define('discount', {
 Discount.belongsTo(Person)
 Discount.belongsTo(User)
 
-sequelize.sync();
+sequelize.sync()
 
 module.exports = {
     Discount,
     connection: sequelize
-};
+}

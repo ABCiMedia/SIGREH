@@ -6,11 +6,11 @@
         <p class='card red card-error'>{{param}}: {{msg}}</p>
         {{/error}}
         <div class='card card-edit'>
-            <form class='edit' method='post' action='/edit/{{ person.dataValues.id }}'>
+            <form class='edit' method='post' action='/edit/{{ person.id }}'>
                 <div class='card-content'>
                     <div class='input-field'>
                         <label for='name'>Nome:</label>
-                        <input type='text' name='name' required value='{{ person.dataValues.name }}'>
+                        <input type='text' name='name' required value='{{ person.name }}'>
                     </div>
                     <div class='input-field'>
                         <label for='birthdate'>Data de Nascimento:</label>
@@ -18,31 +18,31 @@
                     </div>
                     <div>
                         <label for='address'>Morada:</label>
-                        <input type='text' name='address' value='{{ person.dataValues.address }}'>
+                        <input type='text' name='address' value='{{ person.address }}'>
                     </div>
                     <div class='input-field'>
                         <label for='phone'>Telefone:</label>
-                        <input type='text' name='phone' required value='{{ person.dataValues.phone }}'>
+                        <input type='text' name='phone' required value='{{ person.phone }}'>
                     </div>
                     <div class='input-field'>
                         <label for='email'>Email:</label>
-                        <input type='text' name='email' value='{{ person.dataValues.email }}'>
+                        <input type='text' name='email' value='{{ person.email }}'>
                     </div>
                     <div class='input-field'>
                         <label for='bi'>BI:</label>
-                        <input type='text' name='bi' required value='{{ person.dataValues.bi }}'>
+                        <input type='text' name='bi' required value='{{ person.bi }}'>
                     </div>
                     <div class='input-field'>
                         <label for='nif'>NIF:</label>
-                        <input type='text' name='nif' required value='{{ person.dataValues.nif }}'>
+                        <input type='text' name='nif' required value='{{ person.nif }}'>
                     </div>
                     <div class='input-field'>
-                        {{# select 'gender' person.dataValues.gender '{"male":"Masculino", "female":"Feminino"}'}}
+                        {{# select 'gender' person.gender '{"male":"Masculino", "female":"Feminino"}'}}
                         {{/ select }}
                         <label for='gender'>Género:</label>
                     </div>
                     <div class='input-field'>
-                        {{# select 'state' person.dataValues.state '{"registered":"Registrado", "waiting_formation":"Esperando Formação", "formation":"Em Formação", "internship":"Em Estágio", "hired":"Colocado", "reserved":"Em Reserva", "gave_up":"Desistiu"}' }}
+                        {{# select 'state' person.state '{"registered":"Registrado", "waiting_formation":"Esperando Formação", "formation":"Em Formação", "internship":"Em Estágio", "hired":"Colocado", "reserved":"Em Reserva", "gave_up":"Desistiu"}' }}
                         {{/ select }}
                         <label>Estádo:</label>
                     </div>
@@ -63,7 +63,7 @@
                 </div>
                 <div class='card-action'>
                     <input class='btn blue' type='submit' value='Ok'>
-                    <a class='btn blue' href='/details/{{ person.dataValues.id }}'>Cancelar</a>
+                    <a class='btn blue' href='/details/{{ person.id }}'>Cancelar</a>
                 </div>
             </form>
         </div>

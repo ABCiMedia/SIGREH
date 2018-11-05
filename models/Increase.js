@@ -19,9 +19,9 @@ const Increase = sequelize.define('increase', {
 Increase.belongsTo(Person)
 Increase.belongsTo(User)
 
-sequelize.sync();
+sequelize.sync()
 
 module.exports = {
     Increase,
     connection: sequelize
-};
+}
