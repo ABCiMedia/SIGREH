@@ -1,8 +1,7 @@
 const Sequelize = require('sequelize')
 
-const sequelize = new Sequelize('innov195_sigreh', 'innov195_rh', 'Sigreh11#@.m', {
-    host: 'innovatmedia.com',
-    port: 5433,
+const sequelize = new Sequelize('zzdxmqvw', 'zzdxmqvw', 'gciJ4pwDJh0LxYv4J-f6meFt35SzoInu', {
+    host: 'stampy.db.elephantsql.com',
     dialect: 'postgres',
     operatorsAliases: false
 })
