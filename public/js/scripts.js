@@ -39,7 +39,7 @@ const enableTotal = () => {
 
 $(document).ready(function () {
     let options = {
-        lengthMenu: [7],
+        lengthMenu: [10],
         lengthChange: false,
         info: false,
         language: {
