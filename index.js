@@ -270,7 +270,8 @@ app.get("/pessoas/:category", (req, res) => {
 
     let context = {
         user: req.user,
-        admin: req.user.group === 'admin'
+        admin: req.user.group === 'admin',
+        avaliador: req.user.group === 'avaliador'
     }
 
     let category = req.params.category
