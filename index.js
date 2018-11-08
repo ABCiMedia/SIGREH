@@ -798,7 +798,7 @@ app.get("/create_user", (req, res) => {
 
 app.post("/create_user", [
     check("username").matches(/^[a-zA-Z0-9_.-]+$/),
-    check("group").isIn(["admin", "regular"]),
+    check("group").isIn(["admin", "regular", "avaliador"]),
     check("password").isLength({ min: 6 })
 ], (req, res) => {
     if (!req.user && req.user.group !== "admin") return res.redirect("/login")

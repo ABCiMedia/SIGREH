@@ -11,7 +11,7 @@ const sequelize = new Sequelize(cred.database, cred.username, cred.password, {
 const User = sequelize.define('user', {
     username: {type: Sequelize.STRING, unique: true},
     password: {type: Sequelize.STRING},
-    group: {type: Sequelize.ENUM(['admin', 'regular'])},
+    group: {type: Sequelize.ENUM(['admin', 'regular', 'avaliador'])},
 })
 
 sequelize.sync()
