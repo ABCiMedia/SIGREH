@@ -135,7 +135,8 @@ app.get("/", (req, res) => {
     let options = {
         pageTitle: "Painel de Controlo",
         user: req.user,
-        admin: req.user.group === 'admin'
+        admin: req.user.group === 'admin',
+        avaliador: req.user.group === 'avaliador'
     }
 
     Person.findAndCountAll()
@@ -215,7 +216,7 @@ app.get("/", (req, res) => {
 })
 
 app.get("/inscrever", (req, res) => {
-    if (!req.user) return res.redirect("/login")
+    if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     let options = {
         pageTitle: "Inscrições",
@@ -233,7 +234,7 @@ app.post("/inscrever", [
     check("nif").isNumeric(),
     check("gender").isIn(["male", "female"])
 ], (req, res) => {
-    if (!req.user) return res.redirect("/login")
+    if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -385,7 +386,8 @@ app.get("/details/:userId(\\d+)", (req, res) => {
 
     let options = {
         user: req.user,
-        admin: req.user.group === 'admin'
+        admin: req.user.group === 'admin',
+        avaliador: req.user.group === 'avaliador'
     }
 
     Person.findById(req.params.userId)
@@ -412,7 +414,7 @@ app.get("/details/:userId(\\d+)", (req, res) => {
 })
 
 app.get("/edit/:userId(\\d+)", (req, res) => {
-    if (!req.user) return res.redirect("/login")
+    if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     let context = {}
     Person.findById(req.params.userId)
@@ -441,7 +443,7 @@ app.post("/edit/:userId(\\d+)", [
     check("gender").isIn(["male", "female"]),
     check("state").isIn(["registered", "waiting_formation", "formation", "internship", "hired", "reserved", 'gave_up'])
 ], (req, res) => {
-    if (!req.user) return res.redirect("/login")
+    if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -523,7 +525,8 @@ app.get("/avaliar/:userId(\\d+)", (req, res) => {
             pageTitle: "Avaliação do Estagiário",
             person: r,
             user: req.user,
-            admin: req.user.group === "admin"
+            admin: req.user.group === "admin",
+            avaliador: req.user.group === 'avaliador'
         })
     })
 })
@@ -563,7 +566,10 @@ app.post("/avaliar/:userId(\\d+)", [
                 pageTitle: "Avaliação do Estagiário",
                 error: utils.changeError(errors.array()[0]),
                 form_data: req.body,
-                person: r
+                person: r,
+                user: req.user,
+                admin: req.user.group === 'admin',
+                avaliador: req.user.group === 'avaliador'
             })
         })
     } else {
@@ -629,7 +635,8 @@ app.get("/avaliado/:userId(\\d+)", (req, res) => {
             pageTitle: `Avaliações de ${person.name}`,
             person,
             user: req.user,
-            admin: req.user.group === "admin"
+            admin: req.user.group === "admin",
+            avaliador: req.user.group === 'avaliador'
         }
         return Promise.all([
             person.getEvaluations(),
@@ -661,7 +668,8 @@ app.get("/avaliar_edit/:av_id(\\d+)", (req, res) => {
     let options = {
         pageTitle: "Avaliação do Estágiario",
         user: req.user,
-        admin: req.user.group === "admin"
+        admin: req.user.group === "admin",
+        avaliador: req.user.group === 'avaliador'
     }
     Evaluation.findById(req.params.av_id)
     .then(av => {
@@ -703,7 +711,12 @@ app.post("/avaliar_edit/:av_id(\\d+)", [
 
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        let options = { pageTitle: "Avaliação do Estágiario" }
+        let options = { 
+            pageTitle: "Avaliação do Estágiario",
+            user: req.user,
+            admin: req.user.group === 'admin',
+            avaliador: req.user.group === 'avaliador'
+        }
         Evaluation.findById(req.params.av_id)
         .then(av => {
             options.evaluations = av
@@ -894,7 +907,7 @@ app.get("/logout", function(req, res) {
 })
 
 app.get("/delete_user/:userId", (req, res) => {
-    if (!req.user) return res.redirect("/login")
+    if (!req.user || req.user.group !== 'admin') return res.redirect("/login")
 
     User.destroy({
         where: {
@@ -1046,7 +1059,7 @@ app.post("/formation/:fid(\\d+)", [
 })
 
 app.get("/choose_formation/:personId", (req, res) => {
-    if (!req.user) return res.redirect("/login")
+    if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     let context = {
         user: req.user,
@@ -1076,7 +1089,7 @@ app.get("/choose_formation/:personId", (req, res) => {
 })
 
 app.post("/choose_formation/:personId", (req, res) => {
-    if (!req.user) return res.redirect("/login")
+    if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     let context = {}
     Person.findById(req.params.personId)
@@ -1133,7 +1146,7 @@ app.post("/choose_formation/:personId", (req, res) => {
 })
 
 app.get('/payment/:personId', (req, res) => {
-    if (!req.user) return res.redirect('/login')
+    if (!req.user || req.user.group === 'avaliador') return res.redirect('/login')
 
     let context = {
         pageTitle: 'Pagamento',
@@ -1158,7 +1171,7 @@ app.get('/payment/:personId', (req, res) => {
 })
 
 app.post('/payment/:personId', (req, res) => {
-    if (!req.user) return res.redirect('/login')
+    if (!req.user || req.user.group === 'avaliador') return res.redirect('/login')
 
     Payment.find({
         where: {
@@ -1184,7 +1197,8 @@ app.get('/discount_person/:personId(\\d+)', (req, res) => {
             person,
             pageTitle: `Descontar de ${person.name}`,
             user: req.user,
-            admin: req.user.group === 'admin'
+            admin: req.user.group === 'admin',
+            avaliador: req.user.group === 'avaliador'
         })
     })
 })
@@ -1203,7 +1217,8 @@ app.post('/discount_person/:personId(\\d+)', [
                 pageTitle: `Descontar de ${person.name}`,
                 person,
                 user: req.user,
-                admin: req.user.group === 'admin'
+                admin: req.user.group === 'admin',
+                avaliador: req.user.group === 'avaliador'
             })
         })
     } else {
@@ -1274,6 +1289,7 @@ app.get('/increase_person/:personId(\\d+)', (req, res) => {
             user: req.user,
             admin: req.user.group === 'admin',
             person,
+            avaliador: req.user.group === 'avaliador'
         })
     })
 })
@@ -1292,7 +1308,8 @@ app.post('/increase_person/:personId(\\d+)', [
                 user: req.user,
                 admin: req.user.group === 'admin',
                 person,
-                error: utils.changeError(errors.array()[0])
+                error: utils.changeError(errors.array()[0]),
+                avaliador: req.user.group === 'avaliador'
             })
         })
     } else {
