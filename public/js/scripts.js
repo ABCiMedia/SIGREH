@@ -154,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
            modal = mod;
         }
     });
+    M.Tabs.init(document.querySelectorAll('.tabs'), {swipeable: true});
 });
 
 const openSidenav = () => {

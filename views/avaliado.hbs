@@ -3,64 +3,78 @@
     {{> header }}
     {{> navbar }}
     {{# if evaluations }}
-    <div class='card card-avaliado'>
-        <table class='tbl'>
-            <thead>
-                <tr>
-                    <th>Loja</th>
-                    <th>De</th>
-                    <th>Até</th>
-                    <th>Orientador</th>
-                    <th colspan="2">Nota</th>
-                    {{#if admin}}
-                    <th>Ações</th>
-                    {{/if}}
-                </tr>
-            </thead>
-            <tbody>
-                {{# each evaluations }}
-                <tr>
-                    <td><a href='/avaliar_edit/{{ this.id }}'>{{ this.shop }}</a></td>
-                    <td><a href='/avaliar_edit/{{ this.id }}'>{{ this.date_from }}</a></td>
-                    <td><a href='/avaliar_edit/{{ this.id }}'>{{ this.date_to }}</a></td>
-                    <td><a href='/avaliar_edit/{{ this.id }}'>{{ this.advisor }}</a></td>
-                    <td><a href='/avaliar_edit/{{ this.id }}'>{{ this.score }}</a></td>
-                    <td><a href='/avaliar_edit/{{ this.id }}'>{{ this.scoreText }}</a></td>
-                    {{#if @root.admin}}
-                    <td>
-                        <i class='fas fa-trash modal-trigger' data-target='delModal' user-id='{{ this.id }}' path='/delete_evaluation/'></i>
-                    </td>
-                    {{/if}}
-                </tr>
-                {{/ each }}
-                {{# each discount }}
-                <tr>
-                    <td><b>Desconto</b></td>
-                    <td colspan='3'>{{ this.reason }}</td>
-                    <td colspan='2'>{{ this.quantity }}</td>
-                    {{#if @root.admin}}
-                    <td><i class='fas fa-trash modal-trigger' data-target='delModal' user-id='{{ this.id }}' path='/delete_discount/'></i></td>
-                    {{/if}}
-                </tr>
-                {{/ each }}
-                {{# each increase }}
-                <tr>
-                    <td><b>Aumento</b></td>
-                    <td colspan='3'>{{ this.reason }}</td>
-                    <td colspan='2'>{{ this.quantity }}</td>
-                    {{#if @root.admin}}
-                    <td><i class='fas fa-trash modal-trigger' data-target='delModal' user-id='{{ this.id }}' path='/delete_increase/'></i></td>
-                    {{/if}}
-                </tr>
-                {{/ each }}
-                <tr>
-                    <td colspan="4"><b>Total</b></td>
-                    <td><b>{{ evaluations.media }}</b></td>
-                    <td><b>{{ evaluations.mediaText }}</b></td>
-                </tr>
-            </tbody>
-        </table>
+    <div class='row'>
+        <div class='col s12'>
+            <ul class='tabs z-depth-1'>
+                <li class='tab col s1'><a class='active' href="#tabela">Tabela</a></li>
+                <li class='tab col s1'><a href="#grafico">Grafico</a></li>
+            </ul>
+        </div>
+        <div id='tabela' class='col s12'>
+            <div class='card card-avaliado'>
+                <table class='tbl'>
+                    <thead>
+                        <tr>
+                            <th>Loja</th>
+                            <th>De</th>
+                            <th>Até</th>
+                            <th>Orientador</th>
+                            <th colspan="2">Nota</th>
+                            {{#if admin}}
+                            <th>Ações</th>
+                            {{/if}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{# each evaluations }}
+                        <tr>
+                            <td><a href='/avaliar_edit/{{ this.id }}'>{{ this.shop }}</a></td>
+                            <td><a href='/avaliar_edit/{{ this.id }}'>{{ this.date_from }}</a></td>
+                            <td><a href='/avaliar_edit/{{ this.id }}'>{{ this.date_to }}</a></td>
+                            <td><a href='/avaliar_edit/{{ this.id }}'>{{ this.advisor }}</a></td>
+                            <td><a href='/avaliar_edit/{{ this.id }}'>{{ this.score }}</a></td>
+                            <td><a href='/avaliar_edit/{{ this.id }}'>{{ this.scoreText }}</a></td>
+                            {{#if @root.admin}}
+                            <td>
+                                <i class='fas fa-trash modal-trigger' data-target='delModal' user-id='{{ this.id }}' path='/delete_evaluation/'></i>
+                            </td>
+                            {{/if}}
+                        </tr>
+                        {{/ each }}
+                        {{# each discount }}
+                        <tr>
+                            <td><b>Desconto</b></td>
+                            <td colspan='3'>{{ this.reason }}</td>
+                            <td colspan='2'>{{ this.quantity }}</td>
+                            {{#if @root.admin}}
+                            <td><i class='fas fa-trash modal-trigger' data-target='delModal' user-id='{{ this.id }}' path='/delete_discount/'></i></td>
+                            {{/if}}
+                        </tr>
+                        {{/ each }}
+                        {{# each increase }}
+                        <tr>
+                            <td><b>Aumento</b></td>
+                            <td colspan='3'>{{ this.reason }}</td>
+                            <td colspan='2'>{{ this.quantity }}</td>
+                            {{#if @root.admin}}
+                            <td><i class='fas fa-trash modal-trigger' data-target='delModal' user-id='{{ this.id }}' path='/delete_increase/'></i></td>
+                            {{/if}}
+                        </tr>
+                        {{/ each }}
+                        <tr>
+                            <td colspan="4"><b>Total</b></td>
+                            <td><b>{{ evaluations.media }}</b></td>
+                            <td><b>{{ evaluations.mediaText }}</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id='grafico' class='col s12'>
+            <canvas id='cnv_avaliado' width='0'></canvas>
+        </div>
     </div>
+    
     
     {{ else }}
     <p class='rep'>... Nenhuma Avaliação encontrada ...</p>
@@ -69,6 +83,66 @@
     <i onclick='loadPage("/avaliar/{{ person.id }}")' class='fas fa-plus-circle add-btn'></i>
     <i onclick='loadPage("/discount_person/{{ person.id }}")' class='fas fa-thumbs-down discount'></i>
     <i onclick='loadPage("/increase_person/{{ person.id }}")' class='fas fa-thumbs-up increase'></i>
+
+    <script>
+        let ctx_avaliado = document.getElementById('cnv_avaliado').getContext('2d')
+
+        let gdata = [
+            {{#each evaluations}}
+            {{this.score}},
+            {{/each}}
+        ]
+
+        let media = 0;
+        for (let i=0; i<gdata.length; i++) {
+            media += gdata[i]
+        }
+        media /= gdata.length
+        let d = [
+        {{#each discount}}
+            {{this.quantity}},
+        {{/each}}
+        ]
+
+        for (let i=0; i<d.length; i++) {
+            media -= d[i]
+            gdata.push(media)
+        }
+
+        let inc = [
+        {{#each increase}}
+            {{this.quantity}}
+        {{/each}}
+        ]
+
+        for (let i=0; i<inc.length; i++) {
+            media += inc[i]
+            gdata.push(media)
+        }
+
+        let chart = new Chart(ctx_avaliado, {
+            type: 'line',
+            data: {
+                labels: [
+                    {{#each evaluations }}
+                    '{{this.shop}}',
+                    {{/each}}
+                    {{#each discount}}
+                    'Desconto',
+                    {{/each}}
+                    {{#each increase}}
+                    'Aumento',
+                    {{/each}}
+                ],
+                datasets: [{
+                    label: "Notas",
+                    backgroundColor: 'lightblue',
+                    borderColor: '#2196F3',
+                    data: gdata
+                }]
+            }
+        })
+    </script>
     {{> delete_modal }}
     {{>footer}}
 </body>

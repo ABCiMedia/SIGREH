@@ -428,3 +428,21 @@ table.dataTable thead th {
 .increase {
     right: 160px;
 }
+
+.tabs .tab a{
+    color:#039be5;
+} /*Black color to the text*/
+
+.tabs .tab a:hover {
+    background-color:#eee;
+    color:#039be5;
+} /*Text color on hover*/
+
+.tabs .tab a.active {
+    background-color:#eee;
+    color:#039be5;
+} /*Background and text color when a tab is active*/
+
+.tabs .indicator {
+    background-color:#039be5;
+} /*Color of underline*/
