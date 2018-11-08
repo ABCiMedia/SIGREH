@@ -26,11 +26,17 @@
                     {{/if}}
                 </div>
                 <div class='card-action'>
+                    {{#if avaliador}}
+                    {{else}}
                     <a class='btn blue' href='/edit/{{ person.dataValues.id }}'>Editar</a>
+                    {{/if}}
                     <a class='btn blue' href='/avaliado/{{ person.dataValues.id }}'>Avaliar</a>
+                    {{#if avaliador}}
+                    {{else}}
                     <a class='btn blue' href="/choose_formation/{{person.dataValues.id}}">Escolher Formação</a>
                     {{#if formation}}
                     <a class='btn blue' href="/payment/{{person.dataValues.id}}">Efectuar Pagamento</a>
+                    {{/if}}
                     {{/if}}
                 </div>
             </ul>
