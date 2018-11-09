@@ -18,6 +18,7 @@ const { Discount } = require('./models/Discount')
 const { Increase } = require('./models/Increase')
 const utils = require("./utils")
 const cred = require("./models/credentials")
+const {logger} = require('./logging')
 
 ///// CONFIGURING PASSPORT WITH LOCAL STRATEGY
 passport.use(
@@ -98,11 +99,10 @@ hbs.registerHelper("radio", function(name, context) {
 
 //////// MIDLEWARES
 
-app.use((req, res, next) => {
-    var now = new Date().toString()
-    console.log(now, req.method, req.url, res.statusCode)
-    next()
-});
+// app.use((req, res, next) => {
+//     logger.info(`${req.method} ${req.url} ${res.statusCode}`)
+//     next()
+// });
 app.use(express.static(__dirname + "/public"))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
@@ -130,6 +130,7 @@ app.use(passport.session())
 /////// HANDLERS
 
 app.get("/", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user) return res.redirect("/login")
 
     let options = {
@@ -211,11 +212,12 @@ app.get("/", (req, res) => {
         return res.render("dashboard", options)
     })
     .catch(e => {
-        console.log(e)
+        logger.error(e)
     })
 })
 
 app.get("/inscrever", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     let options = {
@@ -234,6 +236,7 @@ app.post("/inscrever", [
     check("nif").isNumeric(),
     check("gender").isIn(["male", "female"])
 ], (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     const errors = validationResult(req)
@@ -266,6 +269,7 @@ app.post("/inscrever", [
 })
 
 app.get("/pessoas/:category", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user) return res.redirect("/login")
 
     let context = {
@@ -383,6 +387,7 @@ app.get("/pessoas/:category", (req, res) => {
 })
 
 app.get("/details/:userId(\\d+)", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user) return res.redirect("/login")
 
     let options = {
@@ -415,6 +420,7 @@ app.get("/details/:userId(\\d+)", (req, res) => {
 })
 
 app.get("/edit/:userId(\\d+)", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     let context = {}
@@ -444,6 +450,7 @@ app.post("/edit/:userId(\\d+)", [
     check("gender").isIn(["male", "female"]),
     check("state").isIn(["registered", "waiting_formation", "formation", "internship", "hired", "reserved", 'gave_up'])
 ], (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     const errors = validationResult(req)
@@ -518,6 +525,7 @@ app.post("/edit/:userId(\\d+)", [
 });
 
 app.get("/avaliar/:userId(\\d+)", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user) return res.redirect("/login")
 
     Person.findById(req.params.userId)
@@ -557,6 +565,7 @@ app.post("/avaliar/:userId(\\d+)", [
     check("responsible_hr").isString(),
     check("advisor").isString()
 ], (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user) return res.redirect("/login")
 
     const errors = validationResult(req);
@@ -627,6 +636,7 @@ app.post("/avaliar/:userId(\\d+)", [
 })
 
 app.get("/avaliado/:userId(\\d+)", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user) return res.redirect("/login")
 
     let options = null
@@ -664,6 +674,7 @@ app.get("/avaliado/:userId(\\d+)", (req, res) => {
 })
 
 app.get("/avaliar_edit/:av_id(\\d+)", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user) return res.redirect("/login")
 
     let options = {
@@ -708,6 +719,7 @@ app.post("/avaliar_edit/:av_id(\\d+)", [
     check("responsible_hr").isString(),
     check("advisor").isString()
 ], (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user) return res.redirect("/login")
 
     const errors = validationResult(req)
@@ -787,6 +799,7 @@ app.post("/avaliar_edit/:av_id(\\d+)", [
 })
 
 app.get("/admin", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group !== "admin") return res.redirect("/login")
 
     User.findAll()
@@ -801,6 +814,7 @@ app.get("/admin", (req, res) => {
 })
 
 app.get("/create_user", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user && req.user.group !== "admin") return res.redirect("/login")
 
     res.render("create_user", {
@@ -815,6 +829,7 @@ app.post("/create_user", [
     check("group").isIn(["admin", "regular", "avaliador"]),
     check("password").isLength({ min: 6 })
 ], (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user && req.user.group !== "admin") return res.redirect("/login")
 
     const errors = validationResult(req)
@@ -866,11 +881,13 @@ app.post("/create_user", [
 })
 
 app.get("/login", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (req.user) return res.redirect("/")
     res.render("login", { pageTitle: "Entrar" })
 })
 
 app.post("/login", (req, res, next) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     passport.authenticate("local", (err, user, info) => {
         if (info) {
             let options = {
@@ -903,11 +920,13 @@ app.post("/login", (req, res, next) => {
 })
 
 app.get("/logout", function(req, res) {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     req.logout()
     res.redirect("/login")
 })
 
 app.get("/delete_user/:userId", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group !== 'admin') return res.redirect("/login")
 
     User.destroy({
@@ -920,6 +939,7 @@ app.get("/delete_user/:userId", (req, res) => {
 })
 
 app.get("/delete_person/:userId/:category", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group !== "admin") return res.redirect("/login")
   
     Person.destroy({
@@ -933,6 +953,7 @@ app.get("/delete_person/:userId/:category", (req, res) => {
 })
 
 app.get("/delete_evaluation/:av_id/:userId", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group !== "admin") return res.redirect("/login")
 
     Evaluation.destroy({
@@ -946,6 +967,7 @@ app.get("/delete_evaluation/:av_id/:userId", (req, res) => {
 })
 
 app.get('/delete_formation/:f_id(\\d+)', (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group !== 'admin') return res.redirect('/login')
 
     Formation.destroy({
@@ -959,6 +981,7 @@ app.get('/delete_formation/:f_id(\\d+)', (req, res) => {
 })
 
 app.get("/formations", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group !== "admin") return res.redirect("/login")
 
     Formation.findAll().then(fs => {
@@ -972,6 +995,7 @@ app.get("/formations", (req, res) => {
 })
 
 app.get("/add_formation", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group !== "admin") return res.redirect("/login")
     
     res.render("add_formation", {
@@ -988,6 +1012,7 @@ app.post("/add_formation", [
     check("subscription_cost").isNumeric(),
     check("certificate_cost").isNumeric()
 ], (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group !== "admin") return res.redirect("/login")
 
     const errors = validationResult(req)
@@ -1013,6 +1038,7 @@ app.post("/add_formation", [
 })
 
 app.get("/formation/:fid(\\d+)", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group !== "admin") return res.redirect("/login")
 
     Formation.findById(req.params.fid)
@@ -1031,6 +1057,7 @@ app.post("/formation/:fid(\\d+)", [
     check("subscription_cost").isNumeric(),
     check("certificate_cost").isNumeric()
 ], (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group !== "admin") return res.redirect("/login")
 
     const errors = validationResult(req)
@@ -1060,6 +1087,7 @@ app.post("/formation/:fid(\\d+)", [
 })
 
 app.get("/choose_formation/:personId", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     let context = {
@@ -1090,6 +1118,7 @@ app.get("/choose_formation/:personId", (req, res) => {
 })
 
 app.post("/choose_formation/:personId", (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     let context = {}
@@ -1147,6 +1176,7 @@ app.post("/choose_formation/:personId", (req, res) => {
 })
 
 app.get('/payment/:personId', (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group === 'avaliador') return res.redirect('/login')
 
     let context = {
@@ -1172,6 +1202,7 @@ app.get('/payment/:personId', (req, res) => {
 })
 
 app.post('/payment/:personId', (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group === 'avaliador') return res.redirect('/login')
 
     Payment.find({
@@ -1190,6 +1221,7 @@ app.post('/payment/:personId', (req, res) => {
 })
 
 app.get('/discount_person/:personId(\\d+)', (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user) return res.redirect('/login')
 
     Person.findById(req.params.personId)
@@ -1207,6 +1239,7 @@ app.get('/discount_person/:personId(\\d+)', (req, res) => {
 app.post('/discount_person/:personId(\\d+)', [
     check('quantity').isFloat()
 ], (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user) return res.redirect('/login')
 
     let errors = validationResult(req)
@@ -1252,6 +1285,7 @@ app.post('/discount_person/:personId(\\d+)', [
 })
 
 app.get('/delete_discount/:dis_id/:personId', (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group !== 'admin') return res.redirect('/login')
 
     Discount.destroy({
@@ -1281,6 +1315,7 @@ app.get('/delete_discount/:dis_id/:personId', (req, res) => {
 })
 
 app.get('/increase_person/:personId(\\d+)', (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (! req.user) return res.redirect('/login')
 
     Person.findById(req.params.personId)
@@ -1298,6 +1333,7 @@ app.get('/increase_person/:personId(\\d+)', (req, res) => {
 app.post('/increase_person/:personId(\\d+)', [
     check('quantity').isFloat()
 ], (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (! req.user) return res.redirect('/login')
 
     let errors = validationResult(req)
@@ -1343,6 +1379,7 @@ app.post('/increase_person/:personId(\\d+)', [
 })
 
 app.get('/delete_increase/:inc_id/:personId', (req, res) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode} [${req.user.username}]`)
     if (!req.user || req.user.group !== 'admin') return res.redirect('/login')
 
     Increase.destroy({
@@ -1372,5 +1409,5 @@ app.get('/delete_increase/:inc_id/:personId', (req, res) => {
 })
 
 app.listen(port, "0.0.0.0", () => {
-    console.log("Server started at port %d", port)
+    logger.info(`Server started at port ${port}`)
 })
