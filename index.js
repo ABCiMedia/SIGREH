@@ -114,7 +114,7 @@ app.use(express.json())
 
 app.use(
     session({
-        secret: "This is the secret key",
+        secret: "a58496e0-32ee-43ee-a30e-0f8a565ba3b7",
         genid: () => uuid(),
         store: new PostgreSQLStore({
             conObject: {
