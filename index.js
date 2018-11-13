@@ -23,7 +23,7 @@ const {logger} = require('./logging')
 ///// CONFIGURING PASSPORT WITH LOCAL STRATEGY
 passport.use(
     new LocalStrategy((username, password, done) => {
-        User.find({ where: { username } })
+        User.findOne({ where: { username } })
         .then(user => {
             if (!user) {
                 return done(null, false, { param: "Credenciais", msg: "Invalidas" })
@@ -42,7 +42,7 @@ passport.serializeUser((user, done) => {
 })
 
 passport.deserializeUser((id, done) => {
-    User.findById(id)
+    User.findByPk(id)
     .then(res => {
         user = res || false
         done(null, user)
@@ -398,7 +398,7 @@ app.get("/details/:userId(\\d+)", (req, res) => {
         avaliador: req.user.group === 'avaliador'
     }
 
-    Person.findById(req.params.userId)
+    Person.findByPk(req.params.userId)
     .then(r => {
         Object.assign(options, {
             pageTitle: r.name,
@@ -409,7 +409,7 @@ app.get("/details/:userId(\\d+)", (req, res) => {
     })
     .then(fs => {
         options.formation = fs
-        return User.find({
+        return User.findOne({
             where: {
                 id: options.person.userId
             }
@@ -426,7 +426,7 @@ app.get("/edit/:userId(\\d+)", (req, res) => {
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     let context = {}
-    Person.findById(req.params.userId)
+    Person.findByPk(req.params.userId)
     .then(r => {
         Object.assign(context, {
             pageTitle: r.name,
@@ -457,7 +457,7 @@ app.post("/edit/:userId(\\d+)", [
 
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        Person.findById(req.params.userId)
+        Person.findByPk(req.params.userId)
         .then(r => {
             return res.render("edit", {
                 pageTitle: r.name,
@@ -486,7 +486,7 @@ app.post("/edit/:userId(\\d+)", [
         }
     })
     .then(() => {
-        return Person.findById(req.params.userId)
+        return Person.findByPk(req.params.userId)
     })
     .then(p => {
         buffer.p = p
@@ -503,7 +503,7 @@ app.post("/edit/:userId(\\d+)", [
         return buffer.p.setFormations(formations)
     })
     .then(() => {
-        return Payment.find({
+        return Payment.findOne({
             where: {
                 personId: buffer.p.id
             }
@@ -530,7 +530,7 @@ app.get("/avaliar/:userId(\\d+)", (req, res) => {
     log(req, res)
     if (!req.user) return res.redirect("/login")
 
-    Person.findById(req.params.userId)
+    Person.findByPk(req.params.userId)
     .then(r => {
         res.render("avaliar", {
             pageTitle: "Avaliação do Estagiário",
@@ -572,7 +572,7 @@ app.post("/avaliar/:userId(\\d+)", [
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        Person.findById(req.params.userId)
+        Person.findByPk(req.params.userId)
         .then(r => {
             return res.render(`avaliar`, {
                 pageTitle: "Avaliação do Estagiário",
@@ -642,7 +642,7 @@ app.get("/avaliado/:userId(\\d+)", (req, res) => {
     if (!req.user) return res.redirect("/login")
 
     let options = null
-    Person.findById(req.params.userId)
+    Person.findByPk(req.params.userId)
     .then(person => {
         options = {
             pageTitle: `Avaliações de ${person.name}`,
@@ -685,10 +685,10 @@ app.get("/avaliar_edit/:av_id(\\d+)", (req, res) => {
         admin: req.user.group === "admin",
         avaliador: req.user.group === 'avaliador'
     }
-    Evaluation.findById(req.params.av_id)
+    Evaluation.findByPk(req.params.av_id)
     .then(av => {
         options.evaluations = av
-        return Person.findById(av.dataValues.personId)
+        return Person.findByPk(av.dataValues.personId)
     })
     .then(person => {
         options.person = person
@@ -732,10 +732,10 @@ app.post("/avaliar_edit/:av_id(\\d+)", [
             admin: req.user.group === 'admin',
             avaliador: req.user.group === 'avaliador'
         }
-        Evaluation.findById(req.params.av_id)
+        Evaluation.findByPk(req.params.av_id)
         .then(av => {
             options.evaluations = av
-            return Person.find(av.dataValues.personId)
+            return Person.findOne(av.dataValues.personId)
         })
         .then(person => {
             options.person = person
@@ -1043,7 +1043,7 @@ app.get("/formation/:fid(\\d+)", (req, res) => {
     log(req, res)
     if (!req.user || req.user.group !== "admin") return res.redirect("/login")
 
-    Formation.findById(req.params.fid)
+    Formation.findByPk(req.params.fid)
     .then(f => {
         return res.render("formation_edit", {
             pageTitle: "Editar Formação",
@@ -1099,7 +1099,7 @@ app.get("/choose_formation/:personId", (req, res) => {
     Formation.findAll()
     .then(fs => {
         context.formation = fs
-        return Person.findById(req.params.personId)
+        return Person.findByPk(req.params.personId)
     })
     .then(p => {
         context.pageTitle = `Escolhe Formações para ${p.name}`
@@ -1124,7 +1124,7 @@ app.post("/choose_formation/:personId", (req, res) => {
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     let context = {}
-    Person.findById(req.params.personId)
+    Person.findByPk(req.params.personId)
     .then(p => {
         context.p = p
         return Formation.findAll()
@@ -1147,7 +1147,7 @@ app.post("/choose_formation/:personId", (req, res) => {
     })
     .then(fs => {
         context.formations = fs
-        return Payment.find({
+        return Payment.findOne({
             where: {
                 personId: req.params.personId
             }
@@ -1186,10 +1186,10 @@ app.get('/payment/:personId', (req, res) => {
         user: req.user,
         admin: req.user.group === 'admin'
     }
-    Person.findById(req.params.personId)
+    Person.findByPk(req.params.personId)
     .then(pe => {
         context.person = pe
-        return Payment.find({
+        return Payment.findOne({
             where: {
                 personId: req.params.personId
             }
@@ -1207,7 +1207,7 @@ app.post('/payment/:personId', (req, res) => {
     log(req, res)
     if (!req.user || req.user.group === 'avaliador') return res.redirect('/login')
 
-    Payment.find({
+    Payment.findOne({
         where: {
             personId: req.params.personId
         }
@@ -1226,7 +1226,7 @@ app.get('/discount_person/:personId(\\d+)', (req, res) => {
     log(req, res)
     if (!req.user) return res.redirect('/login')
 
-    Person.findById(req.params.personId)
+    Person.findByPk(req.params.personId)
     .then(person => {
         return res.render('discount_person', {
             person,
@@ -1246,7 +1246,7 @@ app.post('/discount_person/:personId(\\d+)', [
 
     let errors = validationResult(req)
     if (!errors.isEmpty()) {
-        Person.findById(req.params.personId)
+        Person.findByPk(req.params.personId)
         .then(person => {
             return res.render('discount_person', {
                 error: utils.changeError(errors.array()[0]),
@@ -1320,7 +1320,7 @@ app.get('/increase_person/:personId(\\d+)', (req, res) => {
     log(req, res)
     if (! req.user) return res.redirect('/login')
 
-    Person.findById(req.params.personId)
+    Person.findByPk(req.params.personId)
     .then(person => {
         return res.render('increase_person', {
             pageTitle: `Aumento de ${person.name}`,
@@ -1340,7 +1340,7 @@ app.post('/increase_person/:personId(\\d+)', [
 
     let errors = validationResult(req)
     if (!errors.isEmpty()) {
-        Person.findById(req.params.personId)
+        Person.findByPk(req.params.personId)
         .then(person => {
             return res.render('increase_person', {
                 pageTitle: `Aumento de ${person.name}`,
