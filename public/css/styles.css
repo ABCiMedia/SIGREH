@@ -446,3 +446,12 @@ table.dataTable thead th {
 .tabs .indicator {
     background-color:#039be5;
 } /*Color of underline*/
+
+.card-pre {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.abc-icon {
+    width: 65px;
+}

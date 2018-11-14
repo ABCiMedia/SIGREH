@@ -1410,6 +1410,10 @@ app.get('/delete_increase/:inc_id/:personId', (req, res) => {
     })
 })
 
+app.get('/pre_registration', (req, res) => {
+    res.render('pre_registration')
+})
+
 app.listen(port, "0.0.0.0", () => {
     logger.info(`Server started at port ${port}`)
 })
