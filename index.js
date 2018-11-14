@@ -16,6 +16,7 @@ const { Formation } = require("./models/Formation")
 const { Payment } = require("./models/Payment")
 const { Discount } = require('./models/Discount')
 const { Increase } = require('./models/Increase')
+const { PreRegister } = require('./models/PreRegister')
 const utils = require("./utils")
 const cred = require("./models/credentials")
 const {logger} = require('./logging')
@@ -1411,7 +1412,34 @@ app.get('/delete_increase/:inc_id/:personId', (req, res) => {
 })
 
 app.get('/pre_registration', (req, res) => {
+    log(req, res)
     res.render('pre_registration')
+})
+
+app.post('/pre_registration', [
+    check('name').isString(),
+    check('phone').isString(),
+    check('email').isEmail()
+], (req, res) => {
+    log(req, res)
+    const errors = validationResult(req)
+    if(!errors.isEmpty()) {
+        return res.render('pre_registration', {
+            error: utils.changeError(errors.array()[0])
+        })
+    }
+
+    PreRegister.create({
+        name: req.body.name,
+        address: req.body.address,
+        phone: req.body.phone,
+        email: req.body.email
+    })
+    .then(() => {
+        return res.render('pre_registration', {
+            success: {msg: 'Pré incrição efectuada com sucesso!'}
+        })
+    })
 })
 
 app.listen(port, "0.0.0.0", () => {
