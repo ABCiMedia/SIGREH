@@ -105,10 +105,10 @@ const log = (req, res) => {
 
 //////// MIDLEWARES
 
-// app.use((req, res, next) => {
-//     logger.info(`${req.method} ${req.url} ${res.statusCode}`)
-//     next()
-// });
+app.use((req, res, next) => {
+    logger.info(`${req.method} ${req.url} ${res.statusCode}`)
+    next()
+});
 app.use(express.static(__dirname + "/public"))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
@@ -217,18 +217,18 @@ app.get("/", (req, res) => {
         options.peopleEvaluated = r.count
         return res.render("dashboard", options)
     })
+    .catch(e => logger.error(e))
 })
 
 app.get("/inscrever", (req, res) => {
     log(req, res)
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
-    let options = {
+    return res.render("register", {
         pageTitle: "Inscrições",
         user: req.user,
         admin: req.user.group === 'admin'
-    }
-    return res.render("register", options)
+    })
 })
 
 app.post("/inscrever", [
@@ -268,6 +268,7 @@ app.post("/inscrever", [
         .then(r => {
             return res.redirect(`/details/${r.id}`)
         })
+        .catch(e => logger.error(e))
     }
 })
 
@@ -290,6 +291,7 @@ app.get("/pessoas/:category", (req, res) => {
                 context.person = utils.changeSG(r)
                 res.render("list", context)
             })
+            .catch(e => logger.error(e))
             break
 
         case "regi":
@@ -301,6 +303,7 @@ app.get("/pessoas/:category", (req, res) => {
                 context.person = utils.changeSG(r)
                 res.render("list", context)
             })
+            .catch(e => logger.error(e))
             break
 
         case "wait":
@@ -312,6 +315,7 @@ app.get("/pessoas/:category", (req, res) => {
                 context.person = utils.changeSG(r)
                 res.render('list', context)
             })
+            .catch(e => logger.error(e))
             break
 
         case "form":
@@ -323,6 +327,7 @@ app.get("/pessoas/:category", (req, res) => {
                 context.person = utils.changeSG(r)
                 res.render("list", context)
             })
+            .catch(e => logger.error(e))
             break
 
         case "inte":
@@ -334,6 +339,7 @@ app.get("/pessoas/:category", (req, res) => {
                 context.person = utils.changeSG(r)
                 res.render("list", context)
             })
+            .catch(e => logger.error(e))
             break
 
         case "hire":
@@ -345,6 +351,7 @@ app.get("/pessoas/:category", (req, res) => {
                 context.person = utils.changeSG(r)
                 res.render("list", context)
             })
+            .catch(e => logger.error(e))
             break
 
         case "rese":
@@ -356,6 +363,7 @@ app.get("/pessoas/:category", (req, res) => {
                 context.person = utils.changeSG(r)
                 res.render("list", context)
             })
+            .catch(e => logger.error(e))
             break
 
         case "eval":
@@ -371,6 +379,7 @@ app.get("/pessoas/:category", (req, res) => {
                 context.person = utils.changeSG(r)
                 res.render("list_eval", context)
             })
+            .catch(e => logger.error(e))
             break
 
         case "gave":
@@ -382,6 +391,7 @@ app.get("/pessoas/:category", (req, res) => {
                 context.person = utils.changeSG(r)
                 res.render("list", context)
             })
+            .catch(e => logger.error(e))
             break
 
         default:
@@ -420,6 +430,7 @@ app.get("/details/:userId(\\d+)", (req, res) => {
         options.createdBy = u.username
         return res.render("details", options)
     })
+    .catch(e => logger.error(e))
 })
 
 app.get("/edit/:userId(\\d+)", (req, res) => {
@@ -442,6 +453,7 @@ app.get("/edit/:userId(\\d+)", (req, res) => {
         context.formation = fs;
         return res.render("edit", context)
     })
+    .catch(e => logger.error(e))
 })
 
 app.post("/edit/:userId(\\d+)", [
@@ -467,6 +479,7 @@ app.post("/edit/:userId(\\d+)", [
                 error: utils.changeError(errors.array()[0])
             })
         })
+        .catch(e => logger.error(e))
     }
 
     let buffer = {}
@@ -525,6 +538,7 @@ app.post("/edit/:userId(\\d+)", [
         }
     })
     .then(() => res.redirect(`/details/${req.params.userId}`))
+    .catch(e => logger.error(e))
 });
 
 app.get("/avaliar/:userId(\\d+)", (req, res) => {
@@ -541,6 +555,7 @@ app.get("/avaliar/:userId(\\d+)", (req, res) => {
             avaliador: req.user.group === 'avaliador'
         })
     })
+    .catch(e => logger.error(e))
 })
 
 app.post("/avaliar/:userId(\\d+)", [
@@ -585,6 +600,7 @@ app.post("/avaliar/:userId(\\d+)", [
                 avaliador: req.user.group === 'avaliador'
             })
         })
+        .catch(e => logger.error(e))
     } else {
         Evaluation.create({
             shop: req.body.shop,
@@ -613,7 +629,8 @@ app.post("/avaliar/:userId(\\d+)", [
             advisor: req.body.advisor,
             personId: req.params.userId,
             userId: req.user.id
-        }).then(ev => {
+        })
+        .then(ev => {
             // Fazer update do score em Person.score e Person.scoreText
             return Promise.all([
                 Evaluation.findAll({where: {personId: req.params.userId}}),
@@ -635,6 +652,7 @@ app.post("/avaliar/:userId(\\d+)", [
         .then(r => {
             return res.redirect(`/avaliado/${req.params.userId}`)
         })
+        .catch(e => logger.error(e))
     }
 })
 
@@ -674,6 +692,7 @@ app.get("/avaliado/:userId(\\d+)", (req, res) => {
         })
         return res.render("avaliado", options)
     })
+    .catch(e => logger.error(e))
 })
 
 app.get("/avaliar_edit/:av_id(\\d+)", (req, res) => {
@@ -695,6 +714,7 @@ app.get("/avaliar_edit/:av_id(\\d+)", (req, res) => {
         options.person = person
         return res.render("avaliar_edit", options)
     })
+    .catch(e => logger.error(e))
 })
 
 app.post("/avaliar_edit/:av_id(\\d+)", [
@@ -743,6 +763,7 @@ app.post("/avaliar_edit/:av_id(\\d+)", [
             options.error = utils.changeError(errors.array()[0])
             return res.render("avaliar_edit", options)
         })
+        .catch(e => logger.error(e))
     } else {
         Evaluation.update({
             shop: req.body.shop,
@@ -798,6 +819,7 @@ app.post("/avaliar_edit/:av_id(\\d+)", [
         .then(r => {
             return res.redirect(`/avaliado/${req.body.personId}`)
         })
+        .catch(e => logger.error(e))
     }
 })
 
@@ -814,6 +836,7 @@ app.get("/admin", (req, res) => {
             admin: req.user.group === "admin"
         })
     })
+    .catch(e => logger.error(e))
 })
 
 app.get("/create_user", (req, res) => {
@@ -881,6 +904,7 @@ app.post("/create_user", [
             return res.redirect("/admin")
         })
     })
+    .catch(e => logger.error(e))
 })
 
 app.get("/login", (req, res) => {
@@ -939,6 +963,7 @@ app.get("/delete_user/:userId", (req, res) => {
     }).then(() => {
         return res.redirect("/admin")
     })
+    .catch(e => logger.error(e))
 })
 
 app.get("/delete_person/:userId/:category", (req, res) => {
@@ -953,6 +978,7 @@ app.get("/delete_person/:userId/:category", (req, res) => {
     .then(() => {
         return res.redirect(`/pessoas/${req.params.category}`)
     })
+    .catch(e => logger.error(e))
 })
 
 app.get("/delete_evaluation/:av_id/:userId", (req, res) => {
@@ -967,6 +993,7 @@ app.get("/delete_evaluation/:av_id/:userId", (req, res) => {
     .then(() => {
         return res.redirect(`/avaliado/${req.params.userId}`)
     })
+    .catch(e => logger.error(e))
 })
 
 app.get('/delete_formation/:f_id(\\d+)', (req, res) => {
@@ -981,13 +1008,15 @@ app.get('/delete_formation/:f_id(\\d+)', (req, res) => {
     .then(() => {
         return res.redirect('/formations')
     })
+    .catch(e => logger.error(e))
 })
 
 app.get("/formations", (req, res) => {
     log(req, res)
     if (!req.user || req.user.group !== "admin") return res.redirect("/login")
 
-    Formation.findAll().then(fs => {
+    Formation.findAll()
+    .then(fs => {
         res.render("formations", {
             pageTitle: "Formações Disponiveis",
             formations: fs,
@@ -995,6 +1024,7 @@ app.get("/formations", (req, res) => {
             admin: req.user.group === 'admin'
         })
     })
+    .catch(e => logger.error(e))
 })
 
 app.get("/add_formation", (req, res) => {
@@ -1037,6 +1067,7 @@ app.post("/add_formation", [
         .then(r => {
             return res.redirect("/formations")
         })
+        .catch(e => logger.error(e))
     }
 })
 
@@ -1044,13 +1075,15 @@ app.get("/formation/:fid(\\d+)", (req, res) => {
     log(req, res)
     if (!req.user || req.user.group !== "admin") return res.redirect("/login")
 
-    Formation.findByPk(req.params.fid)
+    Formation
+    .findByPk(req.params.fid)
     .then(f => {
         return res.render("formation_edit", {
             pageTitle: "Editar Formação",
             formation: f.dataValues
         })
     })
+    .catch(e => logger.error(e))
 })
 
 app.post("/formation/:fid(\\d+)", [
@@ -1071,7 +1104,8 @@ app.post("/formation/:fid(\\d+)", [
             error: utils.changeError(errors.array()[0])
         })
     } else {
-        Formation.update({
+        Formation
+        .update({
             name: req.body.name,
             teoric_part: req.body.teoric_part,
             pratic_part: req.body.pratic_part,
@@ -1086,6 +1120,7 @@ app.post("/formation/:fid(\\d+)", [
         .then(r => {
             return res.redirect("/formations")
         })
+        .catch(e => logger.error(e))
     }
 })
 
@@ -1097,7 +1132,8 @@ app.get("/choose_formation/:personId", (req, res) => {
         user: req.user,
         admin: req.user.group === 'admin'
     }
-    Formation.findAll()
+    Formation
+    .findAll()
     .then(fs => {
         context.formation = fs
         return Person.findByPk(req.params.personId)
@@ -1118,6 +1154,7 @@ app.get("/choose_formation/:personId", (req, res) => {
         })
         res.render("choose_formation", context)
     })
+    .catch(e => logger.error(e))
 })
 
 app.post("/choose_formation/:personId", (req, res) => {
@@ -1125,7 +1162,8 @@ app.post("/choose_formation/:personId", (req, res) => {
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
     let context = {}
-    Person.findByPk(req.params.personId)
+    Person
+    .findByPk(req.params.personId)
     .then(p => {
         context.p = p
         return Formation.findAll()
@@ -1176,6 +1214,7 @@ app.post("/choose_formation/:personId", (req, res) => {
         })
     })
     .then(p => res.redirect(`/details/${req.params.personId}`))
+    .catch(e => logger.error(e))
 })
 
 app.get('/payment/:personId', (req, res) => {
@@ -1187,7 +1226,8 @@ app.get('/payment/:personId', (req, res) => {
         user: req.user,
         admin: req.user.group === 'admin'
     }
-    Person.findByPk(req.params.personId)
+    Person
+    .findByPk(req.params.personId)
     .then(pe => {
         context.person = pe
         return Payment.findOne({
@@ -1202,13 +1242,15 @@ app.get('/payment/:personId', (req, res) => {
         context.date = new Date().toLocaleDateString()
         return res.render('payment', context)
     })
+    .catch(e => logger.error(e))
 })
 
 app.post('/payment/:personId', (req, res) => {
     log(req, res)
     if (!req.user || req.user.group === 'avaliador') return res.redirect('/login')
 
-    Payment.findOne({
+    Payment
+    .findOne({
         where: {
             personId: req.params.personId
         }
@@ -1221,13 +1263,15 @@ app.post('/payment/:personId', (req, res) => {
     .then(() => {
         return res.redirect(`/payment/${req.params.personId}`)
     })
+    .catch(e => logger.error(e))
 })
 
 app.get('/discount_person/:personId(\\d+)', (req, res) => {
     log(req, res)
     if (!req.user) return res.redirect('/login')
 
-    Person.findByPk(req.params.personId)
+    Person
+    .findByPk(req.params.personId)
     .then(person => {
         return res.render('discount_person', {
             person,
@@ -1237,6 +1281,7 @@ app.get('/discount_person/:personId(\\d+)', (req, res) => {
             avaliador: req.user.group === 'avaliador'
         })
     })
+    .catch(e => logger.error(e))
 })
 
 app.post('/discount_person/:personId(\\d+)', [
@@ -1247,7 +1292,8 @@ app.post('/discount_person/:personId(\\d+)', [
 
     let errors = validationResult(req)
     if (!errors.isEmpty()) {
-        Person.findByPk(req.params.personId)
+        Person
+        .findByPk(req.params.personId)
         .then(person => {
             return res.render('discount_person', {
                 error: utils.changeError(errors.array()[0]),
@@ -1258,8 +1304,10 @@ app.post('/discount_person/:personId(\\d+)', [
                 avaliador: req.user.group === 'avaliador'
             })
         })
+        .catch(e => logger.error(e))
     } else {
-        Discount.create({
+        Discount
+        .create({
             quantity: Math.abs(req.body.quantity),
             reason: req.body.reason,
             personId: req.params.personId,
@@ -1284,6 +1332,7 @@ app.post('/discount_person/:personId(\\d+)', [
         .then(() => {
             return res.redirect('/avaliado/' + req.params.personId)
         })
+        .catch(e => logger.error(e))
     }
 })
 
@@ -1291,7 +1340,8 @@ app.get('/delete_discount/:dis_id/:personId', (req, res) => {
     log(req, res)
     if (!req.user || req.user.group !== 'admin') return res.redirect('/login')
 
-    Discount.destroy({
+    Discount
+    .destroy({
         where: {
             id: req.params.dis_id
         }
@@ -1315,13 +1365,15 @@ app.get('/delete_discount/:dis_id/:personId', (req, res) => {
     .then(() => {
         return res.redirect(`/avaliado/${req.params.personId}`)
     })
+    .catch(e => logger.error(e))
 })
 
 app.get('/increase_person/:personId(\\d+)', (req, res) => {
     log(req, res)
     if (! req.user) return res.redirect('/login')
 
-    Person.findByPk(req.params.personId)
+    Person
+    .findByPk(req.params.personId)
     .then(person => {
         return res.render('increase_person', {
             pageTitle: `Aumento de ${person.name}`,
@@ -1331,6 +1383,7 @@ app.get('/increase_person/:personId(\\d+)', (req, res) => {
             avaliador: req.user.group === 'avaliador'
         })
     })
+    .catch(e => logger.error(e))
 })
 
 app.post('/increase_person/:personId(\\d+)', [
@@ -1341,7 +1394,8 @@ app.post('/increase_person/:personId(\\d+)', [
 
     let errors = validationResult(req)
     if (!errors.isEmpty()) {
-        Person.findByPk(req.params.personId)
+        Person
+        .findByPk(req.params.personId)
         .then(person => {
             return res.render('increase_person', {
                 pageTitle: `Aumento de ${person.name}`,
@@ -1352,8 +1406,10 @@ app.post('/increase_person/:personId(\\d+)', [
                 avaliador: req.user.group === 'avaliador'
             })
         })
+        .catch(e => logger.error(e))
     } else {
-        Increase.create({
+        Increase
+        .create({
             quantity: Math.abs(req.body.quantity),
             reason: req.body.reason,
             personId: req.params.personId,
@@ -1378,6 +1434,7 @@ app.post('/increase_person/:personId(\\d+)', [
         .then(() => {
             return res.redirect(`/avaliado/${req.params.personId}`)
         })
+        .catch(e => logger.error(e))
     }
 })
 
@@ -1385,7 +1442,8 @@ app.get('/delete_increase/:inc_id/:personId', (req, res) => {
     log(req, res)
     if (!req.user || req.user.group !== 'admin') return res.redirect('/login')
 
-    Increase.destroy({
+    Increase
+    .destroy({
         where: {
             id: req.params.inc_id
         }
@@ -1409,6 +1467,7 @@ app.get('/delete_increase/:inc_id/:personId', (req, res) => {
     .then(() => {
         return res.redirect(`/avaliado/${req.params.personId}`)
     })
+    .catch(e => logger.error(e))
 })
 
 app.get('/pre_registration', (req, res) => {
@@ -1429,7 +1488,8 @@ app.post('/pre_registration', [
         })
     }
 
-    PreRegister.create({
+    PreRegister
+    .create({
         name: req.body.name,
         address: req.body.address,
         phone: req.body.phone,
@@ -1440,6 +1500,7 @@ app.post('/pre_registration', [
             success: {msg: 'Pré incrição efectuada com sucesso!'}
         })
     })
+    .catch(e => logger.error(e))
 })
 
 app.get('/pre_inscritos', async (req, res) => {
@@ -1457,10 +1518,12 @@ app.get('/pre_inscritos', async (req, res) => {
 app.get('/delete_pre_inscrito/:id', (req, res) => {
     log(req, res)
     if(!req.user || req.user.group === 'avaliador') return res.redirect('/login')
-    PreRegister.destroy({where: {id: req.params.id}})
+    PreRegister
+    .destroy({where: {id: req.params.id}})
     .then(() => {
         return res.redirect('/pre_inscritos')
     })
+    .catch(e => logger.error(e))
 })
 
 app.listen(port, "0.0.0.0", () => {
