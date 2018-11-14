@@ -1442,6 +1442,27 @@ app.post('/pre_registration', [
     })
 })
 
+app.get('/pre_inscritos', async (req, res) => {
+    log(req, res)
+    if(!req.user || req.user.group === 'avaliador') return res.redirect('/login')
+    const person = await PreRegister.findAll()
+    res.render('pre_inscritos', {
+        person,
+        user: req.user,
+        admin: req.user.group === 'admin',
+        pageTitle: 'Pré Inscritos'
+    })
+})
+
+app.get('/delete_pre_inscrito/:id', (req, res) => {
+    log(req, res)
+    if(!req.user || req.user.group === 'avaliador') return res.redirect('/login')
+    PreRegister.destroy({where: {id: req.params.id}})
+    .then(() => {
+        return res.redirect('/pre_inscritos')
+    })
+})
+
 app.listen(port, "0.0.0.0", () => {
     logger.info(`Server started at port ${port}`)
 })

@@ -1,0 +1,38 @@
+{{> head }}
+    <body>
+        {{> header }}
+        {{> navbar }}
+
+        {{# if person }}
+        <table id='myTable' class='row-border'>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{# each person }}
+                <tr>
+                    <td>{{ this.name }}</td>
+                    <td>{{ this.address }}</td>
+                    <td>{{ this.phone }}</td>
+                    <td>{{ this.email }}</td>
+                    <td>
+                        <i user-id='{{this.id}}' path='/delete_pre_inscrito/' data-target='delModal' class='fas fa-trash modal-trigger'></i>
+                    </td>
+                </tr>
+                {{/ each }}
+            </tbody>
+        </table>
+        {{else}}
+        <p class='rep'>... Nenhuma pessoa encontrada ...</p>
+        {{/ if}}
+
+        {{> delete_modal }}
+        {{>footer}}
+    </body>
+</html>
