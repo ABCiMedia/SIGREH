@@ -447,11 +447,15 @@ table.dataTable thead th {
     background-color:#039be5;
 } /*Color of underline*/
 
-.card-pre {
-    width: 40%;
-    margin: 0 auto;
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
+
+.no-margin {
+    margin: auto;
 }
 
 .abc-icon {
-    width: 65px;
+    width: 60px;
 }
