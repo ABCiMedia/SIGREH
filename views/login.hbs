@@ -3,8 +3,8 @@
         {{# error }}
         <p class='card red card-error'>{{ param }}:{{ msg }}</p>
         {{/ error }}
-
-        <div class='card card-login'>
+        <div class="row flex-center">
+        <div class='card card-login col l6 m7 s10 xs10'>
             <form action="/login" method='post'>
                 <div class='card-content'>
                     <div class="card-title grey-text">Entrar</div>
@@ -21,6 +21,7 @@
                     <input class='btn blue' type='submit' value='Entrar'>
                 </div>
             </form>
+        </div>
         </div>
     </body>
 </html>
