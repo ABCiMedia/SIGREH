@@ -1,6 +1,5 @@
 {{> head }}
     <body>
-        {{> header }}
         {{# error }}
         <p class='card red card-error'>{{ param }}:{{ msg }}</p>
         {{/ error }}
@@ -8,6 +7,7 @@
         <div class='card card-login'>
             <form action="/login" method='post'>
                 <div class='card-content'>
+                    <div class="card-title grey-text">Entrar</div>
                     <div class='input-field'>
                         <label for='username'>Nome de Utilizador</label>
                         <input id='username' type='text' name='username' {{#if form_data }}value={{form_data.username}}{{/if}}>
