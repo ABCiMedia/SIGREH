@@ -7,6 +7,7 @@
         <table id='myTable' class='row-border'>
             <thead>
                 <tr>
+                    <th>Processo</th>
                     <th>Nome</th>
                     <th>Endereço</th>
                     <th>Telefone</th>
@@ -17,10 +18,11 @@
             <tbody>
                 {{# each person }}
                 <tr>
-                    <td>{{ this.name }}</td>
-                    <td>{{ this.address }}</td>
-                    <td>{{ this.phone }}</td>
-                    <td>{{ this.email }}</td>
+                    <td><a href='/inscrever?p={{this.id}}'>{{ this.id }}</a></td>
+                    <td><a href='/inscrever?p={{this.id}}'>{{ this.name }}</a></td>
+                    <td><a href='/inscrever?p={{this.id}}'>{{ this.address }}</a></td>
+                    <td><a href='/inscrever?p={{this.id}}'>{{ this.phone }}</a></td>
+                    <td><a href='/inscrever?p={{this.id}}'>{{ this.email }}</a></td>
                     <td>
                         <i user-id='{{this.id}}' path='/delete_pre_inscrito/' data-target='delModal' class='fas fa-trash modal-trigger'></i>
                     </td>

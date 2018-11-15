@@ -11,31 +11,31 @@
             <form action="/inscrever" method='post'>
                 <div class='input-field'>
                     <label for='name'>Nome</label>
-                    <input type='text' name='name' required {{#if form_data }}value={{form_data.name}}{{/if}}>
+                    <input type='text' name='name' required {{#if form_data }}value="{{form_data.name}}"{{/if}}>
                 </div>
                 <div class='input-field'>
                     <label for='birthdate'>Data de Nascimento</label>
-                    <input type='date' name='birthdate' required {{#if form_data }}value={{form_data.birthdate}}{{/if}}>
+                    <input type='date' name='birthdate' required {{#if form_data }}value="{{form_data.birthdate}}"{{/if}}>
                 </div>
                 <div class='input-field'>
                     <label for='address'>Morada</label>
-                    <input type='text' name='address' {{#if form_data }}value={{form_data.address}}{{/if}}>
+                    <input type='text' name='address' {{#if form_data }}value="{{form_data.address}}"{{/if}}>
                 </div>
                 <div class='input-field'>
                     <label for='phone'>Telefone</label>
-                    <input type='text' name='phone' required {{#if form_data }}value={{form_data.phone}}{{/if}}>
+                    <input type='text' name='phone' required {{#if form_data }}value="{{form_data.phone}}"{{/if}}>
                 </div>
                 <div class='input-field'>
                     <label for='email'>Email</label>
-                    <input type='text' name='email' {{#if form_data }}value={{form_data.email}}{{/if}}>
+                    <input type='text' name='email' {{#if form_data }}value="{{form_data.email}}"{{/if}}>
                 </div>
                 <div class='input-field'>
                     <label for='bi'>Número de BI</label>
-                    <input type='text' name='bi' required {{#if form_data }}value={{form_data.bi}}{{/if}}>
+                    <input type='text' name='bi' required {{#if form_data }}value="{{form_data.bi}}"{{/if}}>
                 </div>
                 <div class='input-field'>
                     <label for='nif'>NIF</label>
-                    <input type='text' name='nif' required {{#if form_data }}value={{form_data.nif}}{{/if}}>
+                    <input type='text' name='nif' required {{#if form_data }}value="{{form_data.nif}}"{{/if}}>
                 </div>
                 
                 <fieldset>

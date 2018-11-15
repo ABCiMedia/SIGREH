@@ -220,15 +220,22 @@ app.get("/", (req, res) => {
     .catch(e => logger.error(e))
 })
 
-app.get("/inscrever", (req, res) => {
+app.get("/inscrever", async (req, res) => {
     log(req, res)
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
-    return res.render("register", {
+    let context = {
         pageTitle: "Inscrições",
         user: req.user,
         admin: req.user.group === 'admin'
-    })
+    }
+
+    if(req.query.p) {
+        let pre_inscrito = await PreRegister.findByPk(req.query.p)
+        context.form_data = pre_inscrito
+    }
+
+    return res.render("register", context)
 })
 
 app.post("/inscrever", [
@@ -1479,7 +1486,7 @@ app.post('/pre_registration', [
     check('name').isString(),
     check('phone').isString(),
     check('email').isEmail()
-], (req, res) => {
+], async (req, res) => {
     log(req, res)
     const errors = validationResult(req)
     if(!errors.isEmpty()) {
@@ -1495,10 +1502,8 @@ app.post('/pre_registration', [
         phone: req.body.phone,
         email: req.body.email
     })
-    .then(() => {
-        return res.render('pre_registration', {
-            success: {msg: 'Pré incrição efectuada com sucesso!'}
-        })
+    .then(process => {
+        return res.render('pre_registration_success', {process})
     })
     .catch(e => logger.error(e))
 })
