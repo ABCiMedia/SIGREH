@@ -138,28 +138,32 @@ app.use(passport.session())
 app.get("/", async (req, res) => {
     log(req, res)
     if (!req.user) return res.redirect("/login")
-
-    let options = {
-        pageTitle: "Painel de Controlo",
-        user: req.user,
-        admin: req.user.group === 'admin',
-        avaliador: req.user.group === 'avaliador',
-        peopleInDB: (await Person.findAndCountAll()).count,
-        peopleRegistered: (await Person.findAndCountAll({where: {state: "registered"}})).count,
-        peopleWaiting: (await Person.findAndCountAll({where: {state: "waiting_formation"}})).count,
-        peopleFormating: (await Person.findAndCountAll({where: {state: "formation"}})).count,
-        peopleInInternship: (await Person.findAndCountAll({where: {state: "internship"}})).count,
-        peopleHired: (await Person.findAndCountAll({where: {state: "hired"}})).count,
-        peopleReserved: (await Person.findAndCountAll({where: {state: "reserved"}})).count,
-        peopleGaveUp: (await Person.findAndCountAll({where: {state: "gave_up"}})).count
-    }
-    let persons = await Person.findAll({where: {score: {[Sequelize.Op.ne]: null}}})
-    let counter = 0
-    for (let person of persons) {
-        if ((await Evaluation.findAndCountAll({where: {personId: person.id}})).count >= 3) counter++
-    }
-    options.peopleEvaluated = counter
-    return res.render("dashboard", options)
+    try {
+        let options = {
+            pageTitle: "Painel de Controlo",
+            user: req.user,
+            admin: req.user.group === 'admin',
+            avaliador: req.user.group === 'avaliador',
+            peopleInDB: (await Person.findAndCountAll()).count,
+            peopleRegistered: (await Person.findAndCountAll({where: {state: "registered"}})).count,
+            peopleWaiting: (await Person.findAndCountAll({where: {state: "waiting_formation"}})).count,
+            peopleFormating: (await Person.findAndCountAll({where: {state: "formation"}})).count,
+            peopleInInternship: (await Person.findAndCountAll({where: {state: "internship"}})).count,
+            peopleHired: (await Person.findAndCountAll({where: {state: "hired"}})).count,
+            peopleReserved: (await Person.findAndCountAll({where: {state: "reserved"}})).count,
+            peopleGaveUp: (await Person.findAndCountAll({where: {state: "gave_up"}})).count
+        }
+        let persons = await Person.findAll({where: {score: {[Sequelize.Op.ne]: null}}})
+        let counter = 0
+        for (let person of persons) {
+            if ((await Evaluation.findAndCountAll({where: {personId: person.id}})).count >= 3) counter++
+        }
+        options.peopleEvaluated = counter
+        return res.render("dashboard", options)
+    } catch (err) {
+        logger.error(err)
+    } 
+    
 })
 
 app.get("/inscrever", async (req, res) => {
