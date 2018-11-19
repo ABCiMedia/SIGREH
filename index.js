@@ -389,7 +389,8 @@ app.get("/pessoas/:category", (req, res) => {
 
         case "eval":
             context.pageTitle = "Pessoas Avaliadas"
-            Person.findAll({
+            Person
+            .findAll({
                 where: {
                     score: {
                         [Sequelize.Op.ne]: null
@@ -398,8 +399,10 @@ app.get("/pessoas/:category", (req, res) => {
             })
             .then(async (r) => {
                 let avaliados = []
+                let num
                 for (person of r) {
-                    if (await Evaluation.findAndCountAll({where: {personId: person.id}}).count >= 3) {
+                    num = await Evaluation.findAndCountAll({where: {personId: person.id}})
+                    if (num.count >= 3) {
                         avaliados.push(person)
                     }
                 }
