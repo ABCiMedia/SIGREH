@@ -146,7 +146,8 @@ app.get("/", (req, res) => {
         avaliador: req.user.group === 'avaliador'
     }
 
-    Person.findAndCountAll()
+    Person
+    .findAndCountAll()
     .then(r => {
         options.peopleInDB = r.count
         return Person.findAndCountAll({
@@ -203,18 +204,31 @@ app.get("/", (req, res) => {
             }
         })
     })
-    .then(r => {
+    .then(async (r) => {
         options.peopleGaveUp = r.count
-        return Person.findAndCountAll({
+        return Person.findAll({
             where: {
                 score: {
                     [Sequelize.Op.ne]: null
                 }
             }
         })
+        .then(async (avaliados) => {
+            let aval
+            let count = 0
+            for (avaliado of avaliados) {
+                aval = await Evaluation.findAndCountAll({where: {personId: avaliado.id}})
+                if (aval.count >= 3) {
+                    count++
+                }
+            }
+            return new Promise((resolve, reject) => {
+                resolve(count)
+            })
+        })
     })
     .then(r => {
-        options.peopleEvaluated = r.count
+        options.peopleEvaluated = r
         return res.render("dashboard", options)
     })
     .catch(e => logger.error(e))
@@ -381,6 +395,17 @@ app.get("/pessoas/:category", (req, res) => {
                         [Sequelize.Op.ne]: null
                     }
                 }
+            })
+            .then(async (r) => {
+                let avaliados = []
+                for (person of r) {
+                    if (await Evaluation.findAndCountAll({where: {personId: person.id}}).count >= 3) {
+                        avaliados.push(person)
+                    }
+                }
+                return new Promise((resolve, reject) => {
+                    resolve(avaliados)
+                })
             })
             .then(r => {
                 context.person = utils.changeSG(r)
