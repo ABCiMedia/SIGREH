@@ -135,7 +135,7 @@ app.use(passport.session())
 
 /////// HANDLERS
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
     log(req, res)
     if (!req.user) return res.redirect("/login")
 
@@ -143,95 +143,23 @@ app.get("/", (req, res) => {
         pageTitle: "Painel de Controlo",
         user: req.user,
         admin: req.user.group === 'admin',
-        avaliador: req.user.group === 'avaliador'
+        avaliador: req.user.group === 'avaliador',
+        peopleInDB: (await Person.findAndCountAll()).count,
+        peopleRegistered: (await Person.findAndCountAll({where: {state: "registered"}})).count,
+        peopleWaiting: (await Person.findAndCountAll({where: {state: "waiting_formation"}})).count,
+        peopleFormating: (await Person.findAndCountAll({where: {state: "formation"}})).count,
+        peopleInInternship: (await Person.findAndCountAll({where: {state: "internship"}})).count,
+        peopleHired: (await Person.findAndCountAll({where: {state: "hired"}})).count,
+        peopleReserved: (await Person.findAndCountAll({where: {state: "reserved"}})).count,
+        peopleGaveUp: (await Person.findAndCountAll({where: {state: "gave_up"}})).count
     }
-
-    Person
-    .findAndCountAll()
-    .then(r => {
-        options.peopleInDB = r.count
-        return Person.findAndCountAll({
-            where: {
-                state: "registered"
-            }
-        })
-    })
-    .then(r => {
-        options.peopleRegistered = r.count
-        return Person.findAndCountAll({
-            where: {
-                state: 'waiting_formation'
-            }
-        })
-    })
-    .then(r => {
-        options.peopleWaiting = r.count
-        return Person.findAndCountAll({
-            where: {
-                state: "formation"
-            }
-        })
-    })
-    .then(r => {
-        options.peopleFormating = r.count
-        return Person.findAndCountAll({
-            where: {
-                state: "internship"
-            }
-        })
-    })
-    .then(r => {
-        options.peopleInInternship = r.count
-        return Person.findAndCountAll({
-            where: {
-                state: "hired"
-            }
-        })
-    })
-    .then(r => {
-        options.peopleHired = r.count
-        return Person.findAndCountAll({
-            where: {
-                state: "reserved"
-            }
-        })
-    })
-    .then(r => {
-        options.peopleReserved = r.count
-        return Person.findAndCountAll({
-            where: {
-                state: 'gave_up'
-            }
-        })
-    })
-    .then(async (r) => {
-        options.peopleGaveUp = r.count
-        return Person.findAll({
-            where: {
-                score: {
-                    [Sequelize.Op.ne]: null
-                }
-            }
-        })
-        .then(async (avaliados) => {
-            let aval
-            let count = 0
-            for (avaliado of avaliados) {
-                aval = await Evaluation.findAndCountAll({where: {personId: avaliado.id}})
-                if (aval.count >= 3) {
-                    count++
-                }
-            }
-            return new Promise((resolve, reject) => {
-                resolve(count)
-            })
-        })
-    })
-    .then(r => {
-        options.peopleEvaluated = r
-        return res.render("dashboard", options)
-    })
-    .catch(e => logger.error(e))
+    let persons = await Person.findAll({where: {score: {[Sequelize.Op.ne]: null}}})
+    let counter = 0
+    for (let person of persons) {
+        if ((await Evaluation.findAndCountAll({where: {personId: person.id}})).count >= 3) counter++
+    }
+    options.peopleEvaluated = counter
+    return res.render("dashboard", options)
 })
 
 app.get("/inscrever", async (req, res) => {
