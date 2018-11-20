@@ -10,7 +10,9 @@ const sequelize = new Sequelize(credentials.database, credentials.username, cred
 })
 
 const Agente = sequelize.define('agente', {
-    nome: Sequelize.STRING
+    nome: Sequelize.STRING,
+    phone: Sequelize.STRING,
+    email: Sequelize.STRING
 })
 
 sequelize.sync()

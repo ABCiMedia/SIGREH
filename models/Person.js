@@ -2,6 +2,7 @@ const Sequelize = require('sequelize')
 
 const {User} = require('./User')
     , {Formation} = require('./Formation')
+    , { Agente } = require('./Agente')
 
 const credentials = require('./credentials')
 
@@ -23,12 +24,13 @@ const Person = sequelize.define('person', {
     gender: {type: Sequelize.STRING},
     state: {type: Sequelize.ENUM(['registered', 'waiting_formation', 'formation', 'internship', 'hired', 'reserved', 'gave_up'])},
     score: Sequelize.REAL,
-    scoreText: Sequelize.STRING
+    scoreText: Sequelize.STRING,
 })
 
 Person.belongsTo(User)
 Person.belongsToMany(Formation, {through: 'PersonFormation'})
 Formation.belongsToMany(Person, {through: 'PersonFormation'})
+Person.belongsTo(Agente)
 
 sequelize.sync()
 
