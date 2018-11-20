@@ -1495,6 +1495,18 @@ app.get('/delete_pre_inscrito/:id', (req, res) => {
     .catch(e => logger.error(e))
 })
 
+app.get('/agentes', async (req, res) => {
+    log(req, res)
+    if (!req.user || req.user.group === 'avaliador') return res.redirect('/login')
+    Agente
+    .findAll()
+    .then(agentes => {
+        return res.render('lista_agentes', {
+            agentes
+        })
+    })
+})
+
 app.listen(port, "0.0.0.0", () => {
     logger.info(`Server started at port ${port}`)
 })
