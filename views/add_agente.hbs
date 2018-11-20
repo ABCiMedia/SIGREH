@@ -1,0 +1,37 @@
+{{> head }}
+    <body>
+        {{> header }}
+        {{> navbar }}
+
+        {{# error }}
+        <p class='card red card-error'>{{ param }}:{{ msg }}</p>
+        {{/ error }}
+
+        <div class='card card-add-formation'>
+            <form action="/add_agente" method='post'>
+                <div class='card-content'>
+                    <div class='input-field'>
+                        <label for='numero'>Número</label>
+                        <input type='number' name='id' required {{#if form_data }}value='{{form_data.id}}'{{/if}}>
+                    </div>
+                    <div class='input-field'>
+                        <label for='name'>Nome</label>
+                        <input type='text' name='name' required {{#if form_data }}value='{{form_data.name}}'{{/if}}>
+                    </div>
+                    <div class='input-field'>
+                        <label>Contacto</label>
+                        <input type='text' name='phone' {{#if form_data }}value={{form_data.phone}}{{/if}}>
+                    </div>
+                    <div class='input-field'>
+                        <label>Email</label>
+                        <input type='email' name='email' {{#if form_data }}value={{form_data.email}}{{/if}}>
+                    </div>
+                </div>
+                <div class='card-action'>
+                    <input class='btn blue' type='submit' value='Adicionar'>
+                </div>
+            </form>
+        </div>
+        {{>footer}}
+    </body>
+</html>

@@ -1510,6 +1510,96 @@ app.get('/agentes', async (req, res) => {
     })
 })
 
+app.get('/add_agente', (req, res) => {
+    log(req, res)
+    if (!req.user || req.user.group === 'avaliador') return res.redirect('/login')
+    return res.render('add_agente', {
+        pageTitle: 'Adicionar Agente',
+        user: req.user,
+        admin: req.user.group === 'admin'
+    })
+})
+
+app.post('/add_agente', [
+    check('name').isString()
+], (req, res) => {
+    log(req, res)
+    if (!req.user || req.user.group === 'avaliador') return res.redirect('/login')
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.render('add_agente', {
+            pageTitle: 'Adicionar Agente',
+            user: req.user,
+            admin: req.user.group === 'admin',
+            form_data: req.body
+        })
+    } else {
+        Agente.create({
+            id: req.body.id,
+            nome: req.body.name,
+            phone: req.body.phone,
+            email: req.body.email
+        })
+        .then(r => {
+            return res.redirect('/agentes')
+        })
+    }
+})
+
+app.get('/delete_agente/:id', (req, res) => {
+    log(req, res)
+    if (!req.user || req.user.group !== 'admin') return res.redirect('/login')
+    Agente
+    .destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(r => {
+        return res.redirect('/agentes')
+    })
+    .catch(e => {
+        logger.error(e)
+    })
+})
+
+app.get('/update_agente/:id', (req, res) => {
+    log(req, res)
+    if (!req.user || req.user.group === 'avaliador') return res.redirect('/login')
+    Agente
+    .findByPk(req.params.id)
+    .then(agente => {
+        return res.render('edit_agente', {
+            pageTitle: 'Editar Agente',
+            user: req.user,
+            admin: req.user.group === 'admin',
+            form_data: agente
+        })
+    })
+    .catch(e => {
+        logger.error(e)
+    })
+})
+
+app.post('/update_agente/:id', (req, res) => {
+    log(req, res)
+    if (!req.user || req.user.group === 'avaliador') return res.redirect('/login')
+    Agente
+    .update({
+        id: req.body.id,
+        nome: req.body.name,
+        phone: req.body.phone,
+        email: req.body.email
+    }, {
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(r => {
+        return res.redirect('/agentes')
+    })
+})
+
 app.listen(port, "0.0.0.0", () => {
     logger.info(`Server started at port ${port}`)
 })

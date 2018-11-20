@@ -19,13 +19,13 @@
             <tbody>
                 {{# each agentes }}
                 <tr>
-                    <td><a href='/details/{{ this.id }}'>{{ this.id }}</a></td>
-                    <td><a href='/details/{{ this.id }}'>{{ this.nome }}</a></td>
-                    <td><a href='/details/{{ this.id }}'>{{ this.phone }}</a></td>
-                    <td><a href='/details/{{ this.id }}'>{{ this.email }}</a></td>
+                    <td><a href="/update_agente/{{this.id}}">{{ this.id }}</a></td>
+                    <td><a href="/update_agente/{{this.id}}">{{ this.nome }}</a></td>
+                    <td><a href="/update_agente/{{this.id}}">{{ this.phone }}</a></td>
+                    <td><a href="/update_agente/{{this.id}}">{{ this.email }}</a></td>
                     {{#if @root.admin }}
                     <td>
-                        <i user-id='{{this.id}}' path='/delete_person/' data-target='delModal' class='fas fa-trash modal-trigger'></i>
+                        <i user-id='{{this.id}}' path='/delete_agente/' data-target='delModal' class='fas fa-trash modal-trigger'></i>
                     </td>
                     {{/if}}
                 </tr>
@@ -36,6 +36,7 @@
         <p class='rep'>... Nenhuma pessoa encontrada ...</p>
         {{/ if}}
 
+        <i class='fas fa-plus-circle add-btn' onclick='loadPage("/add_agente")'></i>
         {{> delete_modal }}
         {{>footer}}
     </body>
