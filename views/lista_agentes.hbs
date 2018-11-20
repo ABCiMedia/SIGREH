@@ -1,0 +1,42 @@
+{{> head }}
+    <body>
+        {{> header }}
+        {{> navbar }}
+
+        {{# if agentes }}
+        <table id='myTable' class='row-border'>
+            <thead>
+                <tr>
+                    <th>Nº Agente</th>
+                    <th>Nome</th>
+                    <th>Contacto</th>
+                    <th>Email</th>
+                    {{#if admin }}
+                    <th>Ações</th>
+                    {{/if}}
+                </tr>
+            </thead>
+            <tbody>
+                {{# each agentes }}
+                <tr>
+                    <td><a href='/details/{{ this.id }}'>{{ this.id }}</a></td>
+                    <td><a href='/details/{{ this.id }}'>{{ this.nome }}</a></td>
+                    <td><a href='/details/{{ this.id }}'>{{ this.phone }}</a></td>
+                    <td><a href='/details/{{ this.id }}'>{{ this.email }}</a></td>
+                    {{#if @root.admin }}
+                    <td>
+                        <i user-id='{{this.id}}' path='/delete_person/' data-target='delModal' class='fas fa-trash modal-trigger'></i>
+                    </td>
+                    {{/if}}
+                </tr>
+                {{/ each }}
+            </tbody>
+        </table>
+        {{else}}
+        <p class='rep'>... Nenhuma pessoa encontrada ...</p>
+        {{/ if}}
+
+        {{> delete_modal }}
+        {{>footer}}
+    </body>
+</html>

@@ -1502,7 +1502,10 @@ app.get('/agentes', async (req, res) => {
     .findAll()
     .then(agentes => {
         return res.render('lista_agentes', {
-            agentes
+            pageTitle: 'Agentes',
+            agentes,
+            user: req.user,
+            admin: req.user.group === 'admin'
         })
     })
 })
