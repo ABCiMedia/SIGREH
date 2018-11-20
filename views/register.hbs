@@ -9,6 +9,9 @@
 
         <div class='card card-register'>
             <form action="/inscrever" method='post'>
+                {{#if form_data.id }}
+                <input type="hidden" name='id' value='{{form_data.id}}'>
+                {{/if}}
                 <div class='input-field'>
                     <label for='name'>Nome</label>
                     <input type='text' name='name' required {{#if form_data }}value="{{form_data.name}}"{{/if}}>

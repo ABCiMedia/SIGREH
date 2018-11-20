@@ -219,6 +219,9 @@ app.post("/inscrever", [
             userId: req.user.id
         })
         .then(r => {
+            if (req.body.id) {
+                PreRegister.destroy({where: {id: req.body.id}})
+            }
             return res.redirect(`/details/${r.id}`)
         })
         .catch(e => logger.error(e))
