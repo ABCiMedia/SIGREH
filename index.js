@@ -225,7 +225,8 @@ app.post("/inscrever", [
             nif: req.body.nif,
             gender: req.body.gender,
             state: "registered",
-            userId: req.user.id
+            userId: req.user.id,
+            agenteId: req.body.agente
         })
         .then(r => {
             if (req.body.id) {
