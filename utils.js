@@ -1,3 +1,5 @@
+const { Agente } = require('./models/Agente')
+
 const portMap = new Map([
     ['registered', 'Registrado'],
     ['waiting_formation', 'Esperando Formação'],
@@ -7,9 +9,16 @@ const portMap = new Map([
     ['reserved', 'Em Reserva'],
     ['gave_up', 'Desistiu'],
     ['male', 'Masculino'],
-    ['female', 'Feminino'],
-    ['0', 'Ninguém']
+    ['female', 'Feminino']
 ])
+
+Agente
+.findAll()
+.then(agentes => {
+    for(agente of agentes) {
+        portMap.set(agente.id, agente.nome)
+    }
+})
 
 const errorMap = new Map([
     ['name', 'Nome'],

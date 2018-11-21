@@ -415,11 +415,18 @@ app.get("/details/:userId(\\d+)", async (req, res) => {
     .catch(e => logger.error(e))
 })
 
-app.get("/edit/:userId(\\d+)", (req, res) => {
+app.get("/edit/:userId(\\d+)", async (req, res) => {
     log(req, res)
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
 
-    let context = {}
+    let agentes = await Agente.findAll()
+    let agente_options = '{'
+    for (agente of agentes) {
+        agente_options += `"${agente.id}":"${agente.nome}",`
+    }
+    agente_options = agente_options.slice(0, -1) + '}'
+
+    let context = {agente_options}
     Person.findByPk(req.params.userId)
     .then(r => {
         Object.assign(context, {
@@ -475,7 +482,8 @@ app.post("/edit/:userId(\\d+)", [
         nif: req.body.nif,
         gender: req.body.gender,
         state: req.body.state,
-        userId: req.user.id
+        userId: req.user.id,
+        agenteId: req.body.agente
     }, {
         where: {
             id: req.params.userId

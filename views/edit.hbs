@@ -46,6 +46,11 @@
                         {{/ select }}
                         <label>Estádo:</label>
                     </div>
+                    <div class='input-field'>
+                        {{# select 'agente' person.agenteId agente_options }}
+                        {{/ select }}
+                        <label>Agente:</label>
+                    </div>
 
                     <h6>Formações em que se encontra inscrito:</h6>
                     {{#if formation}}
