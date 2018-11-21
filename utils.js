@@ -7,7 +7,8 @@ const portMap = new Map([
     ['reserved', 'Em Reserva'],
     ['gave_up', 'Desistiu'],
     ['male', 'Masculino'],
-    ['female', 'Feminino']
+    ['female', 'Feminino'],
+    ['0', 'Ninguém']
 ])
 
 const errorMap = new Map([

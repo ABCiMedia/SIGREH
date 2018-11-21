@@ -170,11 +170,17 @@ app.get("/", async (req, res) => {
 app.get("/inscrever", async (req, res) => {
     log(req, res)
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
-
+    let agentes = await Agente.findAll()
+    let select_options = "{"
+    for (agente of agentes) {
+        select_options += `"${agente.id}":"${agente.nome}",`
+    }
+    select_options = select_options.slice(0, -1) + "}"
     let context = {
         pageTitle: "Inscrições",
         user: req.user,
-        admin: req.user.group === 'admin'
+        admin: req.user.group === 'admin',
+        select_options
     }
 
     if(req.query.p) {
