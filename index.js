@@ -378,9 +378,10 @@ app.get("/pessoas/:category", (req, res) => {
     }
 })
 
-app.get("/details/:userId(\\d+)", (req, res) => {
+app.get("/details/:userId(\\d+)", async (req, res) => {
     log(req, res)
     if (!req.user) return res.redirect("/login")
+
 
     let options = {
         user: req.user,
@@ -388,12 +389,13 @@ app.get("/details/:userId(\\d+)", (req, res) => {
         avaliador: req.user.group === 'avaliador'
     }
 
-    Person.findByPk(req.params.userId)
+    Person.findOne({where: {id: req.params.userId}, include: {model: Agente}})
     .then(r => {
         Object.assign(options, {
             pageTitle: r.name,
             person: utils.changeSG(r),
-            birthdate: utils.getProperDate(r.birthdate)
+            birthdate: utils.getProperDate(r.birthdate),
+            agente: r.agente.nome
         });
         return r.getFormations()
     })
