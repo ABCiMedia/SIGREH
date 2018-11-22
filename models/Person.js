@@ -25,6 +25,7 @@ const Person = sequelize.define('person', {
     state: {type: Sequelize.ENUM(['registered', 'waiting_formation', 'formation', 'internship', 'hired', 'reserved', 'gave_up'])},
     score: Sequelize.REAL,
     scoreText: Sequelize.STRING,
+    group: Sequelize.ENUM(['gerente', 'subgerente', 'outro'])
 })
 
 Person.belongsTo(User)
