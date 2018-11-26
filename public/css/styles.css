@@ -459,3 +459,7 @@ table.dataTable thead th {
 .abc-icon {
     width: 60px;
 }
+
+.tabs-content {
+    height: 100%;
+}
