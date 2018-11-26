@@ -344,13 +344,17 @@ app.get("/pessoas/:category", (req, res) => {
             })
             .then(async (r) => {
                 let avaliados = []
+                let gerentes = []
                 let num
                 for (person of r) {
                     num = await Evaluation.findAndCountAll({where: {personId: person.id}})
-                    if (num.count >= 3) {
+                    if (num.count >= 3 && person.group === 'outro') {
                         avaliados.push(person)
+                    } else if (person.group !== 'outro') {
+                        gerentes.push(person)
                     }
                 }
+                context.gerente = utils.changeSG(gerentes)
                 return new Promise((resolve, reject) => {
                     resolve(avaliados)
                 })

@@ -4,38 +4,83 @@
         {{> navbar }}
 
         {{# if person }}
-        <table id='myTable' class='display tbl'>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Telefone</th>
-                    <th>Estado</th>
-                    <th>Nota</th>
-                    <th>Classificação</th>
-                    {{#if admin }}
-                    <th>Ações</th>
-                    {{/if}}
-                </tr>
-            </thead>
-            <tbody>
-                {{# each person }}
-                <tr>
-                    <td><a href='/details/{{ this.id }}'>{{ this.id }}</a></td>
-                    <td><a href='/details/{{ this.id }}'>{{ this.name }}</a></td>
-                    <td><a href='/details/{{ this.id }}'>{{ this.phone }}</a></td>
-                    <td><a href='/details/{{ this.id }}'>{{ this.state }}</a></td>
-                    <td><a href='/details/{{ this.id }}'>{{ this.score }}</a></td>
-                    <td><a href='/details/{{ this.id }}'>{{ this.scoreText }}</a></td>
-                    {{#if @root.admin }}
-                    <td>
-                        <i class='fas fa-trash modal-trigger' data-target='delModal' user-id='{{ this.id }}' path='/delete_person/'></i>
-                    </td>
-                    {{/if}}
-                </tr>
-                {{/ each }}
-            </tbody>
-        </table>
+        <div class='row'>
+            <div class='col s12'>
+                <ul class='tabs z-depth-1'>
+                    <li class='tab col s1'><a class='active' href="#outros">Outros</a></li>
+                    <li class='tab col s1'><a href="#gerentes">Gerentes</a></li>
+                </ul>
+            </div>
+            <div id='outros' class='col s12'>
+                <table id='myTable' class='display tbl'>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Estado</th>
+                            <th>Nota</th>
+                            <th>Classificação</th>
+                            {{#if admin }}
+                            <th>Ações</th>
+                            {{/if}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{# each person }}
+                        <tr>
+                            <td><a href='/details/{{ this.id }}'>{{ this.id }}</a></td>
+                            <td><a href='/details/{{ this.id }}'>{{ this.name }}</a></td>
+                            <td><a href='/details/{{ this.id }}'>{{ this.phone }}</a></td>
+                            <td><a href='/details/{{ this.id }}'>{{ this.state }}</a></td>
+                            <td><a href='/details/{{ this.id }}'>{{ this.score }}</a></td>
+                            <td><a href='/details/{{ this.id }}'>{{ this.scoreText }}</a></td>
+                            {{#if @root.admin }}
+                            <td>
+                                <i class='fas fa-trash modal-trigger' data-target='delModal' user-id='{{ this.id }}' path='/delete_person/'></i>
+                            </td>
+                            {{/if}}
+                        </tr>
+                        {{/ each }}
+                    </tbody>
+                </table>
+            </div>
+
+            <div id='gerentes' class='col s12'>
+                <table id='myTable' class='display tbl'>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Estado</th>
+                            <th>Nota</th>
+                            <th>Classificação</th>
+                            {{#if admin }}
+                            <th>Ações</th>
+                            {{/if}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{# each gerente }}
+                        <tr>
+                            <td><a href='/details/{{ this.id }}'>{{ this.id }}</a></td>
+                            <td><a href='/details/{{ this.id }}'>{{ this.name }}</a></td>
+                            <td><a href='/details/{{ this.id }}'>{{ this.phone }}</a></td>
+                            <td><a href='/details/{{ this.id }}'>{{ this.state }}</a></td>
+                            <td><a href='/details/{{ this.id }}'>{{ this.score }}</a></td>
+                            <td><a href='/details/{{ this.id }}'>{{ this.scoreText }}</a></td>
+                            {{#if @root.admin }}
+                            <td>
+                                <i class='fas fa-trash modal-trigger' data-target='delModal' user-id='{{ this.id }}' path='/delete_person/'></i>
+                            </td>
+                            {{/if}}
+                        </tr>
+                        {{/ each }}
+                    </tbody>
+                </table>
+            </div>
+        </div>
         {{else}}
         <p class='rep'>... Nenhuma pessoa encontrada ...</p>
         {{/ if}}
