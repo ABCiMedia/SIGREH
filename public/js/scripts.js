@@ -54,6 +54,7 @@ $(document).ready(function () {
         options.order = [[4, 'desc']];
     }
     $('#myTable').DataTable(options);
+    $('#ger').DataTable(options);
 });
 
 //////////////////////////////////////////////
