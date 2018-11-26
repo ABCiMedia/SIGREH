@@ -1622,3 +1622,5 @@ app.post('/update_agente/:id', (req, res) => {
 app.listen(port, "0.0.0.0", () => {
     logger.info(`Server started at port ${port}`)
 })
+
+module.exports.app = app
