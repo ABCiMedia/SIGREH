@@ -51,6 +51,11 @@
                         {{/ select }}
                         <label>Agente:</label>
                     </div>
+                    <div class="input-field">
+                        {{# select 'group' person.group '{"gerente":"Gerente", "subgerente":"Subgerente", "outro":"Outro"}'}}
+                        {{/ select }}
+                        <label for="group">Grupo:</label>
+                    </div>
 
                     <h6>Formações em que se encontra inscrito:</h6>
                     {{#if formation}}

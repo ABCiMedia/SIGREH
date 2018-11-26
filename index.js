@@ -452,7 +452,8 @@ app.post("/edit/:userId(\\d+)", [
     check("bi").isNumeric(),
     check("nif").isNumeric(),
     check("gender").isIn(["male", "female"]),
-    check("state").isIn(["registered", "waiting_formation", "formation", "internship", "hired", "reserved", 'gave_up'])
+    check("state").isIn(["registered", "waiting_formation", "formation", "internship", "hired", "reserved", 'gave_up']),
+    check("group").isIn(['gerente', 'subgerente', 'outro'])
 ], (req, res) => {
     log(req, res)
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")
@@ -483,7 +484,8 @@ app.post("/edit/:userId(\\d+)", [
         gender: req.body.gender,
         state: req.body.state,
         userId: req.user.id,
-        agenteId: req.body.agente
+        agenteId: req.body.agente,
+        group: req.body.group
     }, {
         where: {
             id: req.params.userId

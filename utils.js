@@ -9,7 +9,10 @@ const portMap = new Map([
     ['reserved', 'Em Reserva'],
     ['gave_up', 'Desistiu'],
     ['male', 'Masculino'],
-    ['female', 'Feminino']
+    ['female', 'Feminino'],
+    ['outro', 'Outro'],
+    ['gerente', 'Gerente'],
+    ['subgerente', 'Subgerente'],
 ])
 
 Agente
@@ -62,6 +65,7 @@ const errorMap = new Map([
     ['subscription_cost', 'Preço Inscrição'],
     ['certificate_cost', 'Preço Certificado'],
     ['quantity', 'Quantidade'],
+    ['group', 'Grupo'],
 ])
 
 const scoreMap = new Map([
