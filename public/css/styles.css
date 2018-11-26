@@ -460,6 +460,6 @@ table.dataTable thead th {
     width: 60px;
 }
 
-.tabs-content {
+.tabs-content, .carousel, .carousel-slider{
     height: 100%;
 }
