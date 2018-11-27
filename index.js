@@ -1625,6 +1625,10 @@ app.post('/update_agente/:id', (req, res) => {
     })
 })
 
+app.get('*', (req, res) => {
+    res.render('not_found')
+})
+
 app.listen(port, "0.0.0.0", () => {
     logger.info(`Server started at port ${port}`)
 })
