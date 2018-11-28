@@ -155,11 +155,15 @@ app.get("/", async (req, res) => {
             peopleGaveUp: (await Person.findAndCountAll({where: {state: "gave_up"}})).count
         }
         let persons = await Person.findAll({where: {score: {[Sequelize.Op.ne]: null}}})
-        let counter = 0
+        let counter_o = 0, counter_g = 0
         for (let person of persons) {
-            if ((await Evaluation.findAndCountAll({where: {personId: person.id}})).count >= 3) counter++
+            if ((await Evaluation.findAndCountAll({where: {personId: person.id}})).count >= 3 && person.group === 'outro'){
+                counter_o++
+            } else if (person.group !== 'outro'){
+                counter_g++
+            }
         }
-        options.peopleEvaluated = counter
+        options.peopleEvaluated = `${counter_o}/${counter_g}`
         return res.render("dashboard", options)
     } catch (err) {
         logger.error(err)
