@@ -361,6 +361,7 @@ app.get("/pessoas/:category", (req, res) => {
             })
             .then(r => {
                 context.person = utils.changeSG(r)
+                context.personOrGerente = context.person.length || context.gerente.length
                 res.render("list_eval", context)
             })
             .catch(e => logger.error(e))
