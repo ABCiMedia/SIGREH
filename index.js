@@ -457,7 +457,7 @@ app.post("/edit/:userId(\\d+)", [
     check("nif").isNumeric(),
     check("gender").isIn(["male", "female"]),
     check("state").isIn(["registered", "waiting_formation", "formation", "internship", "hired", "reserved", 'gave_up']),
-    check("group").isIn(['gerente', 'subgerente', 'outro'])
+    check("group").isIn(['gerente', 'subgerente', 'outro', 'dop-e', 'dop'])
 ], (req, res) => {
     log(req, res)
     if (!req.user || req.user.group === 'avaliador') return res.redirect("/login")

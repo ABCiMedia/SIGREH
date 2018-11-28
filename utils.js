@@ -13,6 +13,8 @@ const portMap = new Map([
     ['outro', 'Outro'],
     ['gerente', 'Gerente'],
     ['subgerente', 'Subgerente'],
+    ['dop-e', 'DOP-E'],
+    ['dop', 'DOP'],
 ])
 
 Agente
