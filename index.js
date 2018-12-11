@@ -1634,7 +1634,7 @@ app.get('*', (req, res) => {
     res.render('not_found')
 })
 
-app.listen(port, "0.0.0.0", () => {
+app.listen(port, "localhost", () => {
     logger.info(`Server started at port ${port}`)
 })
 
