@@ -337,6 +337,7 @@ app.get("/pessoas/:category", (req, res) => {
             break
 
         case "eval":
+            if (req.user.group === "avaliador") return res.redirect("/login");
             context.pageTitle = "Pessoas Avaliadas"
             Person
             .findAll({
