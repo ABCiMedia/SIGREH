@@ -671,19 +671,19 @@ app.get("/avaliado/:userId(\\d+)", (req, res) => {
             admin: req.user.group === "admin",
             avaliador: req.user.group === 'avaliador'
         }
-        return Promise.all([
-            person.getEvaluations(),
-            Discount.findAll({
-                where: {
-                    personId: req.params.userId
-                }
-            }),
-            Increase.findAll({
-                where: {
-                    personId: req.params.userId
-                }
-            })
-        ])
+        if (req.user.group === 'avaliador') {
+            return Promise.all([
+                person.getEvaluations({ where: { userId: req.user.id } }),
+                Discount.findAll({ where: { personId: req.params.userId, userId: req.user.id } }),
+                Increase.findAll({ where: {personId: req.params.userId, userId: req.user.id } })
+            ])
+        } else {
+            return Promise.all([
+                person.getEvaluations(),
+                Discount.findAll({ where: { personId: req.params.userId } }),
+                Increase.findAll({ where: { personId: req.params.userId } })
+            ]);
+        }
     })
     .then(r => {
         Object.assign(options, {
