@@ -673,7 +673,7 @@ app.get("/avaliado/:userId(\\d+)", (req, res) => {
         }
         if (req.user.group === 'avaliador') {
             return Promise.all([
-                person.getEvaluations({ where: { userId: req.user.id } }),
+                Evaluation.findAll({ where: { personId: req.params.userId, userId: req.user.id } }),
                 Discount.findAll({ where: { personId: req.params.userId, userId: req.user.id } }),
                 Increase.findAll({ where: {personId: req.params.userId, userId: req.user.id } })
             ])
