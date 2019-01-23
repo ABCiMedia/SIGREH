@@ -19,7 +19,7 @@ const Person = sequelize.define('person', {
     address: {type: Sequelize.STRING},
     phone: {type: Sequelize.STRING},
     email: {type: Sequelize.STRING},
-    bi: {type: Sequelize.INTEGER},
+    bi: {type: Sequelize.STRING},
     nif: {type: Sequelize.INTEGER},
     gender: {type: Sequelize.STRING},
     state: {type: Sequelize.ENUM(['registered', 'waiting_formation', 'formation', 'internship', 'hired', 'reserved', 'gave_up'])},
