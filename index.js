@@ -201,7 +201,7 @@ app.post("/inscrever", [
     check("name").isString(),
     check("birthdate").isBefore(new Date().toLocaleDateString()),
     check("phone").isMobilePhone(),
-    check("bi").isNumeric(),
+    check("bi").isString(),
     check("nif").isNumeric(),
     check("gender").isIn(["male", "female"])
 ], (req, res) => {
