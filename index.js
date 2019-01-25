@@ -459,7 +459,7 @@ app.post("/edit/:userId(\\d+)", [
     check("name").isString(),
     check("birthdate").matches(/^\d{4}-\d{2}-\d{2}$/),
     check("phone").isMobilePhone(),
-    check("bi").isNumeric(),
+    check("bi").isString(),
     check("nif").isNumeric(),
     check("gender").isIn(["male", "female"]),
     check("state").isIn(["registered", "waiting_formation", "formation", "internship", "hired", "reserved", 'gave_up']),
